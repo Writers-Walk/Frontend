@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'; // useNavigate: 페이지 이동을 위한 훅, useParams: URL 파라미터를 가져오기 위한 훅
-//import './CoverGeneratePage.css';
+
+
+import './CoverGeneratePage.css';
+
+
 
 function CoverGeneratePage() {
     const { id } = useParams(); // URL에서 id 파라미터를 가져옴
@@ -13,7 +17,7 @@ function CoverGeneratePage() {
     const [resolution, setResolution] = useState('1024x1024'); // 해상도 선택
     const [quality, setQuality] = useState('medium'); // 품질 선택
 
-    const [prompt, setPrompt] = useState(''); // 이미지 생성 프롬프트
+    const [userPrompt, setUserPrompt] = useState(''); // 이미지 생성 프롬프트
     const [generatedImage, setGeneratedImage] = useState(''); // 생성 이미지 결과 미리보기
 
     const [loading, setLoading] = useState(false);
@@ -38,18 +42,19 @@ function CoverGeneratePage() {
                 setBook(data); // 책 정보를 상태에 저장
 
                 // 도서 정보 기반 기본 프롬프트 생성
-                const defaultPrompt = `
-                    책 제목: ${data.title}
-                    책 저자: ${data.author || "미정"}
-                    책 장르: ${data.genre || "미정"}
-                    책 내용: ${data.content || "내용 없음"}
+                const defaultPrompt = (book) => {
+                    return `
+                        책 제목: ${data.title}
+                        책 장르: ${data.genre || "미정"}
+                        책 내용: ${data.content || "내용 없음"}
 
-                    위 내용을 바탕으로 책 표지 이미지를 생성하세요.
-                    표지에는 책의 제목과 장르, 내용이 잘 어울려야 합니다.
-                    독자가 클릭하고 싶을 만큼 시각적으로 매력적이게 생성하세요.
-                `.trim();
+                        위 내용을 바탕으로 책 표지 이미지를 생성하세요.
+                        표지에는 책의 제목과 장르, 내용이 잘 어울려야 합니다.
+                        독자가 클릭하고 싶을 만큼 시각적으로 매력적이게 생성하세요.
+                    `.trim();
+                };
 
-                setPrompt(defaultPrompt); // 🛠️ 오타 수정: setPropmt -> setPrompt
+                setPrompt(defaultPrompt); // 기본 프롬프트 설정
             } catch (error) {
                 console.error(error);
                 setError("도서 정보를 불러오지 못했습니다.");
@@ -65,17 +70,45 @@ function CoverGeneratePage() {
         setLoading(true); // 로딩 상태 시작
         setError("");     // 에러 초기화
 
-        try {
-            // 실제 네트워크 지연을 체감할 수 있도록 2초(2000ms) 후에 실행
-            await new Promise((resolve) => setTimeout(resolve, 2000));
-            
-            // 사용자가 선택한 해상도(resolution)가 텍스트로 박히는 플레이스홀더 더미 이미지 주소 생성
-            const dummyUrl = `https://placehold.co/300x400/31343c/ffffff?text=AI+Cover+(${resolution})`;
-            
-            setGeneratedImage(dummyUrl); // 가짜 생성 이미지 상태에 주입!
+        /* try{
+            // 실제 API 연결 전 테스트용 더미 이미지
+            setTimeout(() => {
+                setGeneratedImage("https://placehold.co/300x400?text=AI+Book+Cover");
+                setLoading(false); // 로딩 상태 종료
+            }, 2000);
         } catch(error) {
             console.error(error);
             setError("이미지 생성에 실패했습니다.");
+            setLoading(false); // 로딩 상태 종료
+        } */
+
+        /* try {
+            const finalPrompt = userPrompt.trim() ? userPrompt.trim() : defaultPrompt(book);
+
+            const dummyImage = "https://placehold.co/300x400?text=AI+Book+Cover";
+
+            setGeneratedImage(dummyImage);
+
+            await fetch(`http://localhost:3000/books/${id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    coverPrompt: finalPrompt,
+                    userPrompt: userPrompt.trim(),
+                    coverImage: generatedImage,
+                    imageModel,
+                    resolution,
+                    quality,
+                    updatedAt: new Date().toISOString().slice(0, 10),
+                })
+            });
+
+            alert("포지 이미지가 생성되었습니다");
+        } catch (error) {
+            console.error(error);
+            setError("표지 생성에 실패했습니다.");
         } finally {
             setLoading(false); // 로딩 상태 확실하게 종료
         }
@@ -149,33 +182,35 @@ const handleSaveApiKey = () => {
     };
 
 
-    // 3. [구현 완료] 더미 표지 이미지 URL을 db.json 서버에 반영하기
-    const handleSaveCover = async () => {
-        if (!generatedImage) {
-            alert("저장할 표지 이미지가 없습니다. 먼저 이미지를 생성해 주세요.");
+    // 3. 표지 이미지 저장
+    const handleSaveCover = async() => {
+        if(!generatedImage){
+            alert("먼저 표지 이미지를 생성해주세요.");
             return;
         }
 
-        setLoading(true);
-
         try {
-            // PATCH 메서드로 해당 id 도서의 coverImage 필드만 가짜 이미지 주소로 교체 업데이트
             const res = await fetch(`http://localhost:3000/books/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    coverImage: generatedImage // 가짜 이미지 주소 스트링이 db.json에 박힘
+                    coverImage: generatedImage,
+                    coverPrompt: prompt,
+                    imageModel,
+                    resolution,
+                    quality,
+                    updatedAt: new Date().toISOString().slice(0, 10),
                 }),
             });
-
-            if (!res.ok) {
-                throw new Error("서버에 이미지를 저장하지 못했습니다.");
+            
+            if (!res.ok){
+                throw new Error("이미지 저장 실패");
             }
 
-            alert("🎉 [테스트 성공] 더미 표지 이미지가 db.json에 정상 기록되었습니다!");
-            navigate(`/books/${id}`); // 저장 완료 후 원본 상세 페이지로 복귀
+            alert("표지 이미지가 저장되었습니다.");
+            navigate(`/books/${id}`);
         } catch (error) {
             console.error(error);
             alert("이미지 저장 중 오류가 발생했습니다.");
@@ -286,9 +321,10 @@ const handleSaveApiKey = () => {
                     <div className='form-group'>
                         <label>요구사항</label>
                         <textarea 
-                            value={prompt}
-                            onChange={(e) => setPrompt(e.target.value)}
-                            rows="8"
+                            value={userPrompt}
+                            onChange={(e) => setUserPrompt(e.target.value)}
+                            placeholder='원하는 표지 스타일을 입력하세요.'
+                            rows="6"
                         />
                     </div>
 
