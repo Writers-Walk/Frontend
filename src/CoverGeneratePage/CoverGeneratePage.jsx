@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'; // useNavigate: 페이지 이동을 위한 훅, useParams: URL 파라미터를 가져오기 위한 훅
+
+
 import './CoverGeneratePage.css';
+
+
 
 function CoverGeneratePage() {
     const { id } = useParams(); // URL에서 id 파라미터를 가져옴
@@ -8,7 +12,7 @@ function CoverGeneratePage() {
 
     const [book, setBook] = useState(null); // 책 정보를 저장
 
-    const [apiKey, setApiKey] = useState(''); // 표지 생성 API 호출
+    const [apiKey, setApiKey] = useState(''); // 표지 생성 API 호출 (더미 버전에선 필수 해제)
     const [imageModel, setImageModel] = useState('gpt-image-2'); // 생성 모델 선택
     const [resolution, setResolution] = useState('1024x1024'); // 해상도 선택
     const [quality, setQuality] = useState('medium'); // 품질 선택
@@ -154,7 +158,7 @@ function CoverGeneratePage() {
     
     return (
         <div className="cover-page">
-            <h1>도서 표지 이미지 생성</h1>
+            <h1>도서 표지 이미지 생성 (테스트 더미 모드)</h1>
 
             <div className="cover-layout">
                 <section className="book-info">
@@ -179,12 +183,12 @@ function CoverGeneratePage() {
                     <h2>이미지 생성 옵션</h2>
 
                     <div className='form-group'>
-                        <label>OpenAI API Key</label>
+                        <label>OpenAI API Key (더미 모드에선 입력 생략 가능)</label>
                         <input 
                             type="password"
                             value={apiKey}
                             onChange={(e) => setApiKey(e.target.value)}
-                            placeholder='API Key를 입력하세요'
+                            placeholder='더미 모드: 입력 안 해도 작동합니다.'
                         />
                     </div>
 
@@ -194,7 +198,7 @@ function CoverGeneratePage() {
                             value={imageModel}
                             onChange={(e) => setImageModel(e.target.value)}
                         >
-                            <option value="GPT Image 2">GPT Image 2</option>
+                            <option value="gpt-image-2">GPT Image 2 (Dummy)</option>
                         </select>   
                     </div>
 
@@ -237,7 +241,7 @@ function CoverGeneratePage() {
                         onClick={handleGenerateImage}
                         disabled={loading}
                     >
-                        {loading ? "이미지 생성 중.." : "AI 표지 생성하기"}
+                        {loading ? "가짜 이미지 빌드 중(2초)..." : "AI 표지 생성하기 (더미)"}
                     </button>
                 </section>
             </div>
@@ -249,13 +253,14 @@ function CoverGeneratePage() {
                     <div className='result-content'>
                         <img 
                             src={generatedImage}
-                            alt="생성된 도서 표지"
+                            alt="생성된 도서 표지 미리보기"
                             className='cover-preview'
+                            style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }}
                         />
 
-                        <div className='button-group'>
-                            <button onClick={handleGenerateImage}>다시 생성</button>
-                            <button onClick={handleSaveCover}>표지 저장</button>
+                        <div className='button-group' style={{ marginTop: '15px', display: 'flex', gap: '10px' }}>
+                            <button onClick={handleGenerateImage} disabled={loading}>다시 생성</button>
+                            <button onClick={handleSaveCover} disabled={loading}>표지 저장 테스트</button>
                         </div>
                     </div>
                 ) : (
@@ -266,6 +271,7 @@ function CoverGeneratePage() {
             <button
                 className='back-button'
                 onClick={() => navigate(`/books/${id}`)}
+                style={{ marginTop: '20px' }}
             >
                 상세 페이지로 돌아가기
             </button>
