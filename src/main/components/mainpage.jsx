@@ -15,7 +15,7 @@ const MainPage = () => {
   const handleRegister = () => {
     alert('도서 등록');
   };
- 
+ //d
   return (
     <div >
       <h1>📚 도서관 관리 시스템</h1>
