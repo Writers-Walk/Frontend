@@ -7,11 +7,14 @@ import { useNavigate } from 'react-router-dom';
 
 
 const MainPage = () => {
+
   const {books, loading, error} = loadBooks();
   const navigate = useNavigate();
+
   
   const handleClickBook = (book) => {
     alert(`${book.title} 상세 페이지로 이동`);
+
   };
 
   if (loading) return <p>불러오는 중...</p>;
