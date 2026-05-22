@@ -22,7 +22,7 @@
   gap: 20px;
 }
 
-/* 왼쪽 구역 (이미지, AI 버튼) */
+
 .left-section {
   flex: 1;
   text-align: center;
@@ -53,7 +53,7 @@
   font-weight: bold;
 }
 
-/* 오른쪽 구역 (상세 정보 - 민주님 스타일 결합) */
+
 .right-section {
   flex: 2;
   border: 1px solid #007bff;
@@ -74,7 +74,7 @@
   margin: 0 0 15px 0;
 }
 
-/* 🌟 출판일 배지 스타일 */
+
 .badge-row {
   margin-bottom: 15px;
 }
@@ -89,7 +89,7 @@
   font-size: 14px;
 }
 
-/* 🌟 등록일, 수정일 나란히 배치 스타일 */
+
 .dates {
   display: flex;
   gap: 20px;
@@ -119,5 +119,5 @@
   color: #555;
   line-height: 1.6;
   margin: 0;
-  white-space: pre-wrap; /* 줄바꿈도 잘 되게 처리 */
+  white-space: pre-wrap; 
 }
