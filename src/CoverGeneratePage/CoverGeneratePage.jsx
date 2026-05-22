@@ -1,15 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'; // useNavigate: 페이지 이동을 위한 훅, useParams: URL 파라미터를 가져오기 위한 훅
-import './CoverGeneratePage.css';
+//import './CoverGeneratePage.css';
 
 function CoverGeneratePage() {
     const { id } = useParams(); // URL에서 id 파라미터를 가져옴
     const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수
 
-    const [book, setBook] = useState(null); // 책 정보를 저장할 상태
-    const [imageModel, setImageModel] = useState(''); // 이미지 모델을 저장할 상태
-    const [generatedImage, setGeneratedImage] = useState(''); // 생성된 이미지를 저장할 상태
-    
+    const [book, setBook] = useState(null); // 책 정보를 저장
+
+    const [apiKey, setApiKey] = useState(''); // 표지 생성 API 호출
+    const [imageModel, setImageModel] = useState('gpt-image-2'); // 생성 모델 선택
+    const [resolution, setResolution] = useState('1024x1024'); // 해상도 선택
+    const [quality, setQuality] = useState('medium'); // 품질 선택
+
+    const [prompt, setPrompt] = useState(''); // 이미지 생성 프롬프트
+    const [generatedImage, setGeneratedImage] = useState(''); // 생성 이미지 결과 미리보기
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
@@ -68,15 +74,23 @@ function CoverGeneratePage() {
 
 
     // 3. 표지 이미지 저장
+    const handleSaveCover = async() => {
+
+    };
+
+
     
 
-
     // 4. 화면 구성
+    if (!book){
+        return <p>도서 정보를 불러오는 중...</p>
+    }
+    
     return (
         <div className="cover-page">
             <h1>도서 표지 이미지 생성</h1>
 
-            <div className="cover-content">
+            <div className="cover-layout">
                 <section className="book-info">
                     <h2>도서 정보</h2>
 
@@ -84,10 +98,110 @@ function CoverGeneratePage() {
                         <strong>제목:</strong> {book.title}
                     </p>
                     <p>
-                        
+                        <strong>저자:</strong> {book.author}
                     </p>
+                    <p>
+                        <strong>장르:</strong> {book.genre}
+                    </p>
+
+                    <div className='book-content'>
+                        {book.content}
+                    </div>
+                </section>
+
+                <section className='option-box'>
+                    <h2>이미지 생성 옵션</h2>
+
+                    <div className='form-group'>
+                        <label>OpenAI API Key</label>
+                        <input 
+                            type="password"
+                            value={apiKey}
+                            onChange={(e) => setApiKey(e.target.value)}
+                            placeholder='API Key를 입력하세요'
+                        />
+                    </div>
+
+                    <div className='form-group'>
+                        <label>생성 모델</label>
+                        <select
+                            value={imageModel}
+                            onChange={(e) => setImageModel(e.target.value)}
+                        >
+                            <option value="GPT Image 2">GPT Image 2</option>
+                        </select>   
+                    </div>
+
+                    <div className='form-group'>
+                        <label>해상도</label>
+                        <select
+                            value={resolution}
+                            onChange={(e) => setResolution(e.target.value)}
+                        >
+                            <option value="1024x1024">1024 x 1024</option>
+                            <option value="1024x1536">1024 x 1536</option>
+                            <option value="1536x1024">1536 x 1024</option>
+                        </select>
+                    </div>
+
+                    <div className='form-group'>
+                        <label>품질</label>
+                        <select
+                            value={quality}
+                            onChange={(e) => setQuality(e.target.value)}
+                        >
+                            <option value="low">low</option>
+                            <option value="medium">medium</option>
+                            <option value="high">high</option>
+                        </select>
+                    </div>
+
+                    <div className='form-group'>
+                        <label>요구사항</label>
+                        <textarea 
+                            value={prompt}
+                            onChange={(e) => setPrompt(e.target.value)}
+                            rows="8"
+                        />
+                    </div>
+
+                    <button 
+                        className="generate-button"
+                        onClick={handleGenerateImage}
+                        disabled={loading}
+                    >
+                        {loading ? "이미지 생성 중.." : "AI 표지 생성하기"}
+                    </button>
                 </section>
             </div>
+
+            <section className='result-box'>
+                <h2>생성 결과</h2>
+
+                {generatedImage ? (
+                    <div className='result-content'>
+                        <img 
+                            src={generatedImage}
+                            alt="생성된 도서 표지"
+                            className='cover-preview'
+                        />
+
+                        <div className='button-group'>
+                            <button onClick={handleGenerateImage}>다시 생성</button>
+                            <button onClick={handleSaveCover}>표지 저장</button>
+                        </div>
+                    </div>
+                ) : (
+                    <p>아직 생성된 표지 이미지가 없습니다.</p>
+                )}
+            </section>
+
+            <button
+                className='back-button'
+                onClick={() => navigate(`/books/${id}`)}
+            >
+                상세 페이지로 돌아가기
+            </button>
         </div>
     );
 }
