@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const API_URL = 'http://localhost:3000/books';
 
 const MainPage = () => {
+
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -29,9 +30,11 @@ const MainPage = () => {
     };
     fetchBooks();
   },[]);
+
   
   const handleClickBook = (book) => {
     alert(`${book.title} 상세 페이지로 이동`);
+
   };
   if (loading) return <p>불러오는 중...</p>;
   if (error) return <p>{error}</p>;
