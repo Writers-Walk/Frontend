@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import RegisterButton from './RegisterButton';
 import '../css/MainPage.css';
 import BookCard from "./bookCard";
-import './mainpage.css'
 
 const BOOKS = [
     { id: 1, title: '클린 코드', author: '로버트 C. 마틴', createdAt: '2024.01.15' },

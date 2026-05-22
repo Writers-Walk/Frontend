@@ -18,3 +18,15 @@
   font-weight: 500;
   color: #1a1a2e;
 }
+
+.main-page__empty {
+  color: #999;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.main-page__card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
