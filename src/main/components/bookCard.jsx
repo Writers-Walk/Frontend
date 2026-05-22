@@ -1,6 +1,7 @@
 import React from "react";
 import "../css/BookCard.css";
 
+// main화면 도서 card형식 출력
 const BookCard = ({ book, onClick }) => {
   return (
     <div className="book-card" onClick={() => onClick(book)}>
