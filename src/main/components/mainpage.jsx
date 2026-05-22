@@ -1,32 +1,43 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import RegisterButton from './RegisterButton';
 import '../css/MainPage.css';
 import BookCard from "./bookCard";
+import { useNavigate } from 'react-router-dom';
 
-const BOOKS = [
-    { id: 1, title: '클린 코드', author: '로버트 C. 마틴', createdAt: '2024.01.15' },
-    { id: 2, title: '데이터베이스 첫걸음', author: '미쿠리야 타카히로', createdAt: '2024.02.03' },
-    { id: 3, title: '리팩터링 2판', author: '마틴 파울러', createdAt: '2024.02.20' },
-    { id: 4, title: '자바스크립트 딥다이브', author: '이웅모', createdAt: '2024.03.08' },
-    { id: 5, title: '사피엔스', author: '유발 하라리', createdAt: '2024.03.22' },
-];
+const API_URL = 'http://localhost:3000/books';
 
 const MainPage = () => {
-<<<<<<< HEAD
-  const [books] = useState(BOOKS);
-  
-  const handleRegister = () => {
-    alert('도서 등록');
-=======
-    const [books] = useState(BOOKS);
-  const [loading] = useState(false);
+
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    const fetchBooks = async () => {
+      try{
+        setLoading(true);
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error("도서 목록을 불러오지 못했습니다.");
+        const data = await res.json();
+        setBooks(data);
+      }catch(err){
+        setError(err.message);
+      }finally{
+        setLoading(false);
+      }
+    };
+    fetchBooks();
+  },[]);
+
   
   const handleClickBook = (book) => {
     alert(`${book.title} 상세 페이지로 이동`);
->>>>>>> 8d7f8ca7cd44045486f44bdf9f0d03e3999791f9
+
   };
   if (loading) return <p>불러오는 중...</p>;
+  if (error) return <p>{error}</p>;
 
     return (
         <div className="main-page">
