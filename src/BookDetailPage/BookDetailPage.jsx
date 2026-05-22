@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './Hansu.css'; 
+import './BookDetailPage.css'; 
 import BackButton from './BackButton';
 import AIButton from './AIButton';
 

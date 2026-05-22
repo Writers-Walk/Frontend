@@ -1,26 +1,26 @@
 {
-  "books": [
-    {
-      "id": 1,
-      "title": "상록수",
-      "author": "심훈",
-      "likes": 0,
-      "content": "상록수는 1936년에 발표된 심훈의 소설로, 일제강점기 조선의 농촌을 배경으로 한 작품입니다.",
-      "genre": "소설",
-      "coverImageUrl": "",
-      "createdAt": "2026-05-22T09:00:00.000Z",
-      "updatedAt": "2026-05-22T09:00:00.000Z"
-    },
-    {
-      "id": 2,
-      "title": "클린 코드",
-      "author": "로버트 C. 마틴",
-      "likes": 0,
-      "content": "좋은 코드를 작성하는 방법에 대한 책입니다.",
-      "genre": "IT",
-      "coverImageUrl": "",
-      "createdAt": "2026-05-22T09:00:00.000Z",
-      "updatedAt": "2026-05-22T09:00:00.000Z"
-    }
-  ]
+    "books": [
+        {
+            "id": 1,
+            "title": "상록수",
+            "author": "심훈",
+            "likes": 0,
+            "content": "상록수는 1936년에 발표된 심훈의 소설로, 일제강점기 조선의 농촌을 배경으로 한 작품입니다.",
+            "genre": "소설",
+            "coverImageUrl": "",
+            "createdAt": "2026-05-22T09:00:00.000Z",
+            "updatedAt": "2026-05-22T09:00:00.000Z"
+        },
+        {
+            "id": 2,
+            "title": "클린 코드",
+            "author": "로버트 C. 마틴",
+            "likes": 0,
+            "content": "좋은 코드를 작성하는 방법에 대한 책입니다.",
+            "genre": "IT",
+            "coverImageUrl": "",
+            "createdAt": "2026-05-22T09:00:00.000Z",
+            "updatedAt": "2026-05-22T09:00:00.000Z"
+        }
+    ]
 }
