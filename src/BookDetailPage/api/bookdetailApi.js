@@ -1,16 +1,7 @@
-async function test() {
-    try {
-        const res = await fetch('http://localhost:3000/posts');
+import api from '../../api/axios';
 
-        console.log(res.status);
-        console.log(res.ok);
-        console.log(res);
+export const getBooks = async () => {
+  const response = await api.get('/books');
+  return response.data;
+};
 
-        const data = await res.json();
-        console.log(data);
-    } catch (err) {
-        console.log('실패: ', err.message);
-    }
-}
-
-test();
