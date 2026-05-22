@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'; // useNavigate: 페이지 이동을 위한 훅, useParams: URL 파라미터를 가져오기 위한 훅
+<<<<<<< HEAD
+// import './CoverGeneratePage.css';
+=======
 //import './CoverGeneratePage.css';
+>>>>>>> e8e5212b57de5a0ea68ca3358c6151900eb53f7f
 
 function CoverGeneratePage() {
     const { id } = useParams(); // URL에서 id 파라미터를 가져옴
