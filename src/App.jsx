@@ -6,7 +6,7 @@ import BookCreate from "./pages/BookCreate";
 
 export function App() {
 const router = createBrowserRouter([
-    { path: "/dd", element: <MainPage /> },
+    { path: "/", element: <MainPage /> },
    
   ]);
   return <RouterProvider router={router} />;
