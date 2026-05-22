@@ -1,10 +1,11 @@
 import './App.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import MainPage from './main/components/mainpage';
 
-import CoverGeneratePage from './CoverGeneratePage/CoverGeneratePage';
 import Layout from './Layout/components/Layout';
-import BookCreate from "./pages/Book";
+
+import MainPage from './main/components/mainpage';
+import CoverGeneratePage from './CoverGeneratePage/CoverGeneratePage';
+import BookCreate from './pages/BookCreate';
 
 
 export function App() {
@@ -14,7 +15,7 @@ export function App() {
       children: [
         { path: "/", element: <MainPage /> },
         { path: "/cover-generate/:id", element: <CoverGeneratePage /> },
-         { path: "/bookcreate", element: <BookCreate /> },
+        { path: "/book-create", element: <BookCreate /> },
       ],
     },
   ]);
@@ -22,6 +23,4 @@ export function App() {
   return <RouterProvider router={router} />;
 }
 
-
 export default App;
-
