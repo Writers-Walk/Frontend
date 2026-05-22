@@ -1,0 +1,87 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px;
+  background: #f9fafb;
+}
+
+header {
+  text-align: center;
+  padding: 24px 0;
+}
+
+header h1 {
+  color: #1B3A5C;
+}
+
+.write-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.write-form input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.write-form button {
+  background: #3CC8BE;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+}
+
+.post-card {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+}
+
+.post-card h3 {
+  font-size: 18px;
+  color: #1B3A5C;
+  margin-bottom: 8px;
+}
+
+.post-card p {
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
+.post-card button {
+  margin-top: 8px;
+  margin-right: 8px;
+  padding: 4px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.post-card button:hover {
+  background: #f3f4f6;
+}
