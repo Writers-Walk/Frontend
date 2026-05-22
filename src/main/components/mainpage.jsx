@@ -1,6 +1,9 @@
+
 import React, { useState } from 'react';
 import RegisterButton from './RegisterButton';
 import '../css/MainPage.css';
+import BookCard from "./bookCard";
+import './mainpage.css'
 
 const BOOKS = [
     { id: 1, title: '클린 코드', author: '로버트 C. 마틴', createdAt: '2024.01.15' },
@@ -12,6 +15,12 @@ const BOOKS = [
 
 const MainPage = () => {
     const [books] = useState(BOOKS);
+  const [loading] = useState(false);
+  
+  const handleClickBook = (book) => {
+    alert(`${book.title} 상세 페이지로 이동`);
+  };
+  if (loading) return <p>불러오는 중...</p>;
 
     return (
         <div className="main-page">
@@ -21,11 +30,18 @@ const MainPage = () => {
                 </span>
                 <RegisterButton />
             </div>
-            <div>
-                여기에 카드           
-            </div>
+            {books.length === 0 ? (
+          <p className="main-page__empty">등록된 도서가 없습니다.</p>
+        ) : (
+          <div className="main-page__card-list">
+            {books.map((book) => (
+              <BookCard key={book.id} book={book} onClick={handleClickBook} />
+            ))}
+          </div>
+        )}
         </div>
     );
 };
 
 export default MainPage;
+
