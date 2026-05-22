@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './Hansu.css'; 
+import './BookDetailPage.css'; 
 import BackButton from './BackButton';
 import AIButton from './AIButton';
 
@@ -9,8 +9,20 @@ const formatDate = (dateString) => {
   return dateString.split('T')[0];
 };
 
+
+
 const BookDetailPage = () => {
-  const [book, setBook] = useState(null);
+  //const [book, setBook] = useState(null);
+  const [book, setBook] = useState({
+  id: 1,
+  title: '클린 코드',
+  author: '로버트 C. 마틴',
+  publicationDt: '2013.12.24',
+  createdAt: '2024-01-15T00:00:00',
+  updatedAt: '2024-03-01T00:00:00',
+  coverImageUrl: 'https://placehold.co/200x280',
+  content: '좋은 코드를 작성하는 방법에 대한 책입니다.',
+});
   const navigate = useNavigate(); 
   
   const { id } = useParams(); 
@@ -50,9 +62,9 @@ const BookDetailPage = () => {
     }
   };
 
-  if (!book) {
-    return <div style={{ padding: '20px' }}>db.json에서 데이터를 안전하게 불러오는 중...</div>;
-  }
+  // if (!book) {
+  //   return <div style={{ padding: '20px' }}>db.json에서 데이터를 안전하게 불러오는 중...</div>;
+  // }
 
   const currentImageUrl = book.coverImageUrl;
 
