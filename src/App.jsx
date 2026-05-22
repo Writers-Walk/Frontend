@@ -5,7 +5,7 @@ import MainPage from './main/components/mainpage';
 
 export function App() {
 const router = createBrowserRouter([
-    { path: "/dd", element: <MainPage /> },
+    { path: "/", element: <MainPage /> },
    
   ]);
   return <RouterProvider router={router} />;
