@@ -1,8 +1,10 @@
 {
-    "posts": [
-        {"id": 1, "title": "첫 글", "author": "한울", "likes": 0},
-        {"id": 2, "title": "두 번째", "author": "영희", "likes": 0},
-        {"id": 3, "title": "세 번째", "author": "민수", "likes": 0}
+    "books": [
+        {"id": 1, "title": "별빛 아래의 서점", "author": "홍길동",
+        "content": "작은 마을 서점의 1년을 담은 에세이",
+        "coverImageUrl":"",
+        "createdAt": "2026-04-24T09:00:00.000Z",
+        "updateAt" : "2026-04-24T09:00:00.000Z"}
     ]
 }
 
