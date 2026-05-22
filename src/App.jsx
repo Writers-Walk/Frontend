@@ -4,7 +4,7 @@ import MainPage from './main/components/mainpage';
 
 import CoverGeneratePage from './CoverGeneratePage/CoverGeneratePage';
 import Layout from './Layout/components/Layout';
-import BookCreate from "./pages/BookCreate";
+import BookCreate from "./pages/Book";
 
 
 export function App() {
