@@ -11,7 +11,7 @@ const BOOKS = [
  
 const MainPage = () => {
   const [books] = useState(BOOKS);
- 
+  
   const handleRegister = () => {
     alert('도서 등록');
   };
