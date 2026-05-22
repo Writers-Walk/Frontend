@@ -1,47 +1,26 @@
 {
-<<<<<<< HEAD
   "books": [
     {
       "id": 1,
-      "title": "별빛 아래의 서점",
-      "author": "홍길동",
-      "publicationDt": "2026-04-20",
-      "content": "작은 마을 서점의 1년을 담은 에세이",
-      "coverImageUrl": "https://via.placeholder.com/150",
-      "createdAt": "2026-04-24T09:00:00.000Z",
-      "updatedAt": "2026-04-24T09:00:00.000Z"
+      "title": "상록수",
+      "author": "심훈",
+      "likes": 0,
+      "content": "상록수는 1936년에 발표된 심훈의 소설로, 일제강점기 조선의 농촌을 배경으로 한 작품입니다.",
+      "genre": "소설",
+      "coverImageUrl": "",
+      "createdAt": "2026-05-22T09:00:00.000Z",
+      "updatedAt": "2026-05-22T09:00:00.000Z"
     },
     {
       "id": 2,
-      "title": "리액트 마스터 가이드",
-      "author": "이한수",
-      "publicationDt": "2026-05-15",
-      "content": "비동기 처리와 컴포넌트 분리를 쉽게 배우는 실무 프로그래밍 서적",
-      "coverImageUrl": "https://via.placeholder.com/150",
-      "createdAt": "2026-05-22T14:30:00.000Z",
-      "updatedAt": "2026-05-22T14:30:00.000Z"
+      "title": "클린 코드",
+      "author": "로버트 C. 마틴",
+      "likes": 0,
+      "content": "좋은 코드를 작성하는 방법에 대한 책입니다.",
+      "genre": "IT",
+      "coverImageUrl": "",
+      "createdAt": "2026-05-22T09:00:00.000Z",
+      "updatedAt": "2026-05-22T09:00:00.000Z"
     }
   ]
 }
-=======
-
-    "books": [ {
-            "id": 1,
-            "title": "상록수",
-            "content": "상록수는 1936년에 발표된 심훈의 소설로, 일제강점기 조선의 농촌을 배경으로 한 작품입니다. 이 소설은 농민들의 삶과 투쟁을 그리며, 특히 주인공인 김진섭과 그의 가족이 겪는 어려움과 희망을 중심으로 이야기가 전개됩니다. 상록수는 한국 문학사에서 중요한 위치를 차지하는 작품으로, 당시 사회적 현실을 반영하고 있습니다.",
-            "author": "심훈",
-            "genre": "소설",
-            "coverImageUrl": "",
-            "coverPrompt": "",
-            "imageModel": "",
-            "resolution": "",
-            "quality": "",
-            "createdAt": "2026-05-22T09:00:00.000Z",
-            "updatedAt": "2026-05-22T09:00:00.000Z"
-        }
-
-    ]
-    
-}
-
->>>>>>> e8e5212b57de5a0ea68ca3358c6151900eb53f7f
