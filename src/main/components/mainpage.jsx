@@ -1,41 +1,22 @@
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import RegisterButton from './RegisterButton';
-import '../css/MainPage.css';
 import BookCard from "./bookCard";
+import loadBooks from '../api/mainapi'
+import '../css/MainPage.css';
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = 'http://localhost:3000/books';
 
 const MainPage = () => {
 
-  const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const {books, loading, error} = loadBooks();
   const navigate = useNavigate();
-
-  useEffect(()=>{
-    const fetchBooks = async () => {
-      try{
-        setLoading(true);
-        const res = await fetch(API_URL);
-        if (!res.ok) throw new Error("도서 목록을 불러오지 못했습니다.");
-        const data = await res.json();
-        setBooks(data);
-      }catch(err){
-        setError(err.message);
-      }finally{
-        setLoading(false);
-      }
-    };
-    fetchBooks();
-  },[]);
 
   
   const handleClickBook = (book) => {
     alert(`${book.title} 상세 페이지로 이동`);
 
   };
+
   if (loading) return <p>불러오는 중...</p>;
   if (error) return <p>{error}</p>;
 
