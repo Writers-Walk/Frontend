@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'; // useNavigate: 페이지 이동을 위한 훅, useParams: URL 파라미터를 가져오기 위한 훅
 
+
 import './CoverGeneratePage.css';
+
 
 
 function CoverGeneratePage() {
@@ -10,7 +12,7 @@ function CoverGeneratePage() {
 
     const [book, setBook] = useState(null); // 책 정보를 저장
 
-    const [apiKey, setApiKey] = useState(''); // 표지 생성 API 호출
+    const [apiKey, setApiKey] = useState(''); // 표지 생성 API 호출 (더미 버전에선 필수 해제)
     const [imageModel, setImageModel] = useState('gpt-image-2'); // 생성 모델 선택
     const [resolution, setResolution] = useState('1024x1024'); // 해상도 선택
     const [quality, setQuality] = useState('medium'); // 품질 선택
@@ -37,6 +39,7 @@ function CoverGeneratePage() {
                 // 도서 정보 기반 기본 프롬프트 생성
                 const defaultPrompt = `
                     책 제목: ${data.title}
+                    책 저자: ${data.author || "미정"}
                     책 장르: ${data.genre || "미정"}
                     책 내용: ${data.content || "내용 없음"}
 
@@ -45,7 +48,7 @@ function CoverGeneratePage() {
                     독자가 클릭하고 싶을 만큼 시각적으로 매력적이게 생성하세요.
                 `.trim();
 
-                setPropmt(defaultPrompt); // 기본 프롬프트 설정
+                setPrompt(defaultPrompt); // 🛠️ 오타 수정: setPropmt -> setPrompt
             } catch (error) {
                 console.error(error);
                 setError("도서 정보를 불러오지 못했습니다.");
@@ -56,32 +59,63 @@ function CoverGeneratePage() {
     }, [id])
 
 
-    // 2. 더미 이미지 생성
+    // 2. [테스트 전용] 2초 대기 후 옵션이 반영된 더미 이미지 주입 시뮬레이터
     const handleGenerateImage = async () => {
         setLoading(true); // 로딩 상태 시작
         setError("");     // 에러 초기화
 
-        try{
-            // 실제 API 연결 전 테스트용 더미 이미지
-            setTimeout(() => {
-                setGeneratedImage("https://placehold.co/300x400?text=AI+Book+Cover");
-                setLoading(false); // 로딩 상태 종료
-            }, 2000);
+        try {
+            // 실제 네트워크 지연을 체감할 수 있도록 2초(2000ms) 후에 실행
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+            
+            // 사용자가 선택한 해상도(resolution)가 텍스트로 박히는 플레이스홀더 더미 이미지 주소 생성
+            const dummyUrl = `https://placehold.co/300x400/31343c/ffffff?text=AI+Cover+(${resolution})`;
+            
+            setGeneratedImage(dummyUrl); // 가짜 생성 이미지 상태에 주입!
         } catch(error) {
             console.error(error);
             setError("이미지 생성에 실패했습니다.");
-            setLoading(false); // 로딩 상태 종료
+        } finally {
+            setLoading(false); // 로딩 상태 확실하게 종료
         }
     };
 
 
-    // 3. 표지 이미지 저장
-    const handleSaveCover = async() => {
+    // 3. [구현 완료] 더미 표지 이미지 URL을 db.json 서버에 반영하기
+    const handleSaveCover = async () => {
+        if (!generatedImage) {
+            alert("저장할 표지 이미지가 없습니다. 먼저 이미지를 생성해 주세요.");
+            return;
+        }
 
+        setLoading(true);
+
+        try {
+            // PATCH 메서드로 해당 id 도서의 coverImage 필드만 가짜 이미지 주소로 교체 업데이트
+            const res = await fetch(`http://localhost:3000/books/${id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    coverImage: generatedImage // 가짜 이미지 주소 스트링이 db.json에 박힘
+                }),
+            });
+
+            if (!res.ok) {
+                throw new Error("서버에 이미지를 저장하지 못했습니다.");
+            }
+
+            alert("🎉 [테스트 성공] 더미 표지 이미지가 db.json에 정상 기록되었습니다!");
+            navigate(`/books/${id}`); // 저장 완료 후 원본 상세 페이지로 복귀
+        } catch (error) {
+            console.error(error);
+            alert("이미지 저장 중 오류가 발생했습니다.");
+        } finally {
+            setLoading(false);
+        }
     };
 
-
-    
 
     // 4. 화면 구성
     if (!book){
@@ -90,7 +124,7 @@ function CoverGeneratePage() {
     
     return (
         <div className="cover-page">
-            <h1>도서 표지 이미지 생성</h1>
+            <h1>도서 표지 이미지 생성 (테스트 더미 모드)</h1>
 
             <div className="cover-layout">
                 <section className="book-info">
@@ -115,12 +149,12 @@ function CoverGeneratePage() {
                     <h2>이미지 생성 옵션</h2>
 
                     <div className='form-group'>
-                        <label>OpenAI API Key</label>
+                        <label>OpenAI API Key (더미 모드에선 입력 생략 가능)</label>
                         <input 
                             type="password"
                             value={apiKey}
                             onChange={(e) => setApiKey(e.target.value)}
-                            placeholder='API Key를 입력하세요'
+                            placeholder='더미 모드: 입력 안 해도 작동합니다.'
                         />
                     </div>
 
@@ -130,7 +164,7 @@ function CoverGeneratePage() {
                             value={imageModel}
                             onChange={(e) => setImageModel(e.target.value)}
                         >
-                            <option value="GPT Image 2">GPT Image 2</option>
+                            <option value="gpt-image-2">GPT Image 2 (Dummy)</option>
                         </select>   
                     </div>
 
@@ -172,7 +206,7 @@ function CoverGeneratePage() {
                         onClick={handleGenerateImage}
                         disabled={loading}
                     >
-                        {loading ? "이미지 생성 중.." : "AI 표지 생성하기"}
+                        {loading ? "가짜 이미지 빌드 중(2초)..." : "AI 표지 생성하기 (더미)"}
                     </button>
                 </section>
             </div>
@@ -184,13 +218,14 @@ function CoverGeneratePage() {
                     <div className='result-content'>
                         <img 
                             src={generatedImage}
-                            alt="생성된 도서 표지"
+                            alt="생성된 도서 표지 미리보기"
                             className='cover-preview'
+                            style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }}
                         />
 
-                        <div className='button-group'>
-                            <button onClick={handleGenerateImage}>다시 생성</button>
-                            <button onClick={handleSaveCover}>표지 저장</button>
+                        <div className='button-group' style={{ marginTop: '15px', display: 'flex', gap: '10px' }}>
+                            <button onClick={handleGenerateImage} disabled={loading}>다시 생성</button>
+                            <button onClick={handleSaveCover} disabled={loading}>표지 저장 테스트</button>
                         </div>
                     </div>
                 ) : (
@@ -201,6 +236,7 @@ function CoverGeneratePage() {
             <button
                 className='back-button'
                 onClick={() => navigate(`/books/${id}`)}
+                style={{ marginTop: '20px' }}
             >
                 상세 페이지로 돌아가기
             </button>

@@ -6,7 +6,7 @@ const RegisterButton = ({ variant = 'primary' }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/bookcreate');
+    navigate('/book-create');
   };
 
   return (
