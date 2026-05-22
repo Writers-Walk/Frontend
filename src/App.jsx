@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from './Layout/components/Layout';
 import MainPage from './main/components/mainpage';
 import CoverGeneratePage from './CoverGeneratePage/CoverGeneratePage';
-import BookDetailPage from './BookDetailPage/Hansu';
+import BookDetailPage from './BookDetailPage/BookDetailPage';
 
 export function App() {
   const router = createBrowserRouter([
