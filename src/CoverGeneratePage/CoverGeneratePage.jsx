@@ -8,7 +8,10 @@ function CoverGeneratePage() {
 
     const [book, setBook] = useState(null); // 책 정보를 저장할 상태
     const [imageModel, setImageModel] = useState(''); // 이미지 모델을 저장할 상태
-
+    const [generatedImage, setGeneratedImage] = useState(''); // 생성된 이미지를 저장할 상태
+    
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     // 1. 도서 정보 불러오기
     useEffect(() => {
@@ -79,6 +82,9 @@ function CoverGeneratePage() {
 
                     <p>
                         <strong>제목:</strong> {book.title}
+                    </p>
+                    <p>
+                        
                     </p>
                 </section>
             </div>
