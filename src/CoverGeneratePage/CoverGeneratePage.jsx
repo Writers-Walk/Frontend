@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'; // useNavigate: 페이지 이동을 위한 훅, useParams: URL 파라미터를 가져오기 위한 훅
-//import './CoverGeneratePage.css';
+
+
+import './CoverGeneratePage.css';
+
+
 
 function CoverGeneratePage() {
     const { id } = useParams(); // URL에서 id 파라미터를 가져옴
@@ -8,12 +12,12 @@ function CoverGeneratePage() {
 
     const [book, setBook] = useState(null); // 책 정보를 저장
 
-    const [apiKey, setApiKey] = useState(''); // 표지 생성 API 호출
+    const [apiKey, setApiKey] = useState(''); // 표지 생성 API 호출 (더미 버전에선 필수 해제)
     const [imageModel, setImageModel] = useState('gpt-image-2'); // 생성 모델 선택
     const [resolution, setResolution] = useState('1024x1024'); // 해상도 선택
     const [quality, setQuality] = useState('medium'); // 품질 선택
 
-    const [prompt, setPrompt] = useState(''); // 이미지 생성 프롬프트
+    const [userPrompt, setUserPrompt] = useState(''); // 이미지 생성 프롬프트
     const [generatedImage, setGeneratedImage] = useState(''); // 생성 이미지 결과 미리보기
 
     const [loading, setLoading] = useState(false);
@@ -33,17 +37,19 @@ function CoverGeneratePage() {
                 setBook(data); // 책 정보를 상태에 저장
 
                 // 도서 정보 기반 기본 프롬프트 생성
-                const defaultPrompt = `
-                    책 제목: ${data.title}
-                    책 장르: ${data.genre || "미정"}
-                    책 내용: ${data.content || "내용 없음"}
+                const defaultPrompt = (book) => {
+                    return `
+                        책 제목: ${data.title}
+                        책 장르: ${data.genre || "미정"}
+                        책 내용: ${data.content || "내용 없음"}
 
-                    위 내용을 바탕으로 책 표지 이미지를 생성하세요.
-                    표지에는 책의 제목과 장르, 내용이 잘 어울려야 합니다.
-                    독자가 클릭하고 싶을 만큼 시각적으로 매력적이게 생성하세요.
-                `.trim();
+                        위 내용을 바탕으로 책 표지 이미지를 생성하세요.
+                        표지에는 책의 제목과 장르, 내용이 잘 어울려야 합니다.
+                        독자가 클릭하고 싶을 만큼 시각적으로 매력적이게 생성하세요.
+                    `.trim();
+                };
 
-                setPropmt(defaultPrompt); // 기본 프롬프트 설정
+                setPrompt(defaultPrompt); // 기본 프롬프트 설정
             } catch (error) {
                 console.error(error);
                 setError("도서 정보를 불러오지 못했습니다.");
@@ -54,12 +60,12 @@ function CoverGeneratePage() {
     }, [id])
 
 
-    // 2. 더미 이미지 생성
+    // 2. 더미 이미지 생성 -> API 연결해서 나중에 추가
     const handleGenerateImage = async () => {
         setLoading(true); // 로딩 상태 시작
         setError("");     // 에러 초기화
 
-        try{
+        /* try{
             // 실제 API 연결 전 테스트용 더미 이미지
             setTimeout(() => {
                 setGeneratedImage("https://placehold.co/300x400?text=AI+Book+Cover");
@@ -69,16 +75,80 @@ function CoverGeneratePage() {
             console.error(error);
             setError("이미지 생성에 실패했습니다.");
             setLoading(false); // 로딩 상태 종료
-        }
+        } */
+
+        /* try {
+            const finalPrompt = userPrompt.trim() ? userPrompt.trim() : defaultPrompt(book);
+
+            const dummyImage = "https://placehold.co/300x400?text=AI+Book+Cover";
+
+            setGeneratedImage(dummyImage);
+
+            await fetch(`http://localhost:3000/books/${id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    coverPrompt: finalPrompt,
+                    userPrompt: userPrompt.trim(),
+                    coverImage: generatedImage,
+                    imageModel,
+                    resolution,
+                    quality,
+                    updatedAt: new Date().toISOString().slice(0, 10),
+                })
+            });
+
+            alert("포지 이미지가 생성되었습니다");
+        } catch (error) {
+            console.error(error);
+            setError("표지 생성에 실패했습니다.");
+        } finally {
+            setLoading(false);
+        } */
+        
     };
 
 
     // 3. 표지 이미지 저장
     const handleSaveCover = async() => {
+        if(!generatedImage){
+            alert("먼저 표지 이미지를 생성해주세요.");
+            return;
+        }
 
+        try {
+            const res = await fetch(`http://localhost:3000/books/${id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    coverImage: generatedImage,
+                    coverPrompt: prompt,
+                    imageModel,
+                    resolution,
+                    quality,
+                    updatedAt: new Date().toISOString().slice(0, 10),
+                }),
+            });
+            
+            if (!res.ok){
+                throw new Error("이미지 저장 실패");
+            }
+
+            alert("표지 이미지가 저장되었습니다.");
+            navigate(`/books/${id}`);
+        } catch (error) {
+            console.error(err);
+            alert("표지 저장에 실패했습니다.");
+        }
     };
 
-
+    if (error){
+        return <p className='error-message'>{error}</p>;
+    }
     
 
     // 4. 화면 구성
@@ -88,7 +158,7 @@ function CoverGeneratePage() {
     
     return (
         <div className="cover-page">
-            <h1>도서 표지 이미지 생성</h1>
+            <h1>도서 표지 이미지 생성 (테스트 더미 모드)</h1>
 
             <div className="cover-layout">
                 <section className="book-info">
@@ -113,12 +183,12 @@ function CoverGeneratePage() {
                     <h2>이미지 생성 옵션</h2>
 
                     <div className='form-group'>
-                        <label>OpenAI API Key</label>
+                        <label>OpenAI API Key (더미 모드에선 입력 생략 가능)</label>
                         <input 
                             type="password"
                             value={apiKey}
                             onChange={(e) => setApiKey(e.target.value)}
-                            placeholder='API Key를 입력하세요'
+                            placeholder='더미 모드: 입력 안 해도 작동합니다.'
                         />
                     </div>
 
@@ -128,7 +198,7 @@ function CoverGeneratePage() {
                             value={imageModel}
                             onChange={(e) => setImageModel(e.target.value)}
                         >
-                            <option value="GPT Image 2">GPT Image 2</option>
+                            <option value="gpt-image-2">GPT Image 2 (Dummy)</option>
                         </select>   
                     </div>
 
@@ -159,9 +229,10 @@ function CoverGeneratePage() {
                     <div className='form-group'>
                         <label>요구사항</label>
                         <textarea 
-                            value={prompt}
-                            onChange={(e) => setPrompt(e.target.value)}
-                            rows="8"
+                            value={userPrompt}
+                            onChange={(e) => setUserPrompt(e.target.value)}
+                            placeholder='원하는 표지 스타일을 입력하세요.'
+                            rows="6"
                         />
                     </div>
 
@@ -170,7 +241,7 @@ function CoverGeneratePage() {
                         onClick={handleGenerateImage}
                         disabled={loading}
                     >
-                        {loading ? "이미지 생성 중.." : "AI 표지 생성하기"}
+                        {loading ? "가짜 이미지 빌드 중(2초)..." : "AI 표지 생성하기 (더미)"}
                     </button>
                 </section>
             </div>
@@ -182,13 +253,14 @@ function CoverGeneratePage() {
                     <div className='result-content'>
                         <img 
                             src={generatedImage}
-                            alt="생성된 도서 표지"
+                            alt="생성된 도서 표지 미리보기"
                             className='cover-preview'
+                            style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }}
                         />
 
-                        <div className='button-group'>
-                            <button onClick={handleGenerateImage}>다시 생성</button>
-                            <button onClick={handleSaveCover}>표지 저장</button>
+                        <div className='button-group' style={{ marginTop: '15px', display: 'flex', gap: '10px' }}>
+                            <button onClick={handleGenerateImage} disabled={loading}>다시 생성</button>
+                            <button onClick={handleSaveCover} disabled={loading}>표지 저장 테스트</button>
                         </div>
                     </div>
                 ) : (
@@ -199,6 +271,7 @@ function CoverGeneratePage() {
             <button
                 className='back-button'
                 onClick={() => navigate(`/books/${id}`)}
+                style={{ marginTop: '20px' }}
             >
                 상세 페이지로 돌아가기
             </button>
