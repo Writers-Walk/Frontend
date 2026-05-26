@@ -79,20 +79,23 @@ const BookDetailPage = () => {
     }
   };
 
-  const handleLike = async () => {
+  const handleAIGenerate = async () => {
     try {
-      const updatedBook = await updateLikes(id, book.likes || 0);
-      setBook(updatedBook);
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      navigate(`/cover-generate/${book.id}`); 
     } catch (err) {
-      console.error("좋아요 업데이트 실패:", err);
+      console.error("AI 생성 페이지 이동 중 오류 발생:", err);
     }
   };
 
-  if (!book) return <div style={{padding:'20px', textAlign:'center'}}>불러오는 중...</div>;
+  if (!book) {
+    return <div style={{ padding: '20px' }}>db.json에서 데이터를 안전하게 불러오는 중...</div>;
+  }
 
   return (
     <div className="detail-container">
       <BackButton onClick={handleGoBack} />
+
       <div className="main-layout">
         <div className="left-section">
           <img src={book.coverImageUrl} alt="책 표지" className="book-cover-img" />
