@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/BookCard.css";
+import "../css/bookCard.css";
 
 // main화면 도서 card형식 출력
 const BookCard = ({ book, onClick }) => {
@@ -16,7 +16,10 @@ const BookCard = ({ book, onClick }) => {
       )}
       <h3 className="book-card__title">{book.title}</h3>
       <p className="book-card__author">{book.author}</p>
-      <p className="book-card__date">{book.createdAt.slice(0, 10)}</p>
+      <div className="book-card__title-row">
+        <p className="book-card__date">{book.createdAt.slice(0, 10)}</p>
+        <span className="book-card__likes">❤️ {book.likes}</span>
+      </div>
     </div>
   );
 };
