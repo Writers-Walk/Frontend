@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const API_URL = 'http://localhost:3000/books';
 
-const loadBooks = () => {
+const useBooks = () => {
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -28,4 +28,4 @@ const loadBooks = () => {
     return {books, loading, error};
 }
 
-export default loadBooks;
+export default useBooks;
