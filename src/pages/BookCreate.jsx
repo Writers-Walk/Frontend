@@ -10,7 +10,7 @@ function BookCreate() {
     title: "", // 도서 제목
     author: "", // 저자
     publisher: "", // 출판사
-    publishedYear: "", //발행년도
+    publishedDt: "", //발행년도
     seriesInfo: "", // 총서사항(몇권인지~ 시리즈 인지~)
     isbn: "", // ISBN
     genre: "", // 장르
