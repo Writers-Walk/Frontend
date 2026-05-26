@@ -1,7 +1,12 @@
 import { useState } from "react";
 import "./BookCreate.css";
+import api from "../api/api";
+import { createBook } from "./api/bookCreateApi";
+import {useNavigate} from "react-router-dom";
 
 function BookCreate() {
+  const navigate = useNavigate();
+  
   const [book, setBook] = useState({
     title: "", // 도서 제목
     author: "", // 저자
@@ -27,7 +32,7 @@ function BookCreate() {
     // navigate("/cover-create");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const now = new Date().toLocaleString();
@@ -48,8 +53,17 @@ function BookCreate() {
       updatedAt: now,
     };
 
-    console.log("등록된 도서:", newBook);
-    alert("도서가 등록되었습니다!");
+    try {
+      await api.post("/books", newBook);
+      alert("도서가 등록되었습니다!");
+      
+      console.log(newBook);
+      // 나중에 라우터 연결되면 이동 코드 추가
+      // navigate("/");
+    } catch (error) {
+      console.error(error);
+      alert("도서 등록에 실패했습니다.");
+    }
   };
 
   return (
@@ -164,3 +178,7 @@ function BookCreate() {
 }
 
 export default BookCreate;
+
+
+
+
