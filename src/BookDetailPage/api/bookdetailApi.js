@@ -1,7 +1,19 @@
-import api from '../../api/axios';
 
-export const getBook = async (id) => {
-  const response = await api.get(`/books/${id}`);
+export const getBooks = async () => {
+  const response = await api.get('/books');
+  //const response = await api.get(`/books/${id}`);
+
   return response.data;
 };
-
+ 
+export const deleteBook = async (id) => {
+  const response = await api.delete(`/books/${id}`);
+  return response.data;
+};
+ 
+export const updateLikes = async (id, currentLikes) => {
+  const response = await api.patch(`/books/${id}`, {
+    likes: currentLikes + 1,
+  });
+  return response.data;
+};
