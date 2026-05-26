@@ -140,7 +140,7 @@ function BookCreate() {
                   placeholder="장르 입력"
                   value={book.genre}
                   onChange={handleChange}
-                  maxLength={30}
+                  maxLength={10}
                 />
               </div>
             </div>
@@ -157,6 +157,9 @@ function BookCreate() {
             onChange={handleChange}
             maxLength={3000}
           />
+          <div className="text-count">
+            {book.content.length} / 3000
+          </div>
         </div>
 
         <button type="submit" className="save-button">
