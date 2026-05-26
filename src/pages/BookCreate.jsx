@@ -27,7 +27,17 @@ function BookCreate() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const now = new Date().toLocaleString();
+    if (
+      !book.title.trim() ||
+      !book.author.trim() ||
+      !book.publisher.trim() ||
+      !book.content.trim()
+    ) {
+      alert("모든 항목을 입력해주세요.");
+      return;
+    }
+
+    const now = new Date().toISOString();
 
     const newBook = {
       title: book.title,
