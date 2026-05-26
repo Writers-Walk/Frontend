@@ -1,16 +1,13 @@
 .cover-page {
-    max-width: 1100px;
-    magin: 0 auto;
-    padding: 32px;
+    padding: 24px;
 }
 
 .cover-page h1 {
-    margin-botton: 24px;
+    margin-bottom: 24px;
 }
 
 .cover-layout {
-    display: grid;
-    grid-template-columns: auto;
+    display: flex;
     gap: 24px;
     align-items: flex-start;
 }
@@ -18,10 +15,10 @@
 .book-info,
 .option-box,
 .result-box {
+    padding: 20px;
     border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 24px;
-    background-color: #ffffff;
+    border-radius: 8px;
+    background-color: #fff;
 }
 
 .book-info {
@@ -32,17 +29,8 @@
     flex: 1.5;
 }
 
-.book-info h2,
-.option-box h2 {
-    margin-botton: 16px;
-}
-
 .book-content {
-    margin-top: 16px;
-    padding: 16px;
-    min-height: 180px;
-    border-radius: 8px;
-    background-color: #f5f5f5;
+    margin-top: 12px;
     line-height: 1.6;
     white-space: pre-wrap;
 }
@@ -60,84 +48,9 @@
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #cccccc;
-    border-radius: 8px;
-    font-size: 14px;
-}
-
-.generate-button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    background-color: #007bff;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.generate-button:disabled,
-.regenerate-button:disabled,
-.save-cover-button:disabled {
-    background-color: #aaaaaa;
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.result-box {
-    margin-top: 24px;
-    text-align: center;
-}
-
-.result-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.cover-preview {
-    width: 300px;
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
-    border-radius: 8px;
-    display: block;
-    margin: 10px 0;
-}
-
-.button-group {
-    margin-top: 15px;
-    display: flex;
-    gap: 12px;
-}
-
-.regenerate-button {
-    padding: 8px 16px;
-    cursor: pointer;
-}
-
-.save-cover-button {
-    padding: 8px 16px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
+    padding: 8px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    cursor: pointer;
-}
-
-.back-button {
-    margin-top: 20px;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 8px;
-    background-color: #333333;
-    color: white;
-    cursor: pointer;
-}
-
-.error-message {
-    color: red;
 }
 
 .api-key-row {
@@ -170,9 +83,75 @@
 
 .clear-key-button {
     padding: 4px 12px;
+    white-space: nowrap;
+    cursor: pointer;
     background-color: #dc3545;
     color: #fff;
     border: none;
     border-radius: 4px;
+}
+
+.generate-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
+    font-weight: bold;
+}
+
+.generate-button:disabled,
+.regenerate-button:disabled,
+.save-cover-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.result-box {
+    margin-top: 30px;
+}
+
+.cover-preview {
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    display: block;
+    margin: 10px 0;
+    background-color: #f5f5f5;
+}
+
+.button-group {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.regenerate-button {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.save-cover-button {
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.back-button {
+    margin-top: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.error-message {
+    padding: 20px;
+    color: #dc3545;
+    font-weight: bold;
 }

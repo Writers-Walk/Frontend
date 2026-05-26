@@ -1,23 +1,35 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'; // useNavigate: 페이지 이동을 위한 훅, useParams: URL 파라미터를 가져오기 위한 훅
-//import './CoverGeneratePage.css';
+
+import getBookDetail from "./api/getBookDetail";
+import generateBookCover from "./api/generateBookCover";
+import saveCoverImage from "./api/saveCoverImage";
+import compressImage from "./api/compressImage";
+
+import './CoverGeneratePage.css';
 
 function CoverGeneratePage() {
-    const { id } = useParams(); // URL에서 id 파라미터를 가져옴
-    const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수
+    const { id } = useParams(); 
+    const navigate = useNavigate();
 
-    const [book, setBook] = useState(null); // 책 정보를 저장
+    const [book, setBook] = useState(null);
 
-    const [apiKey, setApiKey] = useState(''); // 표지 생성 API 호출 (더미 버전에선 필수 해제)
-    const [imageModel, setImageModel] = useState('gpt-image-2'); // 생성 모델 선택
-    const [resolution, setResolution] = useState('1024x1024'); // 해상도 선택
-    const [quality, setQuality] = useState('medium'); // 품질 선택
+    const [imageModel, setImageModel] = useState('gpt-image-2'); 
+    const [resolution, setResolution] = useState('1024x1024');
+    const [quality, setQuality] = useState('medium');
 
-    const [prompt, setPrompt] = useState(''); // 이미지 생성 프롬프트
-    const [generatedImage, setGeneratedImage] = useState(''); // 생성 이미지 결과 미리보기
+    const [userPrompt, setUserPrompt] = useState("");
+    const [generatedImage, setGeneratedImage] = useState('');
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+
+    const DEFAULT_API_KEY = import.meta.env.VITE_API_KEY;
+
+    const [apiKey, setApiKey] = useState(() => {
+        return localStorage.getItem("openai_api_key") || "";
+    });
+
 
     // 1. 도서 정보 불러오기
     useEffect(() => {
@@ -39,6 +51,7 @@ function CoverGeneratePage() {
 
         fetchBook();
     }, [id])
+
 
     // 2. 프롬프트 생성
     function makePrompt() {
@@ -71,6 +84,7 @@ function CoverGeneratePage() {
             alert("API Key를 입력한 후 저장해 주세요.");
             return;
         }
+
         localStorage.setItem('openai_api_key', apiKey.trim());
         alert("🔒 API Key가 브라우저에 안전하게 저장되었습니다! (이후 자동 입력)");
     };
@@ -91,12 +105,13 @@ function CoverGeneratePage() {
         }
     };
 
+
     // 4. AI 표지 이미지 생성
     const handleGenerateImage = async () => {
         const selectedApiKey = apiKey.trim();
 
         if (!selectedApiKey) {
-            alert("OpenAI API Key를 입력하거나 저장된 키를 확인해 주세요!");
+            alert("OpenAI API Key를 입력하거나 기본 Key 불러오기 버튼을 눌러주세요!");
             return;
         }
 
@@ -123,9 +138,10 @@ function CoverGeneratePage() {
             alert("🎉 표지 이미지가 성공적으로 생성되었습니다!");
         } catch(error) {
             console.error(error);
-            setError("이미지 생성에 실패했습니다.");
+            setError(error.message || "이미지 생성에 실패했습니다.");
+            alert(error.message || "이미지 생성에 실패했습니다.");
         } finally {
-            setLoading(false); // 로딩 상태 확실하게 종료
+            setLoading(false);
         }
     };
 
@@ -201,7 +217,7 @@ function CoverGeneratePage() {
                     </p>
 
                     <div className='book-content'>
-                        {book.content}
+                        {book.content || "도서 내용이 없습니다."}
                     </div>
                 </section>
 
@@ -273,9 +289,10 @@ function CoverGeneratePage() {
                     <div className='form-group'>
                         <label>요구사항</label>
                         <textarea 
-                            value={prompt}
-                            onChange={(e) => setPrompt(e.target.value)}
-                            rows="8"
+                            value={userPrompt}
+                            onChange={(e) => setUserPrompt(e.target.value)}
+                            placeholder="원하는 표지 스타일을 입력하세요."
+                            rows="10"
                         />
                     </div>
 
@@ -284,7 +301,7 @@ function CoverGeneratePage() {
                         onClick={handleGenerateImage}
                         disabled={loading}
                     >
-                        {loading ? "가짜 이미지 빌드 중(2초)..." : "AI 표지 생성하기 (더미)"}
+                        {loading ? "이미지 생성 중..." : "AI 표지 생성하기"}
                     </button>
                 </section>
             </div>
