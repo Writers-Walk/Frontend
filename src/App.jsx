@@ -16,11 +16,11 @@ export function App() {
         { path: "/", element: <MainPage /> },
         { path: "/cover-generate/:id", element: <CoverGeneratePage /> },
         { path: "/book-create", element: <BookCreate /> },
-         { path: "/book/:id", element: <BookDetailPage /> },
+        { path: "/book/:id", element: <BookDetailPage /> },
       ],
     },
   ]);
-
+  
   return <RouterProvider router={router} />;
 }
 

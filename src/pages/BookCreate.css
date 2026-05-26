@@ -1,168 +1,141 @@
-/* ===== 페이지 전체 ===== */
-
-.book-create-page {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 30px;
+* {
+  font-family: Pretendard, sans-serif;
 }
 
-/* ===== 상단 도서 정보 입력 ===== */
+/* ===== 도서 등록 페이지 전체 ===== */
+
+.book-create-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+
+h2 {
+  max-width: 1050px;
+  margin: 0 auto 20px;
+  margin-bottom: 16px;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  color: #1B3A5C;
+}
+
+/* ===== 상단 상세 정보 박스 ===== */
 
 .book-info-box {
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
-
-  padding: 24px;
+  max-width: 1050px;
+  margin: 0 auto 48px;
+  padding: 36px 48px;
 
   border: 1px solid #ddd;
   border-radius: 12px;
-
   background: white;
-
-  margin-bottom: 40px;
+  box-sizing: border-box;
 
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* ===== 표지 영역 ===== */
-
-.cover-section {
-  width: 260px;
-  flex-shrink: 0;
-}
-
-/* ===== 표지 이미지 박스 ===== */
-
-.cover-placeholder {
-  width: 240px;
-  height: 320px;
-
-  border: 2px dashed #d1d5db;
-  border-radius: 12px;
-
-  background-color: #f9fafb;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: #6b7280;
-  font-size: 14px;
-  text-align: center;
-}
-
-/* ===== 표지 이미지 생성 버튼 ===== */
-
-.cover-create-button {
-  width: 240px;
-
-  margin-top: 14px;
-
-  background: #3CC8BE;
-  color: white;
-
-  border: none;
-  border-radius: 10px;
-
-  padding: 12px;        
-
-  cursor: pointer;
-
-  font-size: 15px;
-  font-weight: bold;
-
-  transition: 0.2s;
-}
-
-.cover-create-button:hover {
-  background: #2bb3aa;
-  transform: translateY(-1px);
-}
-
-/* ===== 도서 정보 입력 ===== */
+/* ===== 입력 영역 ===== */
 
 .info-section {
-  flex: 1;
-
+  width: 100%;
   display: flex;
   flex-direction: column;
-
-  gap: 16px;
+  gap: 18px;
 }
-
-/* ===== 제목 입력 ===== */
-
-.title-input {
-  width: 100%;
-
-  padding: 14px;
-
-  font-size: 26px;
-  font-weight: bold;
-
-  border: 1px solid #ddd;
-  border-radius: 10px;
-
-  color: #1B3A5C;
-}
-
-/* ===== 정보 한 줄 ===== */
 
 .info-row {
   display: flex;
   align-items: center;
-
-  gap: 12px;
+  gap: 24px;
 }
 
 .info-row label {
-  width: 90px;
+  width: 120px;
+  flex-shrink: 0;
 
-  font-size: 14px;
-  font-weight: bold;
-
+  font-weight: 700;
   color: #1B3A5C;
 }
 
+/* ===== 기본 input ===== */
+
 .info-row input {
-  flex: 1;
+  width: 360px;
 
-  padding: 10px 12px;
+  padding: 14px 16px;
 
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
 
-  font-size: 14px;
+  font-size: 16px;
 }
 
-/* ===== 상세 설명 ===== */
+/* ===== 제목 input ===== */
+
+.title-input {
+  width: 580px !important;
+
+  font-size: 20px;
+  font-weight: 600;
+
+  font-family: Pretendard, sans-serif;
+
+  padding: 14px 16px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+}
+
+/* ===== 발행사항: 출판사 + 발행년도 ===== */
+
+.publish-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.publish-group input:first-child {
+  width: 260px;
+}
+
+.year-input {
+  width: 160px !important;
+}
+
+/* ===== 도서 내용 ===== */
 
 .detail-section {
-  margin-top: 30px;
+  max-width: 1050px;
+  margin: 0 auto;
 }
 
 .detail-section h2 {
-  color: #1B3A5C;
+  margin-bottom: 16px;
 
-  margin-bottom: 12px;
+  color: #1B3A5C;
+  font-size: 28px;
 }
 
 .detail-section textarea {
   width: 100%;
+  min-height: 320px;
 
-  min-height: 260px;
+  padding: 36px 48px;
 
-  padding: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
 
-  border: 1px solid #ddd;
-  border-radius: 10px;
-
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
 
   resize: vertical;
 }
+
 
 /* ===== placeholder ===== */
 
@@ -176,33 +149,34 @@ textarea::placeholder {
 input:focus,
 textarea:focus {
   outline: none;
-  border-color: #3CC8BE;
+  border-color: #1B3A5C;
 }
 
 /* ===== 저장 버튼 ===== */
 
 .save-button {
+  display: block;
+
+  max-width: 1050px;
   width: 100%;
 
-  margin-top: 30px;
-
-  padding: 16px;
+  margin: 36px auto 0;
+  padding: 18px;
 
   border: none;
   border-radius: 12px;
 
-  background-color: #3CC8BE;
+  background-color:  #1B3A5C;
   color: white;
 
   font-size: 18px;
   font-weight: bold;
 
   cursor: pointer;
-
   transition: 0.2s;
 }
 
 .save-button:hover {
-  background-color: #2bb3aa;
+  background-color: #1B3A5C;
   transform: translateY(-1px);
 }
