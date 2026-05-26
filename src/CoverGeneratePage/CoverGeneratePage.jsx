@@ -163,7 +163,7 @@ function CoverGeneratePage() {
             }
 
             // 저장용으로 이미지 압축
-            const compressedImage = await compressImage(generatedImage, 300, 0.6);
+            const compressedImage = await compressImage(generatedImage, 500, 700, 0.85);
 
             await saveCoverImage(id, {
                 coverImageUrl: compressedImage,
@@ -214,38 +214,33 @@ function CoverGeneratePage() {
 
                     <div className='form-group'>
                         <label>OpenAI API Key</label>
-                        <div style={{ display: 'flex', gap: '8px' }}>
+                        <div className='api-key-row'>
                             <input 
                                 type="password"
                                 value={apiKey}
                                 onChange={(e) => setApiKey(e.target.value)}
                                 placeholder='sk-... API Key를 입력하거나 기본 키를 불러오세요'
-                                style={{ flex: 1, padding: '6px', borderRadius: '4px', border: '1px solid #ccc' }}
+                                className='api-key-input'
                             />
                             
-                            <button 
-                                type="button" 
+                            <button type="button" 
                                 onClick={handleLoadEnvKey} 
-                                style={{ padding: '4px 12px', whiteSpace: 'nowrap', cursor: 'pointer', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '4px' }}
+                                className='env-key-button'
                             >
                                 기본 Key 불러오기
                             </button>
 
                             <button type="button" 
                                     onClick={handleSaveApiKey} 
-                                    style={{ padding: '4px 12px', whiteSpace: 'nowrap', cursor: 'pointer' }}>
+                                    className='save-key-button'
+                            >
                                 저장
                             </button>
                             
-                            <button type="button" onClick={handleClearApiKey} 
-                                style={{ 
-                                    padding: '4px 12px', 
-                                    background: '#dc3545',
-                                    color: '#fff', 
-                                    border: 'none', 
-                                    borderRadius: '4px', 
-                                    cursor: 'pointer'
-                                }}>
+                            <button type="button" 
+                                    onClick={handleClearApiKey} 
+                                    className='clear-key-button'
+                            >
                                 삭제
                             </button>
                         </div>
@@ -294,14 +289,13 @@ function CoverGeneratePage() {
                         className="generate-button"
                         onClick={handleGenerateImage}
                         disabled={loading}
-                        style={{ width: '100%', padding: '12px', background: '#007bff', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
                     >
                         {loading ? "이미지 생성 중..." : "AI 표지 생성하기"}
                     </button>
                 </section>
             </div>
 
-            <section className='result-box' style={{ marginTop: '30px' }}>
+            <section className='result-box'>
                 <h2>생성 결과</h2>
                 {generatedImage ? (
                     <div className='result-content'>
@@ -309,11 +303,16 @@ function CoverGeneratePage() {
                             src={generatedImage}
                             alt="생성된 도서 표지 미리보기"
                             className='cover-preview'
-                            style={{ maxWidth: '300px', height: 'auto', borderRadius: '8px', display: 'block', margin: '10px 0' }}
                         />
-                        <div className='button-group' style={{ marginTop: '15px', display: 'flex', gap: '10px' }}>
-                            <button onClick={handleGenerateImage} disabled={loading} style={{ padding: '8px 16px', cursor: 'pointer' }}>다시 생성</button>
-                            <button onClick={handleSaveCover} disabled={loading} style={{ padding: '8px 16px', background: '#28a745', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>표지 저장</button>
+                        <div className='button-group'>
+                            <button onClick={handleGenerateImage} 
+                                    disabled={loading} 
+                                    className='regenerate-button'        
+                            >다시 생성</button>
+                            <button onClick={handleSaveCover} 
+                                    disabled={loading}
+                                    className='save-cover-button'
+                            >표지 저장</button>
                         </div>
                     </div>
                 ) : (
@@ -324,7 +323,6 @@ function CoverGeneratePage() {
             <button
                 className='back-button'
                 onClick={() => navigate(`/book/${id}`)}
-                style={{ marginTop: '20px', padding: '8px 16px', cursor: 'pointer' }}
             >
             상세 페이지로 돌아가기
             </button>
