@@ -1,11 +1,11 @@
 .cover-page {
     max-width: 1100px;
-    magin: 0 auto;
+    margin: 0 auto;
     padding: 32px;
 }
 
 .cover-page h1 {
-    margin-botton: 24px;
+    margin-bottom: 24px;
 }
 
 .cover-layout {
@@ -24,7 +24,7 @@
 
 .book-info h2,
 .option-box h2 {
-    margin-botton: 16px;
+    margin-bottom: 16px;
 }
 
 .book-content {
@@ -87,3 +87,25 @@
     margin-bottom: 16px;
 }
 
+.button-group {
+    display: flex;
+    gap: 12px;
+}
+
+.button-group button,
+.back-button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #333333;
+    color: white;
+    cursor: pointer;
+}
+
+.back-button {
+    margin-top: 24px;
+}
+
+.error-message {
+    color: red;
+}
