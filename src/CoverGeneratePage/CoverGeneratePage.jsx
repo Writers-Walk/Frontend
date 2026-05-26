@@ -23,29 +23,15 @@ function CoverGeneratePage() {
     useEffect(() => {
         async function fetchBook() {
             try {
-                const res = await fetch(`http://localhost:3000/books/${id}`);   // 책 정보를 가져오기
-
-                if(!res.ok){
-                    throw new Error('책 정보를 불러오지 못했습니다.');
+                const data = await getBookDetail(id);
+                
+                setBook(data);
+                
+                // db.json에 기존 이미지가 있다면 화면에 표시
+                if(data.coverImageUrl){
+                    setGeneratedImage(data.coverImageUrl);
                 }
-
-                const data = await res.json();
-                setBook(data); // 책 정보를 상태에 저장
-
-                // 도서 정보 기반 기본 프롬프트 생성
-                const defaultPrompt = `
-                    책 제목: ${data.title}
-                    책 저자: ${data.author || "미정"}
-                    책 장르: ${data.genre || "미정"}
-                    책 내용: ${data.content || "내용 없음"}
-
-                    위 내용을 바탕으로 책 표지 이미지를 생성하세요.
-                    표지에는 책의 제목과 장르, 내용이 잘 어울려야 합니다.
-                    독자가 클릭하고 싶을 만큼 시각적으로 매력적이게 생성하세요.
-                `.trim();
-
-                setPrompt(defaultPrompt); // 🛠️ 오타 수정: setPropmt -> setPrompt
-            } catch (error) {
+            } catch (error){
                 console.error(error);
                 setError("도서 정보를 불러오지 못했습니다.");
             }
@@ -54,20 +40,87 @@ function CoverGeneratePage() {
         fetchBook();
     }, [id])
 
+    // 2. 프롬프트 생성
+    function makePrompt() {
+        if(!book){
+            return "";
+        }
 
-    // 2. [테스트 전용] 2초 대기 후 옵션이 반영된 더미 이미지 주입 시뮬레이터
+        const defaultPrompt = `
+            책 제목: ${book.title}
+            저자: ${book.author || "미정"}
+            장르: ${book.genre || "미정"}
+            책 내용: ${book.content || "내용 없음"}
+
+            위 도서 정보를 바탕으로 책 표지 이미지를 생성하세요.
+            표지에는 책의 제목과 장르, 내용이 잘 어울려야 합니다.
+            독자가 클릭하고 싶을 만큼 시각적으로 매력적이게 생성하세요.
+        `.trim();
+
+        if (userPrompt.trim()) {
+            return `${defaultPrompt}\n\n사용자 추가 요구사항:\n${userPrompt.trim()}`;
+        }
+
+        return defaultPrompt;
+    }
+
+
+    // 3-1. API Key 브라우저 저장
+    const handleSaveApiKey = () => {
+        if (!apiKey.trim()) {
+            alert("API Key를 입력한 후 저장해 주세요.");
+            return;
+        }
+        localStorage.setItem('openai_api_key', apiKey.trim());
+        alert("🔒 API Key가 브라우저에 안전하게 저장되었습니다! (이후 자동 입력)");
+    };
+
+    // 3-2. API Key 브라우저 삭제
+    const handleClearApiKey = () => {
+        localStorage.removeItem('openai_api_key');
+        setApiKey('');
+        alert("🗑️ 저장된 API Key가 삭제되었습니다.");
+    };
+
+    // 3-3. .env에서 기본 API Key 불러오기
+    const handleLoadEnvKey = () =>{
+        if (DEFAULT_API_KEY) {
+            setApiKey(DEFAULT_API_KEY.trim());
+        } else {
+            alert('.env에서 VITE_API_KEY를 찾을 수 없습니다.');
+        }
+    };
+
+    // 4. AI 표지 이미지 생성
     const handleGenerateImage = async () => {
-        setLoading(true); // 로딩 상태 시작
-        setError("");     // 에러 초기화
+        const selectedApiKey = apiKey.trim();
+
+        if (!selectedApiKey) {
+            alert("OpenAI API Key를 입력하거나 저장된 키를 확인해 주세요!");
+            return;
+        }
+
+        setLoading(true); 
+        setError("");     
 
         try {
-            // 실제 네트워크 지연을 체감할 수 있도록 2초(2000ms) 후에 실행
-            await new Promise((resolve) => setTimeout(resolve, 2000));
-            
-            // 사용자가 선택한 해상도(resolution)가 텍스트로 박히는 플레이스홀더 더미 이미지 주소 생성
-            const dummyUrl = `https://placehold.co/300x400/31343c/ffffff?text=AI+Cover+(${resolution})`;
-            
-            setGeneratedImage(dummyUrl); // 가짜 생성 이미지 상태에 주입!
+            const finalPrompt = makePrompt();
+
+            if(!finalPrompt.trim()){
+                alert('프롬프트가 비어 있습니다. 도서 정보를 확인해주세요.');
+                return;
+            }
+
+            const imageUrl = await generateBookCover({
+                apiKey: selectedApiKey,
+                prompt: finalPrompt,
+                imageModel,
+                resolution,
+                quality,
+            });
+
+            setGeneratedImage(imageUrl); 
+            alert("🎉 표지 이미지가 성공적으로 생성되었습니다!");
         } catch(error) {
             console.error(error);
             setError("이미지 생성에 실패했습니다.");
@@ -77,50 +130,61 @@ function CoverGeneratePage() {
     };
 
 
-    // 3. [구현 완료] 더미 표지 이미지 URL을 db.json 서버에 반영하기
-    const handleSaveCover = async () => {
-        if (!generatedImage) {
-            alert("저장할 표지 이미지가 없습니다. 먼저 이미지를 생성해 주세요.");
+    // 5. 표지 이미지 및 옵션 정보 저장
+    const handleSaveCover = async() => {
+        if(!generatedImage){
+            alert("먼저 표지 이미지를 생성해주세요.");
             return;
         }
 
         setLoading(true);
+        setError('');
 
         try {
-            // PATCH 메서드로 해당 id 도서의 coverImage 필드만 가짜 이미지 주소로 교체 업데이트
-            const res = await fetch(`http://localhost:3000/books/${id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    coverImage: generatedImage // 가짜 이미지 주소 스트링이 db.json에 박힘
-                }),
-            });
+            const finalPrompt = makePrompt();
 
-            if (!res.ok) {
-                throw new Error("서버에 이미지를 저장하지 못했습니다.");
+            if(!finalPrompt.trim()){
+                alert('저장할 프롬프트가 비어 있습니다.');
+                return;
             }
+
+            // 저장용으로 이미지 압축
+            const compressedImage = await compressImage(generatedImage, 300, 0.6);
+
+            await saveCoverImage(id, {
+                coverImageUrl: compressedImage,
+                coverPrompt: finalPrompt,
+                imageModel,
+                resolution,
+                quality,
+                updatedAt: new Date().toISOString().slice(0, 10),
+            });
+            
 
             alert("🎉 [테스트 성공] 더미 표지 이미지가 db.json에 정상 기록되었습니다!");
             navigate(`/books/${id}`); // 저장 완료 후 원본 상세 페이지로 복귀
         } catch (error) {
             console.error(error);
-            alert("이미지 저장 중 오류가 발생했습니다.");
+            setError(error.message || "이미지 저장 중 오류가 발생했습니다.");
+            alert(error.message || "이미지 저장 중 오류가 발생했습니다.");
         } finally {
             setLoading(false);
         }
     };
 
+    if(error){
+        return <p className='error-message'>{error}</p>
+    }
 
-    // 4. 화면 구성
-    if (!book){
+    if(!book){
         return <p>도서 정보를 불러오는 중...</p>
     }
     
     return (
         <div className="cover-page">
-            <h1>도서 표지 이미지 생성 (테스트 더미 모드)</h1>
+            <h1>{book.coverImageUrl 
+                ? "도서 표지 이미지 수정 및 재생성" : "도서 표지 이미지 신규 생성"}
+            </h1>
 
             <div className="cover-layout">
                 <section className="book-info">
@@ -145,31 +209,56 @@ function CoverGeneratePage() {
                     <h2>이미지 생성 옵션</h2>
 
                     <div className='form-group'>
-                        <label>OpenAI API Key (더미 모드에선 입력 생략 가능)</label>
-                        <input 
-                            type="password"
-                            value={apiKey}
-                            onChange={(e) => setApiKey(e.target.value)}
-                            placeholder='더미 모드: 입력 안 해도 작동합니다.'
-                        />
+                        <label>OpenAI API Key</label>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                            <input 
+                                type="password"
+                                value={apiKey}
+                                onChange={(e) => setApiKey(e.target.value)}
+                                placeholder='sk-... API Key를 입력하거나 기본 키를 불러오세요'
+                                style={{ flex: 1, padding: '6px', borderRadius: '4px', border: '1px solid #ccc' }}
+                            />
+                            
+                            <button 
+                                type="button" 
+                                onClick={handleLoadEnvKey} 
+                                style={{ padding: '4px 12px', whiteSpace: 'nowrap', cursor: 'pointer', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '4px' }}
+                            >
+                                기본 Key 불러오기
+                            </button>
+
+                            <button type="button" 
+                                    onClick={handleSaveApiKey} 
+                                    style={{ padding: '4px 12px', whiteSpace: 'nowrap', cursor: 'pointer' }}>
+                                저장
+                            </button>
+                            
+                            <button type="button" onClick={handleClearApiKey} 
+                                style={{ 
+                                    padding: '4px 12px', 
+                                    background: '#dc3545',
+                                    color: '#fff', 
+                                    border: 'none', 
+                                    borderRadius: '4px', 
+                                    cursor: 'pointer'
+                                }}>
+                                삭제
+                            </button>
+                        </div>
                     </div>
 
                     <div className='form-group'>
                         <label>생성 모델</label>
-                        <select
-                            value={imageModel}
-                            onChange={(e) => setImageModel(e.target.value)}
-                        >
-                            <option value="gpt-image-2">GPT Image 2 (Dummy)</option>
+                        <select value={imageModel} 
+                                onChange={(e) => setImageModel(e.target.value)}>
+                            <option value="gpt-image-2">GPT Image 2</option>
                         </select>   
                     </div>
 
                     <div className='form-group'>
                         <label>해상도</label>
-                        <select
-                            value={resolution}
-                            onChange={(e) => setResolution(e.target.value)}
-                        >
+                        <select value={resolution} 
+                                onChange={(e) => setResolution(e.target.value)}>
                             <option value="1024x1024">1024 x 1024</option>
                             <option value="1024x1536">1024 x 1536</option>
                             <option value="1536x1024">1536 x 1024</option>
@@ -178,10 +267,8 @@ function CoverGeneratePage() {
 
                     <div className='form-group'>
                         <label>품질</label>
-                        <select
-                            value={quality}
-                            onChange={(e) => setQuality(e.target.value)}
-                        >
+                        <select value={quality} 
+                                onChange={(e) => setQuality(e.target.value)}>
                             <option value="low">low</option>
                             <option value="medium">medium</option>
                             <option value="high">high</option>

@@ -17,14 +17,13 @@ async function generateBookCover({
             n: 1,
             size: resolution,
             quality,
-            output_format: "png",
         }),
     });
 
     if(!res.ok){
         const errorData = await res.json().catch(() => null);
         throw new Error(
-            errorData?.error?.message || "이미지 생성에 실패했습니다."
+            errorData?.error?.message || "OpenAI 이미지 생성 요청에 실패했습니다."
         );
     }
 
