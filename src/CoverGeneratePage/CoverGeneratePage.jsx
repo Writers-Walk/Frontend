@@ -27,53 +27,49 @@ function CoverGeneratePage() {
     const [error, setError] = useState('');
 
     // 🔒 브라우저 LocalStorage에서 API 키 로드
-    const DEFAULT_API_KEY = import.meta.env.VITE_API_KEY;
-    const [apiKey, setApiKey] = useState(() => {
-        return localStorage.getItem('openai_api_key') || DEFAULT_API_KEY || '';
-    });
-    
+    // const [apiKey, setApiKey] = useState(() => {
+    //     return localStorage.getItem('openai_api_key') || '';
+    // });
+    const [apiKey, setApiKey] = useState('');
 
-    // 1. 도서 상세 정보 불러오기
+    // 1. 도서 정보 불러오기
     useEffect(() => {
-        async function loadBookDetail() {
+        async function fetchBook() {
             try {
-                const data = await getBookDetail(id);
+                const res = await fetch(`http://localhost:3000/books/${id}`);
 
-                setBook(data);
+                if(!res.ok){
+                    throw new Error('책 정보를 불러오지 못했습니다.');
+                }
 
-                if (data.coverImageUrl){
+                const data = await res.json();
+                setBook(data); 
+
+                //db.json에 기존 이미지 있다면 이미지 화면에 띄우기
+                if(data.coverImageUrl){
                     setGeneratedImage(data.coverImageUrl);
                 }
 
+                // 도서 정보 기반 기본 프롬프트 텍스트 생성 (함수가 아닌 순수 문자열로 저장)
+                const defaultPromptText = `
+책 제목: ${data.title}
+책 장르: ${data.genre || "미정"}
+책 내용: ${data.content || "내용 없음"}
+
+위 내용을 바탕으로 책 표지 이미지를 생성하세요.
+표지에는 책의 제목과 장르, 내용이 잘 어울려야 합니다.
+독자가 클릭하고 싶을 만큼 시각적으로 매력적이게 생성하세요.
+                `.trim();
+
+                setUserPrompt(defaultPromptText); 
             } catch (error) {
                 console.error(error);
                 setError("도서 정보를 불러오지 못했습니다.");
             }
         }
 
-        loadBookDetail();
+        fetchBook();
     }, [id]);
-
-    // 프롬프트
-    function makePrompt(){
-        const defaultPrompt = `
-        책 제목: ${book.title}
-        저자: ${book.author || "미정"}
-        장르: ${book.genre || "미정"}
-        책 내용: ${book.content || "내용 없음"}
-
-        위 도서 정보를 바탕으로 책 표지 이미지를 생성하세요.
-        표지에는 책의 제목과 장르, 내용이 잘 어울려야 합니다.
-        독자가 클릭하고 싶을 만큼 시각적으로 매력적이게 생성하세요.
-        `.trim();
-
-        if(userPrompt.trim()){
-            return `${defaultPrompt}\n\n사용자 추가 요구사항:\n${userPrompt.trim()}`;
-        }
-
-        return defaultPrompt;
-    }
-
 
     // 2-1. API Key 브라우저 저장 핸들러
     const handleSaveApiKey = () => {
@@ -92,10 +88,19 @@ function CoverGeneratePage() {
         alert("🗑️ 저장된 API Key가 삭제되었습니다.");
     };
 
+    // .env로 API Key 설정하기
+    const handleLoadEnvKey = () =>{
+        const envKey = import.meta.env.VITE_API_KEY;
+
+        if(envKey){
+            setApiKey(envKey.trim());
+        } else{
+            alert("OPENAI API KEY를 찾을 수 없습니다.");
+        }
+    };
+
     // 2-3. [실제 호출] 인공지능 표지 생성 함수 (중간 서버 규격 최적화)
     const handleGenerateImage = async () => {
-        const selectedApiKey = apiKey.trim() || DEFAULT_API_KEY;
-
         if (!apiKey.trim()) {
             alert("OpenAI API Key를 입력하거나 저장된 키를 확인해 주세요!");
             return;
@@ -105,18 +110,32 @@ function CoverGeneratePage() {
         setError("");     
 
         try {
-            const finalPrompt = makePrompt();
-
-            const imageUrl = await generateBookCover({
-                apiKey: selectedApiKey,
-                prompt: finalPrompt,
-                imageModel,
-                resolution,
-                quality,
+            const response = await fetch("https://api.openai.com/v1/images/generations", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${apiKey.trim()}`
+                },
+                body: JSON.stringify({
+                    model: "gpt-image-2",            
+                    prompt: userPrompt.trim(),    
+                    n: 1,
+                    size: resolution,             
+                    quality: quality,             
+                    //response_format: "b64_json" 
+                })
             });
 
-            setGeneratedImage(imageUrl);
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error(errData.error?.message || "OpenAI API 호출 중 오류가 발생했습니다.");
+            }
 
+            const resData = await response.json();
+            const base64Str = resData.data[0].b64_json;
+            const dataUrl = `data:image/png;base64,${base64Str}`;
+            
+            setGeneratedImage(dataUrl); 
             alert("🎉 표지 이미지가 성공적으로 생성되었습니다!");
         } catch(error) {
             console.error(error);
@@ -126,7 +145,6 @@ function CoverGeneratePage() {
             setLoading(false); 
         }
     };
-
 
     // 3. 표지 이미지 및 옵션 정보 최종 저장 (PATCH)
     const handleSaveCover = async() => {
@@ -151,6 +169,10 @@ function CoverGeneratePage() {
                 quality,
                 updatedAt: new Date().toISOString().slice(0, 10),
             });
+            
+            if (!res.ok){
+                throw new Error("이미지 저장 실패");
+            }
 
             alert("🎉 표지 이미지가 db.json에 정상 저장되었습니다.");
             navigate(`/book/${id}`);
@@ -162,12 +184,8 @@ function CoverGeneratePage() {
         }
     };
 
-    if (error){
-        return <p className="error-message">{error}</p>;
-    }
-
     if (!book){
-        return <p>도서 정보를 불러오는 중...</p>;
+        return <p>도서 정보를 불러오는 중...</p>
     }
     
     return (
@@ -193,13 +211,32 @@ function CoverGeneratePage() {
                                 type="password"
                                 value={apiKey}
                                 onChange={(e) => setApiKey(e.target.value)}
-                                placeholder="sk-... API Key를 입력하세요"
+                                placeholder='sk-... API Key를 입력하거나 기본 키를 불러오세요'
                                 style={{ flex: 1, padding: '6px', borderRadius: '4px', border: '1px solid #ccc' }}
                             />
+                            
+                            {/* [기능 추가]: .env에서 api 키 받아오기 */}
+                            <button 
+                                type="button" 
+                                onClick={handleLoadEnvKey} 
+                                style={{ padding: '4px 12px', whiteSpace: 'nowrap', cursor: 'pointer', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '4px' }}
+                            >
+                                기본 Key 불러오기
+                            </button>
+
                             <button type="button" onClick={handleSaveApiKey} style={{ padding: '4px 12px', whiteSpace: 'nowrap', cursor: 'pointer' }}>저장</button>
-                            {localStorage.getItem('openai_api_key') && (
-                                <button type="button" onClick={handleClearApiKey} style={{ padding: '4px 12px', background: '#dc3545', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>삭제</button>
-                            )}
+                            
+                            <button type="button" onClick={handleClearApiKey} 
+                                style={{ 
+                                    padding: '4px 12px', 
+                                    background: '#dc3545',
+                                    color: '#fff', 
+                                    border: 'none', 
+                                    borderRadius: '4px', 
+                                    cursor: 'pointer'
+                                }}>
+                                삭제
+                            </button>
                         </div>
                     </div>
 
