@@ -27,7 +27,7 @@ function CoverGeneratePage() {
     useEffect(() => {
         async function fetchBook() {
             try {
-                const res = await fetch(`http://localhost:3000/books/${id}`);   // 책 정보를 가져오기
+                const res = await fetch(`http://localhost:3000/books`);   // 책 정보를 가져오기
 
                 if(!res.ok){
                     throw new Error('책 정보를 불러오지 못했습니다.');

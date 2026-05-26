@@ -13,10 +13,10 @@ export function App() {
     {
       element: <Layout />,
       children: [
-        { path: "/", element: <MainPage /> },
+        { path: "/", element: <mainpage /> },
         { path: "/cover-generate/:id", element: <CoverGeneratePage /> },
         { path: "/book-create", element: <BookCreate /> },
-         { path: "/book/:id", element: <BookDetailPage /> },
+        { path: "/book/:id", element: <BookDetailPage /> },
       ],
     },
   ]);
