@@ -161,7 +161,3 @@ function BookCreate() {
 }
 
 export default BookCreate;
-
-
-
-
