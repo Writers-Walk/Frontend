@@ -30,8 +30,15 @@
 }
 
 .book-card__title {
-  margin: 10px 0 4px;
+  margin: 0;
   font-size: 16px;
+}
+
+.book-card__title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px 0 0;
 }
 
 .book-card__author {
@@ -44,4 +51,10 @@
   margin: 0;
   font-size: 12px;
   color: #999;
+}
+
+.book-card__likes {
+  font-size: 12px;
+  color: #e05a5a;
+  white-space: nowrap;
 }

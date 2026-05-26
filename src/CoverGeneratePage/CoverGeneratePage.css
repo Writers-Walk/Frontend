@@ -1,5 +1,7 @@
 .cover-page {
-    padding: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px;
 }
 
 .cover-page h1 {
@@ -7,30 +9,30 @@
 }
 
 .cover-layout {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto;
     gap: 24px;
-    align-items: flex-start;
 }
 
 .book-info,
-.option-box,
-.result-box {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-}
-
-.book-info {
-    flex: 1;
-}
-
 .option-box {
-    flex: 1.5;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 24px;
+    background-color: #ffffff;
+}
+
+.book-info h2,
+.option-box h2 {
+    margin-bottom: 16px;
 }
 
 .book-content {
-    margin-top: 12px;
+    margin-top: 16px;
+    padding: 16px;
+    min-height: 180px;
+    border-radius: 8px;
+    background-color: #f5f5f5;
     line-height: 1.6;
     white-space: pre-wrap;
 }
@@ -39,119 +41,71 @@
     margin-bottom: 16px;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: bold;
-}
-
+.form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.api-key-row {
-    display: flex;
-    gap: 8px;
-}
-
-.api-key-input {
-    flex: 1;
-    padding: 6px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-
-.env-key-button {
-    padding: 4px 12px;
-    white-space: nowrap;
-    cursor: pointer;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-}
-
-.save-key-button {
-    padding: 4px 12px;
-    white-space: nowrap;
-    cursor: pointer;
-}
-
-.clear-key-button {
-    padding: 4px 12px;
-    white-space: nowrap;
-    cursor: pointer;
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    font-size: 14px;
 }
 
 .generate-button {
     width: 100%;
     padding: 12px;
-    background-color: #007bff;
-    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
+    background-color: #28aaa5;
+    color: white;
+    font-size: 16px;
     cursor: pointer;
-    font-weight: bold;
 }
 
-.generate-button:disabled,
-.regenerate-button:disabled,
-.save-cover-button:disabled {
-    opacity: 0.6;
+.generate-button:disabled {
+    background-color: #aaaaaa;
     cursor: not-allowed;
 }
 
 .result-box {
-    margin-top: 30px;
+    margin-top: 24px;
+    text-align: center;
+}
+
+.result-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .cover-preview {
     width: 300px;
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
+    height: 400px;
+    object-fit: cover;
+    border: 1px solid #dddddd;
     border-radius: 8px;
-    display: block;
-    margin: 10px 0;
-    background-color: #f5f5f5;
+    margin-bottom: 16px;
 }
 
 .button-group {
-    margin-top: 15px;
     display: flex;
-    gap: 10px;
+    gap: 12px;
 }
 
-.regenerate-button {
-    padding: 8px 16px;
-    cursor: pointer;
-}
-
-.save-cover-button {
-    padding: 8px 16px;
-    background-color: #28a745;
-    color: #fff;
+.button-group button,
+.back-button {
+    padding: 10px 16px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
+    background-color: #333333;
+    color: white;
     cursor: pointer;
 }
 
 .back-button {
-    margin-top: 20px;
-    padding: 8px 16px;
-    cursor: pointer;
+    margin-top: 24px;
 }
 
 .error-message {
-    padding: 20px;
-    color: #dc3545;
-    font-weight: bold;
+    color: red;
 }
