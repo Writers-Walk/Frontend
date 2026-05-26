@@ -27,7 +27,7 @@ function CoverGeneratePage() {
     const [error, setError] = useState('');
 
     // 🔒 브라우저 LocalStorage에서 API 키 로드
-    const DEFAULT_API_KEY = import.meta.env.VITE_API_KEY;
+    const DEFAULT_API_KEY = import.meta.env.VITE_API_KEY || '';
     const [apiKey, setApiKey] = useState(() => {
         return localStorage.getItem('openai_api_key') || '';
     });
@@ -175,7 +175,7 @@ function CoverGeneratePage() {
             });
             
 
-            alert("🎉 표지 이미지가 db.json에 정상 저장되었습니다.");
+            alert("🎉 표지 이미지가 db.json에 정상 기록되었습니다!");
             navigate(`/book/${id}`);
         } catch (error) {
             console.error(error);
@@ -187,11 +187,11 @@ function CoverGeneratePage() {
     };
 
     if(error){
-        return <p className='error-message'>{error}</p>
+        return <p className='error-message'>{error}</p>;
     }
 
     if(!book){
-        return <p>도서 정보를 불러오는 중...</p>
+        return <p>도서 정보를 불러오는 중...</p>;
     }
     
     return (
