@@ -18,9 +18,10 @@ const MainPage = () => {
 
   //검색 정렬기능 추가
   const filteredBooks = books
-    .filter(book =>
-      book.title.includes(searchQuery) || book.author.includes(searchQuery)
-    )
+    .filter(book =>{
+      const query = searchQuery.trim();
+      return book.title.includes(query) || book.author.includes(query)
+    })
     .sort((a, b) => {
       if (sortOrder === 'latest') {
         return new Date(b.updatedAt) - new Date(a.updatedAt);
