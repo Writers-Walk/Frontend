@@ -60,7 +60,7 @@ const { id } = useParams();
           <div className="book-meta">
             <p>📂 장르: {book.genre || "미분류"}</p>
             <p>🏢 출판사: {book.publisher || "정보 없음"}</p>
-            <p>📚 총서사항: {book.series || "없음"}</p>
+            <p>📚 총서사항: {book.seriesInfo || "없음"}</p>
         </div>
      
           <div className="badge-row">
