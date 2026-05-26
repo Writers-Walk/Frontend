@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import RegisterButton from './RegisterButton';
 import BookCard from "./bookCard";
 import useBooks from '../api/mainapi';
+import LikeRank from './Likerank';
 import '../css/MainPage.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -73,9 +74,10 @@ const MainPage = () => {
             ))}
           </div>
         )}
+        <LikeRank books={books} topN={10} onClickBook={handleClickBook} />
         </div>
+        
     );
 };
 
 export default MainPage;
-

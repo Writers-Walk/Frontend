@@ -1,0 +1,177 @@
+/* LikeRanking.css */
+
+.like-ranking {
+  margin: 2rem 0;
+}
+
+.like-ranking__title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0 0 0.85rem;
+}
+
+.like-ranking__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* ── 아이템 ── */
+.rank-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: #fafafa;
+  border: 1px solid #eee;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rank-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+}
+
+.rank-item--top {
+  background: #fff;
+  border-color: #e8edff;
+}
+
+.rank-item--top:first-child {
+  border-color: #ffd700;
+  background: linear-gradient(135deg, #fffbea 0%, #fff 100%);
+}
+
+/* ── 순위 뱃지 ── */
+.rank-item__rank {
+  flex-shrink: 0;
+  width: 2rem;
+  text-align: center;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.rank-item__num {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #aaa;
+  width: 100%;
+  text-align: center;
+}
+
+/* ── 정보 영역 ── */
+.rank-item__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.rank-item__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rank-item__meta {
+  font-size: 0.78rem;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.rank-item__genre {
+  background: #eef2ff;
+  color: #4f7df3;
+  border-radius: 999px;
+  padding: 0.05rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+/* ── 바 그래프 ── */
+.rank-item__bar-wrap {
+  height: 4px;
+  background: #eee;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 0.3rem;
+}
+
+.rank-item__bar {
+  height: 100%;
+  background: linear-gradient(90deg, #4f7df3, #a78bfa);
+  border-radius: 999px;
+  transition: width 0.6s ease;
+}
+
+.rank-item--top:first-child .rank-item__bar {
+  background: linear-gradient(90deg, #f59e0b, #ef4444);
+}
+
+/* ── 좋아요 수 ── */
+.rank-item__likes {
+  flex-shrink: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.rank-item__likes-icon {
+  font-size: 0.75rem;
+}
+
+/* ── 장르 필터 (LikeRanking 내부) ── */
+.like-ranking__genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.like-ranking__chip {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  border: 1.5px solid #ddd;
+  background: #fff;
+  color: #555;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.like-ranking__chip:hover {
+  border-color: #4f7df3;
+  color: #4f7df3;
+}
+
+.like-ranking__chip--active {
+  background: #4f7df3;
+  border-color: #4f7df3;
+  color: #fff;
+  font-weight: 700;
+}
+
+.like-ranking__empty {
+  font-size: 0.85rem;
+  color: #aaa;
+  padding: 1rem 0;
+}
