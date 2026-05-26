@@ -3,8 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './BookDetailPage.css'; 
 import BackButton from './BackButton';
 import AIButton from './AIButton';
-import LikeButton from './LikeButton'; 
-import { getBookById, deleteBook, updateLikes } from "./api/bookdetailApi"; 
+import ShareButton from './ShareButton';
+import LikesButton from './LikesButton';
+import DeleteButton from './DeleteButton';
 
 const formatDate = (dateString) => {
   if (!dateString) return "날짜 없음";
@@ -12,24 +13,69 @@ const formatDate = (dateString) => {
 };
 
 const BookDetailPage = () => {
-const [book, setBook] = useState(null);
-const navigate = useNavigate(); 
-const { id } = useParams(); 
+  const [book, setBook] = useState(null);
+  const [likes, setLikes] = useState(0);
+  const [isLiking, setIsLiking] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const navigate = useNavigate(); 
+  const { id } = useParams(); 
 
   useEffect(() => {
-    getBookById(id)
-      .then(setBook)
-      .catch((err) => console.error("🚨 로딩 에러:", err));
+    const getBookData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/books/${id}`);
+        if (!response.ok) throw new Error("서버에서 데이터를 가져오지 못했습니다.");
+        const data = await response.json();
+        setBook(data);
+        setLikes(data.likes ?? 0);
+        const likedBooks = JSON.parse(localStorage.getItem('likedBooks') || '[]');
+        setLiked(likedBooks.includes(String(id)));
+      } catch (err) {
+        console.error("🚨 도서 데이터 로딩 중 에러 발생:", err);
+      }
+    };
+    getBookData();
   }, [id]); 
 
-  const handleGoBack = () => navigate('/');
-  const handleAIGenerate = () => navigate(`/cover-generate/${book.id}`);
+  const handleLike = async () => {
+    if (isLiking || liked) return;
+    setIsLiking(true);
+    const newLikes = likes + 1;
+    try {
+      const response = await fetch(`http://localhost:3000/books/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ likes: newLikes }),
+      });
+      if (!response.ok) throw new Error("좋아요 업데이트 실패");
+      const likedBooks = JSON.parse(localStorage.getItem('likedBooks') || '[]');
+      likedBooks.push(String(id));
+      localStorage.setItem('likedBooks', JSON.stringify(likedBooks));
+      setLikes(newLikes);
+      setLiked(true);
+    } catch (err) {
+      console.error("❤️ 좋아요 처리 중 오류:", err);
+    } finally {
+      setIsLiking(false);
+    }
+  };
 
   const handleDelete = async () => {
-    if (window.confirm("정말 이 도서를 삭제하시겠습니까?")) {
-      await deleteBook(id);
-      alert("삭제되었습니다.");
+    try {
+      const response = await fetch(`http://localhost:3000/books/${id}`, { method: 'DELETE' });
+      if (!response.ok) throw new Error("삭제 실패");
       navigate('/');
+    } catch (err) {
+      console.error("🗑️ 삭제 중 오류 발생:", err);
+    }
+  };
+
+  const handleGoBack = async () => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 200)); 
+      navigate('/'); 
+    } catch (err) {
+      console.error("목록 이동 중 오류 발생:", err);
     }
   };
 
@@ -49,23 +95,23 @@ const { id } = useParams();
       <BackButton onClick={handleGoBack} />
       <div className="main-layout">
         <div className="left-section">
-          <img src={book.coverImageUrl || "https://placehold.co/200x280"} alt="표지" className="book-cover-img" />
+          <img src={book.coverImageUrl} alt="책 표지" className="book-cover-img" />
           <AIButton onClick={handleAIGenerate} />
-          <button onClick={handleDelete} className="delete-btn">🗑️ 삭제</button>
+          <ShareButton />
+          <DeleteButton onDelete={handleDelete} />
+
         </div>
         
         <div className="right-section">
           <h1 className="book-title">📖 {book.title}</h1>
           <p className="book-author">👤 저자: {book.author}</p>
-          <div className="book-meta">
-            <p>📂 장르: {book.genre || "미분류"}</p>
-            <p>🏢 출판사: {book.publisher || "정보 없음"}</p>
-            <p>📚 총서사항: {book.seriesInfo || "없음"}</p>
-        </div>
-     
+          {book.genre && <p className="book-meta">🗂 장르: {book.genre}</p>}
+          {book.publisher && <p className="book-meta">🏢 출판사: {book.publisher}</p>}
+          {book.seriesInfo && <p className="book-meta">📚 총서사항: {book.seriesInfo}</p>}
+
           <div className="badge-row">
-            <span className="badge">📅 출판일: {book.publicationDt || "정보 없음"}</span>
-            <LikeButton likes={book.likes} onClick={handleLike} />
+            <span className="badge-blue">📅 출판일: {book.publicationDt || "정보 없음"}</span>
+            <LikesButton likes={likes} onClick={handleLike} isLiking={isLiking} liked={liked} />
           </div>
      
           <div className="dates">
@@ -76,7 +122,9 @@ const { id } = useParams();
           <hr className="divider" />
      
           <p className="content-label">📋 도서 내용</p>
-          <p className="book-content">{book.content}</p>
+          <div className="book-content-box">
+            <p className="book-content">{book.content}</p>
+          </div>
         </div>
       </div>
     </div>

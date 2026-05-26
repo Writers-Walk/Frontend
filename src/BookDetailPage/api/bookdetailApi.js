@@ -1,8 +1,8 @@
 
-import api from '../../api/axios';
- 
-export const getBookById = async (id) => {
-  const response = await api.get(`/books/${id}`);
+export const getBooks = async () => {
+  const response = await api.get('/books');
+  //const response = await api.get(`/books/${id}`);
+
   return response.data;
 };
  

@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 const API_URL = 'http://localhost:3000/books';
 
-const useBooks = () => {
+const loadBooks = () => {
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    
-    // 도서 목록 db.json에서 불러오기
+  
     useEffect(()=>{
         const fetchBooks = async () => {
             try{
@@ -28,4 +27,4 @@ const useBooks = () => {
     return {books, loading, error};
 }
 
-export default useBooks;
+export default loadBooks;
