@@ -5,7 +5,7 @@ export const getBooks = async () => {
   return response.data;
 };
 
-export const updateBook = async (id, data) => {
-  const response = await api.patch(`/books/${id}`, data);
+export const updateBook = async (id, book) => {
+  const response = await api.patch(`/books/${id}`, book);
   return response.data;
 };
