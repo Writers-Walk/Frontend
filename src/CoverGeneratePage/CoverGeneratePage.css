@@ -180,10 +180,8 @@
     opacity: 0.9;
 }
 
-.generate-button:disabled,
-.regenerate-button:disabled,
-.save-cover-button:disabled {
-    opacity: 0.6;
+.generate-button:disabled {
+    background-color: #aaaaaa;
     cursor: not-allowed;
 }
 
