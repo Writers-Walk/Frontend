@@ -1,11 +1,19 @@
 .cover-page {
     max-width: 1100px;
+<<<<<<< HEAD
     magin: 0 auto;
+=======
+    margin: 0 auto;
+>>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
     padding: 32px;
 }
 
 .cover-page h1 {
+<<<<<<< HEAD
     margin-botton: 24px;
+=======
+    margin-bottom: 24px;
+>>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
 }
 
 .cover-layout {
@@ -24,7 +32,11 @@
 
 .book-info h2,
 .option-box h2 {
+<<<<<<< HEAD
     margin-botton: 16px;
+=======
+    margin-bottom: 16px;
+>>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
 }
 
 .book-content {
@@ -87,3 +99,28 @@
     margin-bottom: 16px;
 }
 
+<<<<<<< HEAD
+=======
+.button-group {
+    display: flex;
+    gap: 12px;
+}
+
+.button-group button,
+.back-button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #333333;
+    color: white;
+    cursor: pointer;
+}
+
+.back-button {
+    margin-top: 24px;
+}
+
+.error-message {
+    color: red;
+}
+>>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892

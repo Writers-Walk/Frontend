@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+
+>>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
 .header {
   width: 100%;
   border-bottom: 0.5px solid #e5e7eb;
@@ -8,28 +14,71 @@
 }
 
 .header-inner {
+<<<<<<< HEAD
   padding: 0.9rem 1.5rem;
+=======
+  padding: 0.9rem 0rem;
+>>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
 }
 
 .logo {
   display: inline-flex;
+<<<<<<< HEAD
   flex-direction: column;
   gap: 2px;
+=======
+  flex-direction: row;  /* column → row 변경 */
+  align-items: center;
+  gap: 0px;
+>>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
   cursor: pointer;
   user-select: none;
 }
 
+<<<<<<< HEAD
 .logo-title {
   font-size: 16px;
   font-weight: 500;
   color: #1a1a2e;
   letter-spacing: -0.02em;
+=======
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+
+.logo-title {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: #1a1a2e;
+  letter-spacing: -0.03em;
+>>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
   line-height: 1;
 }
 
 .logo-sub {
+<<<<<<< HEAD
   font-size: 11px;
   color: #9ca3af;
   letter-spacing: 0.02em;
   line-height: 1;
+=======
+  font-family: 'Pretendard', sans-serif;
+  font-size: 17px;
+  font-weight: 300;
+  color: #9ca3af;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.logo-image {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  /* 흰 여백 제거 효과 */
+  mix-blend-mode: multiply;  /* 흰 배경을 투명하게 */
+>>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
 }
