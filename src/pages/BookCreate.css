@@ -13,6 +13,7 @@
 h2 {
   max-width: 1050px;
   margin: 0 auto 20px;
+  margin-bottom: 16px;
 
   font-size: 28px;
   font-weight: 700;
@@ -20,7 +21,7 @@ h2 {
   color: #1B3A5C;
 }
 
-/* ===== 상단 도서 정보 박스 ===== */
+/* ===== 상단 상세 정보 박스 ===== */
 
 .book-info-box {
   max-width: 1050px;
@@ -30,6 +31,7 @@ h2 {
   border: 1px solid #ddd;
   border-radius: 12px;
   background: white;
+  box-sizing: border-box;
 
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
@@ -102,7 +104,7 @@ h2 {
   width: 160px !important;
 }
 
-/* ===== 상세정보 ===== */
+/* ===== 도서 내용 ===== */
 
 .detail-section {
   max-width: 1050px;
@@ -120,16 +122,20 @@ h2 {
   width: 100%;
   min-height: 320px;
 
-  padding: 18px 20px;
+  padding: 36px 48px;
 
   border: 1px solid #d1d5db;
-  border-radius: 10px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
 
   font-size: 16px;
   line-height: 1.6;
 
   resize: vertical;
 }
+
 
 /* ===== placeholder ===== */
 
