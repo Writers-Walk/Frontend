@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import getBookDetail from './api/getBookDetail';
 import generateBookCover from './api/generateBookCover';
 import saveCoverImage from './api/saveCoverImage';
+import compressImage from './api/compressImage';
 
 import './CoverGeneratePage.css';
 
@@ -139,8 +140,11 @@ function CoverGeneratePage() {
         try {
             const finalPrompt = makePrompt();
 
+            // 저장용으로 이미지 압축
+            const compressedImage = await compressImage(generatedImage, 300, 0.6);
+
             await saveCoverImage(id, {
-                coverImageUrl: generatedImage,
+                coverImageUrl: compressedImage,
                 coverPrompt: finalPrompt,
                 imageModel,
                 resolution,
@@ -149,7 +153,7 @@ function CoverGeneratePage() {
             });
 
             alert("🎉 표지 이미지가 db.json에 정상 저장되었습니다.");
-            navigate(`/books/${id}`);
+            navigate(`/book/${id}`);
         } catch (error) {
             console.error(error);
             alert("이미지 저장 중 오류가 발생했습니다.");
@@ -268,10 +272,10 @@ function CoverGeneratePage() {
 
             <button
                 className='back-button'
-                onClick={() => navigate(`/books/${id}`)}
+                onClick={() => navigate(`/book/${id}`)}
                 style={{ marginTop: '20px', padding: '8px 16px', cursor: 'pointer' }}
             >
-                상세 페이지로 돌아가기
+            상세 페이지로 돌아가기
             </button>
         </div>
     );
