@@ -177,8 +177,8 @@ function CoverGeneratePage() {
             });
             
 
-            alert("🎉 [테스트 성공] 더미 표지 이미지가 db.json에 정상 기록되었습니다!");
-            navigate(`/books/${id}`); // 저장 완료 후 원본 상세 페이지로 복귀
+            alert("🎉 표지 이미지가 db.json에 정상 기록되었습니다!");
+            navigate(`/book/${id}`); // 저장 완료 후 원본 상세 페이지로 복귀
         } catch (error) {
             console.error(error);
             setError(error.message || "이미지 저장 중 오류가 발생했습니다.");
