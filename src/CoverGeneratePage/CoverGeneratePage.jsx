@@ -1,36 +1,23 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-
-import getBookDetail from './api/getBookDetail';
-import generateBookCover from './api/generateBookCover';
-import saveCoverImage from './api/saveCoverImage';
-import compressImage from './api/compressImage';
-
-import './CoverGeneratePage.css';
+import { useNavigate, useParams } from 'react-router-dom'; // useNavigate: 페이지 이동을 위한 훅, useParams: URL 파라미터를 가져오기 위한 훅
+//import './CoverGeneratePage.css';
 
 function CoverGeneratePage() {
-    const { id } = useParams();
-    const navigate = useNavigate();
+    const { id } = useParams(); // URL에서 id 파라미터를 가져옴
+    const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수
 
-    const [book, setBook] = useState(null);
+    const [book, setBook] = useState(null); // 책 정보를 저장
 
-    // 이미지 생성 옵션 상태들
-    const [imageModel, setImageModel] = useState('gpt-image-2'); 
-    const [resolution, setResolution] = useState('1024x1024'); 
-    const [quality, setQuality] = useState('medium'); 
+    const [apiKey, setApiKey] = useState(''); // 표지 생성 API 호출 (더미 버전에선 필수 해제)
+    const [imageModel, setImageModel] = useState('gpt-image-2'); // 생성 모델 선택
+    const [resolution, setResolution] = useState('1024x1024'); // 해상도 선택
+    const [quality, setQuality] = useState('medium'); // 품질 선택
 
-    // 🌟 프롬프트 관련 상태 일원화 및 동기화
-    const [userPrompt, setUserPrompt] = useState(''); 
-    const [generatedImage, setGeneratedImage] = useState(''); 
+    const [prompt, setPrompt] = useState(''); // 이미지 생성 프롬프트
+    const [generatedImage, setGeneratedImage] = useState(''); // 생성 이미지 결과 미리보기
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-
-    // 🔒 브라우저 LocalStorage에서 API 키 로드
-    const DEFAULT_API_KEY = import.meta.env.VITE_API_KEY;
-    const [apiKey, setApiKey] = useState(() => {
-        return localStorage.getItem('openai_api_key') || '';
-    });
 
     // 1. 도서 정보 불러오기
     useEffect(() => {
@@ -51,7 +38,7 @@ function CoverGeneratePage() {
         }
 
         fetchBook();
-    }, [id]);
+    }, [id])
 
     // 2. 프롬프트 생성
     function makePrompt() {
@@ -136,10 +123,9 @@ function CoverGeneratePage() {
             alert("🎉 표지 이미지가 성공적으로 생성되었습니다!");
         } catch(error) {
             console.error(error);
-            setError(error.message || "이미지 생성에 실패했습니다.");
-            alert(error.message || "이미지 생성에 실패했습니다.");
+            setError("이미지 생성에 실패했습니다.");
         } finally {
-            setLoading(false); 
+            setLoading(false); // 로딩 상태 확실하게 종료
         }
     };
 
@@ -175,8 +161,8 @@ function CoverGeneratePage() {
             });
             
 
-            alert("🎉 표지 이미지가 db.json에 정상 저장되었습니다.");
-            navigate(`/book/${id}`);
+            alert("🎉 [테스트 성공] 더미 표지 이미지가 db.json에 정상 기록되었습니다!");
+            navigate(`/books/${id}`); // 저장 완료 후 원본 상세 페이지로 복귀
         } catch (error) {
             console.error(error);
             setError(error.message || "이미지 저장 중 오류가 발생했습니다.");
@@ -203,10 +189,20 @@ function CoverGeneratePage() {
             <div className="cover-layout">
                 <section className="book-info">
                     <h2>도서 정보</h2>
-                    <p><strong>제목:</strong> {book.title}</p>
-                    <p><strong>저자:</strong> {book.author}</p>
-                    <p><strong>장르:</strong> {book.genre}</p>
-                    <div className='book-content'>{book.content}</div>
+
+                    <p>
+                        <strong>제목:</strong> {book.title}
+                    </p>
+                    <p>
+                        <strong>저자:</strong> {book.author}
+                    </p>
+                    <p>
+                        <strong>장르:</strong> {book.genre}
+                    </p>
+
+                    <div className='book-content'>
+                        {book.content}
+                    </div>
                 </section>
 
                 <section className='option-box'>
@@ -275,13 +271,11 @@ function CoverGeneratePage() {
                     </div>
 
                     <div className='form-group'>
-                        <label>요구사항 (프롬프트)</label>
+                        <label>요구사항</label>
                         <textarea 
-                            value={userPrompt}
-                            onChange={(e) => setUserPrompt(e.target.value)}
-                            placeholder='원하는 표지 스타일을 입력하세요.'
-                            rows="10"
-                            style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+                            value={prompt}
+                            onChange={(e) => setPrompt(e.target.value)}
+                            rows="8"
                         />
                     </div>
 
@@ -290,13 +284,14 @@ function CoverGeneratePage() {
                         onClick={handleGenerateImage}
                         disabled={loading}
                     >
-                        {loading ? "이미지 생성 중..." : "AI 표지 생성하기"}
+                        {loading ? "가짜 이미지 빌드 중(2초)..." : "AI 표지 생성하기 (더미)"}
                     </button>
                 </section>
             </div>
 
             <section className='result-box'>
                 <h2>생성 결과</h2>
+
                 {generatedImage ? (
                     <div className='result-content'>
                         <img 
@@ -324,7 +319,7 @@ function CoverGeneratePage() {
                 className='back-button'
                 onClick={() => navigate(`/book/${id}`)}
             >
-            상세 페이지로 돌아가기
+                상세 페이지로 돌아가기
             </button>
         </div>
     );

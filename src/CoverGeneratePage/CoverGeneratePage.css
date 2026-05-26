@@ -1,11 +1,11 @@
 .cover-page {
     max-width: 1100px;
-    margin: 0 auto;
+    magin: 0 auto;
     padding: 32px;
 }
 
 .cover-page h1 {
-    margin-bottom: 24px;
+    margin-botton: 24px;
 }
 
 .cover-layout {
@@ -34,7 +34,7 @@
 
 .book-info h2,
 .option-box h2 {
-    margin-bottom: 16px;
+    margin-botton: 16px;
 }
 
 .book-content {
