@@ -9,27 +9,28 @@ async function generateBookCover({
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
+            Authorization: `Bearer ${apiKey.trim()}`,
         },
         body: JSON.stringify({
             model: imageModel,
-            prompt: prompt,
+            prompt,
             n: 1,
             size: resolution,
-            quality: quality,
+            quality,
             output_format: "png",
         }),
     });
 
     if(!res.ok){
         const errorData = await res.json().catch(() => null);
-        console.error("OpenAI API Error: ", errorData);
-        throw new Error("이미지 생성에 실패했습니다.");
+        throw new Error(
+            errorData?.error?.message || "이미지 생성에 실패했습니다."
+        );
     }
 
     const data = await res.json();
 
-    const b54Json = data.data[0].b64_json;
+    const b64Json = data.data[0].b64_json;
     const imageUrl = `data:image/png;base64, ${b64Json}`;
 
     return imageUrl;
