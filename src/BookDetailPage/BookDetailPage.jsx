@@ -3,53 +3,79 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './BookDetailPage.css'; 
 import BackButton from './BackButton';
 import AIButton from './AIButton';
+import ShareButton from './ShareButton';
+import LikesButton from './LikesButton';
+import DeleteButton from './DeleteButton';
 
 const formatDate = (dateString) => {
   if (!dateString) return "날짜 없음";
   return dateString.split('T')[0];
 };
 
-
-
 const BookDetailPage = () => {
-  //const [book, setBook] = useState(null);
-  const [book, setBook] = useState({
-  id: 1,
-  title: '클린 코드',
-  author: '로버트 C. 마틴',
-  publicationDt: '2013.12.24',
-  createdAt: '2024-01-15T00:00:00',
-  updatedAt: '2024-03-01T00:00:00',
-  coverImageUrl: 'https://placehold.co/200x280',
-  content: '좋은 코드를 작성하는 방법에 대한 책입니다.',
-});
+  const [book, setBook] = useState(null);
+  const [likes, setLikes] = useState(0);
+  const [isLiking, setIsLiking] = useState(false);
+  const [liked, setLiked] = useState(false);
   const navigate = useNavigate(); 
-  
   const { id } = useParams(); 
 
   useEffect(() => {
     const getBookData = async () => {
       try {
         const response = await fetch(`http://localhost:3000/books/${id}`);
-        if (!response.ok) {
-          throw new Error("서버에서 데이터를 가져오지 못했습니다.");
-        }
+        if (!response.ok) throw new Error("서버에서 데이터를 가져오지 못했습니다.");
         const data = await response.json();
         setBook(data);
+        setLikes(data.likes ?? 0);
+        const likedBooks = JSON.parse(localStorage.getItem('likedBooks') || '[]');
+        setLiked(likedBooks.includes(String(id)));
       } catch (err) {
-        console.error("🚨 도서 데이터 로딩 중 에러 발생:", error);
+        console.error("🚨 도서 데이터 로딩 중 에러 발생:", err);
       }
     };
-    
     getBookData();
   }, [id]); 
+
+  const handleLike = async () => {
+    if (isLiking || liked) return;
+    setIsLiking(true);
+    const newLikes = likes + 1;
+    try {
+      const response = await fetch(`http://localhost:3000/books/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ likes: newLikes }),
+      });
+      if (!response.ok) throw new Error("좋아요 업데이트 실패");
+      const likedBooks = JSON.parse(localStorage.getItem('likedBooks') || '[]');
+      likedBooks.push(String(id));
+      localStorage.setItem('likedBooks', JSON.stringify(likedBooks));
+      setLikes(newLikes);
+      setLiked(true);
+    } catch (err) {
+      console.error("❤️ 좋아요 처리 중 오류:", err);
+    } finally {
+      setIsLiking(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/books/${id}`, { method: 'DELETE' });
+      if (!response.ok) throw new Error("삭제 실패");
+      navigate('/');
+    } catch (err) {
+      console.error("🗑️ 삭제 중 오류 발생:", err);
+    }
+  };
 
   const handleGoBack = async () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 200)); 
       navigate('/'); 
     } catch (err) {
-      console.error("목록 이동 중 오류 발생:", error);
+      console.error("목록 이동 중 오류 발생:", err);
     }
   };
 
@@ -58,15 +84,13 @@ const BookDetailPage = () => {
       await new Promise((resolve) => setTimeout(resolve, 300));
       navigate(`/cover-generate/${book.id}`); 
     } catch (err) {
-      console.error("AI 생성 페이지 이동 중 오류 발생:", error);
+      console.error("AI 생성 페이지 이동 중 오류 발생:", err);
     }
   };
 
-  // if (!book) {
-  //   return <div style={{ padding: '20px' }}>db.json에서 데이터를 안전하게 불러오는 중...</div>;
-  // }
-
-  const currentImageUrl = book.coverImageUrl;
+  if (!book) {
+    return <div style={{ padding: '20px' }}>db.json에서 데이터를 안전하게 불러오는 중...</div>;
+  }
 
   return (
     <div className="detail-container">
@@ -74,27 +98,36 @@ const BookDetailPage = () => {
 
       <div className="main-layout">
         <div className="left-section">
-          <img src={currentImageUrl} alt="책 표지 이미지 공간" className="book-cover-img" />
+          <img src={book.coverImageUrl} alt="책 표지" className="book-cover-img" />
           <AIButton onClick={handleAIGenerate} />
+          <ShareButton />
+          <DeleteButton onDelete={handleDelete} />
+
         </div>
         
         <div className="right-section">
           <h1 className="book-title">📖 {book.title}</h1>
           <p className="book-author">👤 저자: {book.author}</p>
-     
+          {book.genre && <p className="book-meta">🗂 장르: {book.genre}</p>}
+          {book.publisher && <p className="book-meta">🏢 출판사: {book.publisher}</p>}
+          {book.seriesInfo && <p className="book-meta">📚 총서사항: {book.seriesInfo}</p>}
+
           <div className="badge-row">
-            <span className="badge">📅 출판일: {book.publicationDt || "정보 없음"}</span>
+            <span className="badge-blue">📅 출판일: {book.publicationDt || "정보 없음"}</span>
+            <LikesButton likes={likes} onClick={handleLike} isLiking={isLiking} liked={liked} />
           </div>
      
           <div className="dates">
-            <span>🗓 등록일: {formatDate(book.createdAt)}</span>
-            <span>✏️ 수정일: {formatDate(book.updatedAt)}</span>
+            <span>🗓 등록: {formatDate(book.createdAt)}</span>
+            <span>✏️ 수정: {formatDate(book.updatedAt)}</span>
           </div>
      
           <hr className="divider" />
      
           <p className="content-label">📋 도서 내용</p>
-          <p className="book-content">{book.content}</p>
+          <div className="book-content-box">
+            <p className="book-content">{book.content}</p>
+          </div>
         </div>
       </div>
     </div>

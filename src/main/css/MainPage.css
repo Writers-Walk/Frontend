@@ -19,45 +19,6 @@
   color: #1a1a2e;
 }
 
-<<<<<<< HEAD
-=======
-.toolbar-right {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.search-input {
-  width: 220px;
-  height: 36px;
-  padding: 0 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.search-input:focus {
-  border-color: #6366f1;
-}
-
-.sort-select {
-  height: 36px;
-  padding: 0 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 14px;
-  background: #fff;
-  cursor: pointer;
-  outline: none;
-}
-
-.sort-select:focus {
-  border-color: #6366f1;
-}
-
->>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
 .main-page__empty {
   color: #999;
   text-align: center;

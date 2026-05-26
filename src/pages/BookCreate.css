@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* ===== 전체 페이지 ====*/
 .cover-placeholder {
   width: 160px;
@@ -112,59 +111,11 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-=======
-* {
-  font-family: Pretendard, sans-serif;
-}
-
-/* ===== 도서 등록 페이지 전체 ===== */
-
-.book-create-page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 32px 40px;
-}
-
-h2 {
-  max-width: 1050px;
-  margin: 0 auto 20px;
-  margin-bottom: 16px;
-
-  font-size: 28px;
-  font-weight: 700;
-
-  color: #1B3A5C;
-}
-
-/* ===== 상단 상세 정보 박스 ===== */
-
-.book-info-box {
-  max-width: 1050px;
-  margin: 0 auto 48px;
-  padding: 36px 48px;
-
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  background: white;
-  box-sizing: border-box;
-
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-/* ===== 입력 영역 ===== */
-
-.info-section {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
->>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
 }
 
 .info-row {
   display: flex;
   align-items: center;
-<<<<<<< HEAD
   gap: 12px;
 }
 
@@ -196,159 +147,31 @@ h2 {
 
   height: 300px;
   padding: 14px;
-=======
-  gap: 24px;
-}
-
-.info-row label {
-  width: 120px;
-  flex-shrink: 0;
-
-  font-weight: 700;
-  color: #1B3A5C;
-}
-
-/* ===== 기본 input ===== */
-
-.info-row input {
-  width: 360px;
-
-  padding: 14px 16px;
-
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-
-  font-size: 16px;
-}
-
-/* ===== 제목 input ===== */
-
-.title-input {
-  width: 580px !important;
-
-  font-size: 20px;
-  font-weight: 600;
-
-  font-family: Pretendard, sans-serif;
-
-  padding: 14px 16px;
-
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-}
-
-/* ===== 발행사항: 출판사 + 발행년도 ===== */
-
-.publish-group {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.publish-group input:first-child {
-  width: 260px;
-}
-
-.year-input {
-  width: 160px !important;
-}
-
-/* ===== 도서 내용 ===== */
-
-.detail-section {
-  max-width: 1050px;
-  margin: 0 auto;
-}
-
-.detail-section h2 {
-  margin-bottom: 16px;
-
-  color: #1B3A5C;
-  font-size: 28px;
-}
-
-.detail-section textarea {
-  width: 100%;
-  min-height: 320px;
-
-  padding: 36px 48px;
-
-  border: 1px solid #d1d5db;
-  border-radius: 12px;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  box-sizing: border-box;
-
-  font-size: 16px;
-  line-height: 1.6;
->>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
 
   resize: vertical;
 }
 
-<<<<<<< HEAD
 /* ===== 저장 버튼 ===== */
 .save-button {
   width: 100%;
   margin-top: 30px;
 
   padding: 16px;
-=======
-
-/* ===== placeholder ===== */
-
-input::placeholder,
-textarea::placeholder {
-  color: #9ca3af;
-}
-
-/* ===== focus ===== */
-
-input:focus,
-textarea:focus {
-  outline: none;
-  border-color: #1B3A5C;
-}
-
-/* ===== 저장 버튼 ===== */
-
-.save-button {
-  display: block;
-
-  max-width: 1050px;
-  width: 100%;
-
-  margin: 36px auto 0;
-  padding: 18px;
->>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
 
   border: none;
   border-radius: 12px;
 
-<<<<<<< HEAD
   background-color: #3CC8BE;
-=======
-  background-color:  #1B3A5C;
->>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
   color: white;
 
   font-size: 18px;
   font-weight: bold;
 
   cursor: pointer;
-<<<<<<< HEAD
 
   transition: background-color 0.2s ease;
 }
 
 .save-button:hover {
   background-color: #2bb3aa;
-=======
-  transition: 0.2s;
-}
-
-.save-button:hover {
-  background-color: #1B3A5C;
-  transform: translateY(-1px);
->>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
 }

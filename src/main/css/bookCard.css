@@ -30,24 +30,10 @@
 }
 
 .book-card__title {
-<<<<<<< HEAD
   margin: 10px 0 4px;
   font-size: 16px;
 }
 
-=======
-  margin: 0;
-  font-size: 16px;
-}
-
-.book-card__title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 4px 0 0;
-}
-
->>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
 .book-card__author {
   margin: 0 0 4px;
   color: #666;
@@ -59,12 +45,3 @@
   font-size: 12px;
   color: #999;
 }
-<<<<<<< HEAD
-=======
-
-.book-card__likes {
-  font-size: 12px;
-  color: #e05a5a;
-  white-space: nowrap;
-}
->>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892

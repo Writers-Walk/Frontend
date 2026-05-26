@@ -145,11 +145,7 @@ function BookCreate() {
         </div>
 
         <div className="detail-section">
-<<<<<<< HEAD
           <h2>상세정보</h2>
-=======
-          <h2>도서 내용</h2>
->>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
 
           <textarea
             name="content"
@@ -167,12 +163,4 @@ function BookCreate() {
   );
 }
 
-<<<<<<< HEAD
 export default BookCreate;
-=======
-export default BookCreate;
-
-
-
-
->>>>>>> d31b386632233768d0a688c3d898a3ca3da3c892
