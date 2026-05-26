@@ -6,7 +6,8 @@ const loadBooks = () => {
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-  
+    
+    // 도서 목록 db.json에서 불러오기
     useEffect(()=>{
         const fetchBooks = async () => {
             try{

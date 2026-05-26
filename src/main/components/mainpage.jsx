@@ -13,8 +13,7 @@ const MainPage = () => {
 
   
   const handleClickBook = (book) => {
-    alert(`${book.title} 상세 페이지로 이동`);
-
+    navigate(`/book/${book.id}`);
   };
 
   if (loading) return <p>불러오는 중...</p>;
