@@ -10,7 +10,7 @@ function BookCreate() {
     title: "", // 도서 제목
     author: "", // 저자
     publisher: "", // 출판사
-    publishedYear: "", //발행년도
+    publishedDt: "", //발행년도
     seriesInfo: "", // 총서사항(몇권인지~ 시리즈 인지~)
     isbn: "", // ISBN
     genre: "", // 장르
@@ -84,6 +84,7 @@ function BookCreate() {
                   value={book.title}
                   onChange={handleChange}
                   className="title-input"
+                  maxLength={30}
                 />
               </div>
 
@@ -95,6 +96,7 @@ function BookCreate() {
                   placeholder="저자 입력"
                   value={book.author}
                   onChange={handleChange}
+                  maxLength={30}
                 />
               </div>
 
@@ -106,6 +108,7 @@ function BookCreate() {
                   placeholder="출판사 입력"
                   value={book.publisher}
                   onChange={handleChange}
+                  maxLength={30}
                 />
                 <input
                   type="text"
@@ -113,6 +116,7 @@ function BookCreate() {
                   placeholder="발행년도"
                   value={book.publicationDt}
                   onChange={handleChange}
+                  maxLength={30}
                 />
               </div>
 
@@ -124,6 +128,7 @@ function BookCreate() {
                   placeholder="총서사항 입력"
                   value={book.seriesInfo}
                   onChange={handleChange}
+                  maxLength={10}
                 />
               </div>
 
@@ -135,6 +140,7 @@ function BookCreate() {
                   placeholder="장르 입력"
                   value={book.genre}
                   onChange={handleChange}
+                  maxLength={10}
                 />
               </div>
             </div>
@@ -149,7 +155,11 @@ function BookCreate() {
             placeholder="도서 상세 내용을 입력하세요"
             value={book.content}
             onChange={handleChange}
+            maxLength={3000}
           />
+          <div className="text-count">
+            {book.content.length} / 3000
+          </div>
         </div>
 
         <button type="submit" className="save-button">

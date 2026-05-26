@@ -2,6 +2,13 @@
   font-family: Pretendard, sans-serif;
 }
 
+.text-count {
+  margin-top: 8px;
+  text-align: right;
+  color: #666;
+  font-size: 14px;
+}
+
 /* ===== 도서 등록 페이지 전체 ===== */
 
 .book-create-page {
