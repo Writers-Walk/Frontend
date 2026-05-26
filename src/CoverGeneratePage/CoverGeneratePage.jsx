@@ -26,25 +26,22 @@ function CoverGeneratePage() {
     const [error, setError] = useState('');
 
     // 🔒 브라우저 LocalStorage에서 API 키 로드
+    const DEFAULT_API_KEY = import.meta.env.VITE_API_KEY;
     const [apiKey, setApiKey] = useState(() => {
-        return localStorage.getItem('openai_api_key') || '';
+        return localStorage.getItem('openai_api_key') || DEFAULT_API_KEY || '';
     });
-
+    
 
     // 1. 도서 상세 정보 불러오기
     useEffect(() => {
         async function loadBookDetail() {
             try {
-                console.log("현재 id: ", id);
-
                 const data = await getBookDetail(id);
 
-                console.log("불러온 도서 데이터: ", data);
-                
                 setBook(data);
 
-                if (data.coverImage){
-                    setGeneratedImage(data.coverImage);
+                if (data.coverImageUrl){
+                    setGeneratedImage(data.coverImageUrl);
                 }
 
             } catch (error) {
@@ -96,6 +93,8 @@ function CoverGeneratePage() {
 
     // 2-3. [실제 호출] 인공지능 표지 생성 함수 (중간 서버 규격 최적화)
     const handleGenerateImage = async () => {
+        const selectedApiKey = apiKey.trim() || DEFAULT_API_KEY;
+
         if (!apiKey.trim()) {
             alert("OpenAI API Key를 입력하거나 저장된 키를 확인해 주세요!");
             return;
@@ -108,7 +107,7 @@ function CoverGeneratePage() {
             const finalPrompt = makePrompt();
 
             const imageUrl = await generateBookCover({
-                apiKey,
+                apiKey: selectedApiKey,
                 prompt: finalPrompt,
                 imageModel,
                 resolution,
@@ -141,7 +140,7 @@ function CoverGeneratePage() {
             const finalPrompt = makePrompt();
 
             await saveCoverImage(id, {
-                coverImage: generatedImage,
+                coverImageUrl: generatedImage,
                 coverPrompt: finalPrompt,
                 imageModel,
                 resolution,
@@ -169,7 +168,7 @@ function CoverGeneratePage() {
     
     return (
         <div className="cover-page">
-            <h1>{book.coverImage ? "도서 표지 이미지 수정 및 재생성" : "도서 표지 이미지 신규 생성"}</h1>
+            <h1>{book.coverImageUrl ? "도서 표지 이미지 수정 및 재생성" : "도서 표지 이미지 신규 생성"}</h1>
 
             <div className="cover-layout">
                 <section className="book-info">
@@ -190,7 +189,7 @@ function CoverGeneratePage() {
                                 type="password"
                                 value={apiKey}
                                 onChange={(e) => setApiKey(e.target.value)}
-                                placeholder='sk-... API Key를 입력하세요'
+                                placeholder="sk-... API Key를 입력하세요"
                                 style={{ flex: 1, padding: '6px', borderRadius: '4px', border: '1px solid #ccc' }}
                             />
                             <button type="button" onClick={handleSaveApiKey} style={{ padding: '4px 12px', whiteSpace: 'nowrap', cursor: 'pointer' }}>저장</button>
