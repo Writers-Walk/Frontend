@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import RegisterButton from './RegisterButton';
 import BookCard from "./bookCard";
-import loadBooks from '../api/mainapi';
+import useBooks from '../api/mainapi';
 import '../css/MainPage.css';
 import { useNavigate } from 'react-router-dom';
 

@@ -13,7 +13,7 @@ export function App() {
     {
       element: <Layout />,
       children: [
-        { path: "/", element: <mainpage /> },
+        { path: "/", element: <MainPage /> },
         { path: "/cover-generate/:id", element: <CoverGeneratePage /> },
         { path: "/book-create", element: <BookCreate /> },
         { path: "/book/:id", element: <BookDetailPage /> },
