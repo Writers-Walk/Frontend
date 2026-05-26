@@ -1,32 +1,29 @@
-import { useState } from "react";
-import BookDetail from "./pages/BookDetail";
+import './App.css';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-const MainPage = () => {
-  const [selectedBook, setSelectedBook] = useState(null);
+import Layout from './Layout/components/Layout';
 
-  // 도서 카드 클릭 시
-  const handleBookClick = (book) => {
-    setSelectedBook(book);
-  };
+import MainPage from './main/components/mainpage';
+import CoverGeneratePage from './CoverGeneratePage/CoverGeneratePage';
+import BookDetailPage from './BookDetailPage/BookDetail';
+import BookCreate from './pages/BookCreate';
 
-  // 상세 페이지가 열린 상태면 BookDetail 렌더
-  if (selectedBook) {
-    return (
-      <BookDetail
-        book={selectedBook}
-        onBack={() => setSelectedBook(null)}  // 목록 버튼 클릭 시 다시 메인으로
-      />
-    );
-  }
 
-  // 도서 목록 (메인 페이지 팀이 만든 카드들)
-  return (
-    <div>
-      {books.map((book) => (
-        <div key={book.id} onClick={() => handleBookClick(book)}>
-          {book.title}
-        </div>
-      ))}
-    </div>
-  );
-};
+export function App() {
+  const router = createBrowserRouter([
+    {
+      element: <Layout />,
+      children: [
+        { path: "/", element: <MainPage /> },
+        { path: "/cover-generate/:id", element: <CoverGeneratePage /> },
+        { path: "/book-create", element: <BookCreate /> },
+         { path: "/book/:id", element: <BookDetailPage /> },
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
+}
+
+export default App;
+

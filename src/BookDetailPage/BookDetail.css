@@ -1,0 +1,101 @@
+.delete-btn {
+  position: absolute;   
+  top: 20px;           
+  right: 20px;          
+  background-color: #fff5f5;
+  border: 2px solid #e03131;
+  color: #e03131;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.delete-btn:hover {
+  background-color: #e03131;
+  color: #fff;
+}
+
+.delete-btn:active {
+  transform: scale(0.95);
+}
+
+.confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.confirm-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 40px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.confirm-text {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+.confirm-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.confirm-ok {
+  background-color: #e03131;
+  color: #fff;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.confirm-ok:hover {
+  background-color: #c92a2a;
+}
+
+.confirm-cancel {
+  background-color: #f1f3f5;
+  color: #555;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.confirm-cancel:hover {
+  background-color: #dee2e6;
+}
+
+.detail-container {
+  position: relative;
+}
+
+.like-btn.liked {
+  background-color: #ffe0e6;
+  border-color: #ff4d6d;
+  color: #ff4d6d;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
