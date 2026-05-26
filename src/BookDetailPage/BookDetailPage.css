@@ -121,3 +121,39 @@
   margin: 0;
   white-space: pre-wrap; 
 }
+
+.delete-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  background-color: #dc3545; /* 빨간색 버튼 */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.delete-btn:hover {
+  background-color: #bd2130;
+}
+
+.likes-badge {
+  background-color: #fff0f6 !important;
+  color: #c41d7f !important;
+  margin-left: 10px;
+}
+
+.like-btn {
+  margin-left: 10px;
+  padding: 6px 12px;
+  background-color: #fff0f6;
+  border: 1px solid #ffadd2;
+  border-radius: 20px;
+  color: #c41d7f;
+  cursor: pointer;
+  font-weight: bold;
+}
+.like-btn:hover {
+  background-color: #ffdae5;
+}
