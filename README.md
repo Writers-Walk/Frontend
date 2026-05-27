@@ -247,8 +247,8 @@ npm run dev
   <img width="1200" alt="등록" src="https://github.com/user-attachments/assets/27a36a25-6783-417b-981b-107652e6454f" />
   <br/><br/>
 
-  <img width="580" alt="이미지생성1" src="https://github.com/user-attachments/assets/f44803bc-f87e-4a00-830a-3d470d606e8c" />
-  <img width="580" alt="이미지생성2" src="https://github.com/user-attachments/assets/8a6d7330-bf89-4281-9362-97929af4eb03" />
+  <img width="1200" alt="이미지생성1" src="https://github.com/user-attachments/assets/f44803bc-f87e-4a00-830a-3d470d606e8c" />
+  <img width="1200" alt="이미지생성2" src="https://github.com/user-attachments/assets/8a6d7330-bf89-4281-9362-97929af4eb03" />
   <br/><br/>
 
   <img width="1200" alt="디테일" src="https://github.com/user-attachments/assets/f483c4f7-25ab-46ba-98d4-6deec1cd7d97" />
