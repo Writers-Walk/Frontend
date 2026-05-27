@@ -3,17 +3,16 @@
 
 /* ── 전역 토큰 ───────────────────────────────────────── */
 :root {
-  --paper:      #faf7f2;
-  --ink:        #1c1917;
-  --ink-muted:  #78716c;
-  --sepia:      #a8896a;
-  --rule:       #e8e0d5;
+  --paper:      #ffffff;
+  --ink:        #1a1a2e;
+  --ink-muted:  #6b7280;
+  --sepia:      #1a1a2e;
+  --rule:       #e5e7eb;
   --header-h:   72px;
 }
 
-/* 전체 배경을 종이 톤으로 */
 body {
-  background: var(--paper);
+  background: #f9fafb;
   margin: 0;
 }
 
@@ -25,7 +24,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  border-top: 2.5px solid var(--sepia);
+  border-top: 3px solid #1a1a2e;
   border-bottom: 1px solid var(--rule);
 }
 
