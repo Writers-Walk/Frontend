@@ -108,6 +108,7 @@ src/
 
 ```bash
 npm install
+npm install react-router-dom
 ```
 
 ### 환경 변수 설정
