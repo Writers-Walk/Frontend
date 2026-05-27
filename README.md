@@ -238,19 +238,20 @@ npm run dev
 
 <div align="center">
 
-  <img width="1874" height="733" alt="Image" src="https://github.com/user-attachments/assets/70f6b718-d9b6-4bff-aa51-0d619b0fab77" />
+  <img width="1200" alt="메인1" src="https://github.com/user-attachments/assets/70f6b718-d9b6-4bff-aa51-0d619b0fab77" />
   <br/><br/>
 
-  <img width="1836" height="733" alt="Image" src="https://github.com/user-attachments/assets/7cbcaef2-f390-4176-84ee-78b32be8ccc9" />
-  <br/><br/>
-  <img width="800" height="570" alt="Image" src="https://github.com/user-attachments/assets/27a36a25-6783-417b-981b-107652e6454f" />
+  <img width="1200" alt="메인2" src="https://github.com/user-attachments/assets/7cbcaef2-f390-4176-84ee-78b32be8ccc9" />
   <br/><br/>
 
-  <img width="48%" height="900" alt="Image" src="https://github.com/user-attachments/assets/f44803bc-f87e-4a00-830a-3d470d606e8c" />
-  <img width="48%" height="900" alt="Image" src="https://github.com/user-attachments/assets/8a6d7330-bf89-4281-9362-97929af4eb03" />
+  <img width="1200" alt="등록" src="https://github.com/user-attachments/assets/27a36a25-6783-417b-981b-107652e6454f" />
   <br/><br/>
 
-  <img width="1047" height="733" alt="Image" src="https://github.com/user-attachments/assets/f483c4f7-25ab-46ba-98d4-6deec1cd7d97" />
+  <img width="580" alt="이미지생성1" src="https://github.com/user-attachments/assets/f44803bc-f87e-4a00-830a-3d470d606e8c" />
+  <img width="580" alt="이미지생성2" src="https://github.com/user-attachments/assets/8a6d7330-bf89-4281-9362-97929af4eb03" />
+  <br/><br/>
+
+  <img width="1200" alt="디테일" src="https://github.com/user-attachments/assets/f483c4f7-25ab-46ba-98d4-6deec1cd7d97" />
 
 </div>
 
