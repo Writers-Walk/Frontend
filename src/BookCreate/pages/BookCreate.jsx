@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./BookCreate.css";
-import api from "../api/api";
+import "../css/BookCreate.css";
+import api from "../../api/api";
 
 function BookCreate() {
   const navigate = useNavigate();
@@ -11,8 +11,7 @@ function BookCreate() {
     author: "", // 저자
     publisher: "", // 출판사
     publishedDt: "", //발행년도
-    seriesInfo: "", // 총서사항(몇권인지~ 시리즈 인지~)
-    isbn: "", // ISBN
+    seriesInfo: "", // 총서사항
     genre: "", // 장르
     content: "", // 상세 설명
   });
