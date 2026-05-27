@@ -289,3 +289,29 @@
 .confirm-cancel:hover {
   background-color: #dee2e6;
 }
+
+.book-cover-placeholder {
+  width: 160px;
+  height: 220px;
+  background-color: #e6f2ff;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #007bff;
+  text-align: center;
+  padding: 10px;
+}
+
+.book-cover-placeholder h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 8px;
+}
+
+.book-cover-placeholder p {
+  font-size: 13px;
+  margin: 0;
+  color: #4c6ef5;
+}

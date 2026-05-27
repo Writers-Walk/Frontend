@@ -4,7 +4,7 @@ import './BookDetailPage.css';
 import BackButton from './BackButton';
 import AIButton from './AIButton';
 import ShareButton from './ShareButton';
-import LikesButton from './LikesButton';
+import LikeButton from './LikeButton';
 import DeleteButton from './DeleteButton';
 
 const formatDate = (dateString) => {
@@ -16,7 +16,6 @@ const BookDetailPage = () => {
   const [book, setBook] = useState(null);
   const [likes, setLikes] = useState(0);
   const [isLiking, setIsLiking] = useState(false);
-  const [liked, setLiked] = useState(false);
   const navigate = useNavigate(); 
   const { id } = useParams(); 
 
@@ -28,8 +27,6 @@ const BookDetailPage = () => {
         const data = await response.json();
         setBook(data);
         setLikes(data.likes ?? 0);
-        const likedBooks = JSON.parse(localStorage.getItem('likedBooks') || '[]');
-        setLiked(likedBooks.includes(String(id)));
       } catch (err) {
         console.error("🚨 도서 데이터 로딩 중 에러 발생:", err);
       }
@@ -38,7 +35,7 @@ const BookDetailPage = () => {
   }, [id]); 
 
   const handleLike = async () => {
-    if (isLiking || liked) return;
+    if (isLiking) return;
     setIsLiking(true);
     const newLikes = likes + 1;
     try {
@@ -48,11 +45,7 @@ const BookDetailPage = () => {
         body: JSON.stringify({ likes: newLikes }),
       });
       if (!response.ok) throw new Error("좋아요 업데이트 실패");
-      const likedBooks = JSON.parse(localStorage.getItem('likedBooks') || '[]');
-      likedBooks.push(String(id));
-      localStorage.setItem('likedBooks', JSON.stringify(likedBooks));
       setLikes(newLikes);
-      setLiked(true);
     } catch (err) {
       console.error("❤️ 좋아요 처리 중 오류:", err);
     } finally {
@@ -79,29 +72,42 @@ const BookDetailPage = () => {
     }
   };
 
-  const handleLike = async () => {
+  const handleAIGenerate = async () => {
     try {
-      const updatedBook = await updateLikes(id, book.likes || 0);
-      setBook(updatedBook);
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      navigate(`/cover-generate/${book.id}`); 
     } catch (err) {
-      console.error("좋아요 업데이트 실패:", err);
+      console.error("AI 생성 페이지 이동 중 오류 발생:", err);
     }
   };
 
-  if (!book) return <div style={{padding:'20px', textAlign:'center'}}>불러오는 중...</div>;
+  if (!book) return <div style={{ padding: '20px', textAlign: 'center' }}>불러오는 중...</div>;
 
   return (
     <div className="detail-container">
       <BackButton onClick={handleGoBack} />
       <div className="main-layout">
         <div className="left-section">
-          <img src={book.coverImageUrl} alt="책 표지" className="book-cover-img" />
+
+          {book.coverImageUrl ? (
+            <img
+              src={book.coverImageUrl}
+              alt={book.title}
+              className="book-cover-img"
+              onError={(e) => { e.target.src = "https://placehold.co/200x280?text=No+Image"; }}
+            />
+          ) : (
+            <div className="book-cover-placeholder">
+              <h2>{book.title}</h2>
+              <p>이미지 없음</p>
+            </div>
+          )}
+
           <AIButton onClick={handleAIGenerate} />
           <ShareButton />
           <DeleteButton onDelete={handleDelete} />
-
         </div>
-        
+
         <div className="right-section">
           <h1 className="book-title">📖 {book.title}</h1>
           <p className="book-author">👤 저자: {book.author}</p>
@@ -111,16 +117,16 @@ const BookDetailPage = () => {
 
           <div className="badge-row">
             <span className="badge-blue">📅 출판일: {book.publicationDt || "정보 없음"}</span>
-            <LikesButton likes={likes} onClick={handleLike} isLiking={isLiking} liked={liked} />
+            <LikeButton likes={likes} onClick={handleLike} />
           </div>
-     
+
           <div className="dates">
             <span>🗓 등록: {formatDate(book.createdAt)}</span>
             <span>✏️ 수정: {formatDate(book.updatedAt)}</span>
           </div>
-     
+
           <hr className="divider" />
-     
+
           <p className="content-label">📋 도서 내용</p>
           <div className="book-content-box">
             <p className="book-content">{book.content}</p>
