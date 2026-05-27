@@ -69,30 +69,27 @@ h2 {
 /* ===== 기본 input ===== */
 
 .info-row input {
-  width: 360px;
-
+  flex: 1;
+  min-width: 0;
   padding: 14px 16px;
-
   border: 1px solid #d1d5db;
   border-radius: 10px;
-
   font-size: 16px;
+  box-sizing: border-box;
 }
 
 /* ===== 제목 input ===== */
 
 .title-input {
-  width: 580px !important;
-
+  flex: 1;
+  min-width: 0;        /* width: 580px 제거 */
   font-size: 20px;
   font-weight: 600;
-
   font-family: Pretendard, sans-serif;
-
   padding: 14px 16px;
-
   border: 1px solid #d1d5db;
   border-radius: 10px;
+  box-sizing: border-box;
 }
 
 /* ===== 발행사항: 출판사 + 발행년도 ===== */
@@ -108,7 +105,9 @@ h2 {
 }
 
 .year-input {
-  width: 160px !important;
+  flex: 0 0 auto;
+  width: 160px;
+  min-width: 0;
 }
 
 /* ===== 도서 내용 ===== */
@@ -186,4 +185,44 @@ textarea:focus {
 .save-button:hover {
   background-color: #1B3A5C;
   transform: translateY(-1px);
+}
+
+
+
+@media (max-width: 600px) {
+  .book-create-page {
+    padding: 20px 16px;
+  }
+
+  .book-info-box {
+    padding: 24px 20px;
+  }
+
+  .info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .info-row label {
+    width: auto;
+  }
+
+  .info-row input,
+  .title-input,
+  .year-input {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none;
+    box-sizing: border-box;
+  }
+  .publish-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .publish-row .year-input {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 }

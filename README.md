@@ -52,52 +52,79 @@ AI(OpenAI GPT Image API)를 활용하여 도서 표지 이미지를 자동 생�
 ```
 src/
 ├── App.jsx                        # 라우터 설정 (4개 라우트)
+├── App.css
 ├── main.jsx                       # 앱 진입점
+├── index.css
 │
 ├── api/                           # 전역 API 설정
 │   └── api.js                     # axios 인스턴스 baseURL 설정
 │
 ├── assets/                        # 정적 이미지 에셋
+│   ├── hero.png
+│   ├── pageLogo.png
+│   ├── react.svg
+│   └── vite.svg
 │
 ├── Layout/                        # 레이아웃 공통 컴포넌트
 │   ├── components/
 │   │   ├── Header.jsx             # 상단 헤더
 │   │   └── Layout.jsx             # 레이아웃 래퍼
 │   └── css/
+│       ├── Header.css
+│       └── Layout.css
 │
 ├── main/                          # 메인(홈) 페이지
+│   ├── api/
+│   │   └── mainapi.jsx            # 도서 목록 조회 API
 │   ├── components/
-│   │   ├── mainpage.jsx           # 메인 페이지 (목록, 검색, 정렬)
 │   │   ├── bookCard.jsx           # 도서 카드 컴포넌트
 │   │   ├── Likerank.jsx           # 좋아요 랭킹 컴포넌트
 │   │   └── RegisterButton.jsx     # 도서 등록 버튼
-│   ├── api/
-│   │   └── mainapi.jsx            # 도서 목록 조회 API
-│   └── css/
+│   ├── css/
+│   │   ├── bookCard.css
+│   │   ├── Likerank.css
+│   │   ├── MainPage.css
+│   │   └── RegisterButton.css
+│   └── pages/
+│       └── mainpage.jsx           # 메인 페이지 (목록, 검색, 정렬)
 │
 ├── BookDetailPage/                # 도서 상세 페이지
-│   ├── BookDetailPage.jsx         # 상세 페이지 메인
-│   ├── BookInfo.jsx               # 서지 정보 표시
-│   ├── AIButton.jsx               # AI 표지 생성 페이지 이동 버튼
-│   ├── LikeButton.jsx             # 좋아요 버튼
-│   ├── ShareButton.jsx            # URL 공유 버튼
-│   ├── DeleteButton.jsx           # 도서 삭제 버튼
-│   ├── BackButton.jsx             # 뒤로가기 버튼
-│   └── api/
-│       └── bookdetailApi.js       # 상세 조회·삭제·좋아요 API
+│   ├── api/
+│   │   └── bookdetailApi.js       # 상세 조회·삭제·좋아요 API
+│   ├── components/
+│   │   ├── AIButton.jsx           # AI 표지 생성 페이지 이동 버튼
+│   │   ├── BackButton.jsx         # 뒤로가기 버튼
+│   │   ├── BookInfo.jsx           # 서지 정보 표시
+│   │   ├── DeleteButton.jsx       # 도서 삭제 버튼
+│   │   ├── LikeButton.jsx         # 좋아요 버튼
+│   │   └── ShareButton.jsx        # URL 공유 버튼
+│   ├── css/
+│   │   └── BookDetailPage.css
+│   └── pages/
+│       └── BookDetailPage.jsx     # 상세 페이지 메인
 │
 ├── CoverGeneratePage/             # AI 표지 생성 페이지
-│   ├── CoverGeneratePage.jsx      # 표지 생성 메인 컴포넌트
-│   └── api/
-│       ├── generateBookCover.jsx  # GPT Image API 호출
-│       ├── getBookDetail.jsx      # 도서 정보 조회
-│       ├── saveCoverImage.jsx     # 생성된 이미지 저장 (PATCH)
-│       └── compressImage.jsx      # 이미지 압축 처리
+│   ├── api/
+│   │   ├── compressImage.jsx      # 이미지 압축 처리
+│   │   ├── generateBookCover.jsx  # GPT Image API 호출
+│   │   ├── getBookDetail.jsx      # 도서 정보 조회
+│   │   └── saveCoverImage.jsx     # 생성된 이미지 저장 (PATCH)
+│   ├── components/
+│   │   ├── BookInfoSection.jsx    # 도서 정보
+│   │   ├── GeneratedResultSection.jsx # 표지 생성 결과 화면
+│   │   ├── ImageOptionSection.jsx # 모델, 해상도, 품질 옵션 선택
+│   │   └── LoadingOverlay.jsx     # 생성중 오버레이
+│   ├── css/
+│   │   └── CoverGeneratePage.css
+│   └── CoverGeneratePage.jsx      # 표지 생성 메인 컴포넌트
 │
-└── pages/                         # 기타 페이지
-    ├── BookCreate.jsx             # 도서 등록 페이지
-    └── api/
-        └── bookCreateApi.js       # 도서 등록 API
+└── BookCreate/                    # 도서 등록 페이지
+    ├── api/
+    │   └── bookCreateApi.js       # 도서 등록 API
+    ├── css/
+    │   └── BookCreate.css
+    └── pages/
+        └── BookCreate.jsx         # 도서 등록 페이지
 ```
 
 ---

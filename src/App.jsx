@@ -5,7 +5,7 @@ import Layout from './Layout/components/Layout';
 
 import MainPage from './main/pages/mainpage';
 import CoverGeneratePage from './CoverGeneratePage/CoverGeneratePage';
-import BookDetailPage from './BookDetailPage/BookDetailPage';
+import BookDetailPage from './BookDetailPage/pages/BookDetailPage';
 import BookCreate from './BookCreate/pages/BookCreate';
 
 
