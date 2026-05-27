@@ -236,8 +236,16 @@ npm run dev
 
 ## 7. 주요 화면
 
-<!-- 스크린샷 추가 예정 -->
-<img width="1899" height="902" alt="image" src="https://github.com/user-attachments/assets/15aa98bc-02dc-46d0-8ee4-d9935882c17a" />
+
+<div>
+<img width="1874" height="900" alt="Image" src="https://github.com/user-attachments/assets/70f6b718-d9b6-4bff-aa51-0d619b0fab77" />
+<img width="1836" height="733" alt="Image" src="https://github.com/user-attachments/assets/7cbcaef2-f390-4176-84ee-78b32be8ccc9" />
+<img width="979" height="818" alt="Image" src="https://github.com/user-attachments/assets/cc0af90b-4bc8-4dbb-964e-d0bd4dfc529e" />
+<img width="1021" height="744" alt="Image" src="https://github.com/user-attachments/assets/f44803bc-f87e-4a00-830a-3d470d606e8c" />
+<img width="857" height="620" alt="Image" src="https://github.com/user-attachments/assets/8a6d7330-bf89-4281-9362-97929af4eb03" />
+<img width="1047" height="696" alt="Image" src="https://github.com/user-attachments/assets/f483c4f7-25ab-46ba-98d4-6deec1cd7d97" />
+</div>
+
 
 ---
 
