@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import RegisterButton from './RegisterButton';
-import BookCard from "./bookCard";
+import RegisterButton from '../components/RegisterButton';
+import BookCard from "../components/bookCard";
 import useBooks from '../api/mainapi';
-import LikeRank from './Likerank';
+import LikeRank from '../components/Likerank';
 import '../css/MainPage.css';
 import { useNavigate } from 'react-router-dom';
 
