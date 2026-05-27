@@ -165,7 +165,7 @@ VITE_OPENAI_API_KEY=your_openai_api_key_here
 **터미널 1 — Mock API 서버 (json-server)**
 
 ```bash
-npx json-server db.json --port 3000
+npx json-server@0.17.4 db.json --port 3000
 ```
 
 **터미널 2 — React 개발 서버**
@@ -243,8 +243,7 @@ npm run dev
 
   <img width="1836" height="733" alt="Image" src="https://github.com/user-attachments/assets/7cbcaef2-f390-4176-84ee-78b32be8ccc9" />
   <br/><br/>
-
- <img width="700" height="500" alt="Image" src="https://github.com/user-attachments/assets/27a36a25-6783-417b-981b-107652e6454f" />
+  <img width="922" height="670" alt="Image" src="https://github.com/user-attachments/assets/27a36a25-6783-417b-981b-107652e6454f" />
   <br/><br/>
 
   <img width="48%" height="733" alt="Image" src="https://github.com/user-attachments/assets/f44803bc-f87e-4a00-830a-3d470d606e8c" />
@@ -252,6 +251,8 @@ npm run dev
   <br/><br/>
 
   <img width="1047" height="733" alt="Image" src="https://github.com/user-attachments/assets/f483c4f7-25ab-46ba-98d4-6deec1cd7d97" />
+
+</div>
 
 
 
