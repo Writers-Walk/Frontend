@@ -6,7 +6,7 @@ import Layout from './Layout/components/Layout';
 import MainPage from './main/pages/mainpage';
 import CoverGeneratePage from './CoverGeneratePage/CoverGeneratePage';
 import BookDetailPage from './BookDetailPage/BookDetailPage';
-import BookCreate from './pages/BookCreate';
+import BookCreate from './BookCreate/pages/BookCreate';
 
 
 export function App() {
@@ -16,7 +16,7 @@ export function App() {
       children: [
         { path: "/", element: <MainPage /> },
         { path: "/cover-generate/:id", element: <CoverGeneratePage /> },
-        { path: "/book-create", element: <BookCreate /> },
+        { path: "/register", element: <BookCreate /> },
          { path: "/book/:id", element: <BookDetailPage /> },
       ],
     },
@@ -25,5 +25,4 @@ export function App() {
   return <RouterProvider router={router} />;
 }
 
-export default App;
-
+export default App
