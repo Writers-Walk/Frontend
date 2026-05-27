@@ -81,13 +81,7 @@ const BookDetailPage = () => {
     }
   };
 
-<<<<<<< HEAD
   if (!book) return <div style={{ padding: '20px', textAlign: 'center' }}>불러오는 중...</div>;
-=======
-  if (!book) {
-    return <div style={{ padding: '20px' }}>db.json에서 데이터를 안전하게 불러오는 중...</div>;
-  }
->>>>>>> 0afe9fd5152ec0ad8600b884f326d00a2d3aa818
 
   return (
     <div className="detail-container">
