@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './BookDetailPage.css'; 
-import BackButton from './BackButton';
-import AIButton from './AIButton';
-import ShareButton from './ShareButton';
-import LikeButton from './LikeButton';
-import DeleteButton from './DeleteButton';
+import '../css/BookDetailPage.css'; 
+import BackButton from '../components/BackButton';
+import AIButton from '../components/AIButton';
+import ShareButton from '../components/ShareButton';
+import LikeButton from '../components/LikeButton';
+import DeleteButton from '../components/DeleteButton';
 
 const formatDate = (dateString) => {
   if (!dateString) return "날짜 없음";
