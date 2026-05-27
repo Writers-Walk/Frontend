@@ -4,7 +4,7 @@ import './BookDetailPage.css';
 import BackButton from './BackButton';
 import AIButton from './AIButton';
 import ShareButton from './ShareButton';
-import LikesButton from './LikesButton';
+import LikeButton from './LikeButton';
 import DeleteButton from './DeleteButton';
 
 const formatDate = (dateString) => {
@@ -114,7 +114,7 @@ const BookDetailPage = () => {
 
           <div className="badge-row">
             <span className="badge-blue">📅 출판일: {book.publicationDt || "정보 없음"}</span>
-            <LikesButton likes={likes} onClick={handleLike} isLiking={isLiking} liked={liked} />
+            <LikeButton likes={likes} onClick={handleLike} /*isLiking={isLiking} liked={liked}*/ />
           </div>
      
           <div className="dates">
