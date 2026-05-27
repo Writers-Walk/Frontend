@@ -118,6 +118,7 @@ const BookDetailPage = () => {
 
           <div className="badge-row">
             <span className="badge-blue">📅 출판일: {book.publicationDt || "정보 없음"}</span>
+
             <LikeButton likes={likes} onClick={handleLike} />
           </div>
 

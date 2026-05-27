@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Layout from './Layout/components/Layout';
 
-import MainPage from './main/components/mainpage';
+import MainPage from './main/pages/mainpage';
 import CoverGeneratePage from './CoverGeneratePage/CoverGeneratePage';
 import BookDetailPage from './BookDetailPage/BookDetailPage';
 import BookCreate from './pages/BookCreate';
