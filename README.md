@@ -237,6 +237,7 @@ npm run dev
 ## 7. 주요 화면
 
 <!-- 스크린샷 추가 예정 -->
+<img width="1899" height="902" alt="image" src="https://github.com/user-attachments/assets/15aa98bc-02dc-46d0-8ee4-d9935882c17a" />
 
 ---
 
