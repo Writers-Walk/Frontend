@@ -11,6 +11,7 @@ function BookCreate() {
     author: "", // 저자
     publisher: "", // 출판사
     publishedDt: "", //발행년도
+    publicationDt: "",
     seriesInfo: "", // 총서사항
     genre: "", // 장르
     content: "", // 상세 설명
@@ -99,7 +100,7 @@ function BookCreate() {
                 />
               </div>
 
-              <div className="info-row">
+              <div className="info-row publish-row">
                 <label>발행사항</label>
                 <input
                   type="text"
@@ -116,6 +117,7 @@ function BookCreate() {
                   value={book.publicationDt}
                   onChange={handleChange}
                   maxLength={30}
+                  className="year-input"
                 />
               </div>
 
