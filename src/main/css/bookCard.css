@@ -1,15 +1,14 @@
 .book-card {
   cursor: pointer;
-  border: 1px solid #ddd;
+  border: 1px solid #e8e8e8;
   border-radius: 8px;
   padding: 16px;
   transition: box-shadow 0.2s, transform 0.2s;
 }
 
 .book-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transform: translateY(-4px);
-  transition: box-shadow 0.2s, transform 0.2s;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
 }
 
 .book-card__image {
@@ -17,18 +16,20 @@
   aspect-ratio: 2 / 3;
   object-fit: cover;
   border-radius: 4px;
+  margin-bottom: 10px;
 }
 
 .book-card__no-image {
   width: 100%;
   aspect-ratio: 2 / 3;
-  background: #f0f0f0;
+  background: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  color: #999;
+  color: #9ca3af;
   font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .book-card__title {
@@ -45,18 +46,18 @@
 
 .book-card__author {
   margin: 0 0 4px;
-  color: #666;
+  color: #6b7280;
   font-size: 14px;
 }
 
 .book-card__date {
   margin: 0;
   font-size: 12px;
-  color: #999;
+  color: #9ca3af;
 }
 
 .book-card__likes {
   font-size: 12px;
-  color: #e05a5a;
+  color: #dc2626;
   white-space: nowrap;
 }
