@@ -1,9 +1,13 @@
 .book-card {
   cursor: pointer;
-  border: 1px solid #e8e8e8;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
-  padding: 16px;
-  transition: box-shadow 0.2s, transform 0.2s;
+  padding: 14px;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.06),
+    0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 .book-card:hover {
@@ -33,8 +37,16 @@
 }
 
 .book-card__title {
-  margin: 0;
-  font-size: 16px;
+  margin: 10px 0 0;
+  font-family: 'Nanum Myeongjo', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink, #1c1917);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .book-card__title-row {
@@ -60,4 +72,5 @@
   font-size: 12px;
   color: #dc2626;
   white-space: nowrap;
+  font-family: 'Pretendard', sans-serif;
 }
