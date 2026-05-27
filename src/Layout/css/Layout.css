@@ -2,9 +2,10 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: var(--paper);
 }
 
 .layout-main {
   flex: 1;
-  padding: 2rem 1.5rem;
+  padding: 2.5rem 2rem;
 }
