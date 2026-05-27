@@ -16,7 +16,7 @@ export function App() {
       children: [
         { path: "/", element: <MainPage /> },
         { path: "/cover-generate/:id", element: <CoverGeneratePage /> },
-        { path: "/book-create", element: <BookCreate /> },
+        { path: "/register", element: <BookCreate /> },
          { path: "/book/:id", element: <BookDetailPage /> },
       ],
     },
