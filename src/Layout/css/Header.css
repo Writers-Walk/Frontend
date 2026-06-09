@@ -1,57 +1,91 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap');
 
+/* ── 전역 토큰 ───────────────────────────────────────── */
+:root {
+  --paper:      #ffffff;
+  --ink:        #1a1a2e;
+  --ink-muted:  #6b7280;
+  --sepia:      #1a1a2e;
+  --rule:       #e5e7eb;
+  --header-h:   72px;
+}
 
+body {
+  background: #f9fafb;
+  margin: 0;
+}
+
+/* ── 헤더 ────────────────────────────────────────────── */
 .header {
   width: 100%;
-  border-bottom: 0.5px solid #e5e7eb;
-  background: #fff;
+  height: var(--header-h);
+  background: var(--paper);
   position: sticky;
   top: 0;
   z-index: 100;
+  border-top: 3px solid #1a1a2e;
+  border-bottom: 1px solid var(--rule);
 }
 
 .header-inner {
-  padding: 0.9rem 0rem;
+  height: 100%;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
 }
 
+/* ── 로고 ────────────────────────────────────────────── */
 .logo {
   display: inline-flex;
-  flex-direction: row;  /* column → row 변경 */
   align-items: center;
-  gap: 0px;
+  gap: 10px;
   cursor: pointer;
   user-select: none;
+  transition: opacity 0.2s ease;
+}
+.logo:active {
+  opacity: 0.7;
+}
+
+.logo-image {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transition: transform 0.35s ease;
+}
+.logo:hover .logo-image {
+  transform: rotate(-3deg) scale(1.05);
 }
 
 .logo-text {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
+  border-left: 1.5px solid var(--sepia);
+  padding-left: 12px;
 }
 
-
 .logo-title {
-  font-family: 'Pretendard', sans-serif;
-  font-size: 26px;
-  font-weight: 600;
-  color: #1a1a2e;
-  letter-spacing: -0.03em;
+  font-family: 'Nanum Myeongjo', 'Pretendard', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.04em;
   line-height: 1;
+  transition: color 0.25s ease;
+}
+.logo:hover .logo-title {
+  color: var(--sepia);
 }
 
 .logo-sub {
   font-family: 'Pretendard', sans-serif;
-  font-size: 17px;
+  font-size: 11px;
   font-weight: 300;
-  color: #9ca3af;
-  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  letter-spacing: 0.22em;
   line-height: 1;
-}
-
-.logo-image {
-  height: 60px;
-  width: auto;
-  object-fit: contain;
-  /* 흰 여백 제거 효과 */
-  mix-blend-mode: multiply;  /* 흰 배경을 투명하게 */
+  text-transform: uppercase;
 }

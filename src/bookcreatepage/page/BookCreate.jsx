@@ -1,5 +1,5 @@
-import "./BookCreate.css";
-import useBookCreate from "./hooks/useBookCreate";
+import "../css/BookCreate.css";
+import useBookCreate from "../hooks/useBookCreate";
 
 function BookCreate() {
   const { book, handleChange, handleSubmit } = useBookCreate();
@@ -39,7 +39,7 @@ function BookCreate() {
                 />
               </div>
 
-              <div className="info-row">
+              <div className="info-row publish-row">
                 <label>발행사항</label>
                 <input
                   type="text"
@@ -56,6 +56,7 @@ function BookCreate() {
                   value={book.publicationDt}
                   onChange={handleChange}
                   maxLength={30}
+                  className="year-input"
                 />
               </div>
 

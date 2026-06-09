@@ -37,7 +37,7 @@
 }
 
 .search-input:focus {
-  border-color: #6366f1;
+  border-color: #1a1a2e;
 }
 
 .sort-select {
@@ -52,11 +52,11 @@
 }
 
 .sort-select:focus {
-  border-color: #6366f1;
+  border-color: #1a1a2e;
 }
 
 .main-page__empty {
-  color: #999;
+  color: #9ca3af;
   text-align: center;
   margin-top: 40px;
 }
