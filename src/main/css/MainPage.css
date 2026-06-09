@@ -66,3 +66,27 @@
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin: 24px 0;
+}
+.pagination__btn {
+    min-width: 36px;
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.pagination__btn--active {
+    background: #1a1a2e;
+    color: #fff;
+    border-color: #1a1a2e;
+}
+.pagination__btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
