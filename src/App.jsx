@@ -6,7 +6,7 @@ import Layout from './Layout/components/Layout';
 import MainPage from './main/components/mainpage';
 import CoverGeneratePage from './CoverGeneratePage/CoverGeneratePage';
 import BookDetailPage from './BookDetailPage/BookDetailPage';
-import BookCreate from './pages/BookCreate';
+import BookCreate from './bookcreatepage/BookCreate';
 
 
 export function App() {
