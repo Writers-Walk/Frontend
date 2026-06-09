@@ -1,69 +1,8 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../css/BookCreate.css";
-import api from "../../api/api";
+import useBookCreate from "../hooks/useBookCreate";
 
 function BookCreate() {
-  const navigate = useNavigate();
-
-  const [book, setBook] = useState({
-    title: "", // 도서 제목
-    author: "", // 저자
-    publisher: "", // 출판사
-    publishedDt: "", //발행년도
-    publicationDt: "",
-    seriesInfo: "", // 총서사항
-    genre: "", // 장르
-    content: "", // 상세 설명
-  });
-
-  const handleChange = (e) => {
-    setBook({
-      ...book,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (
-      !book.title.trim() ||
-      !book.author.trim() ||
-      !book.publisher.trim() ||
-      !book.content.trim()
-    ) {
-      alert("모든 항목을 입력해주세요.");
-      return;
-    }
-
-    const now = new Date().toISOString();
-
-    const newBook = {
-      title: book.title,
-      author: book.author,
-      likes: 0,
-      content: book.content,
-      genre: book.genre,
-      coverImageUrl: "",
-      publisher: book.publisher,
-      publicationDt: book.publicationDt,
-      seriesInfo: book.seriesInfo,
-      createdAt: now,
-      updatedAt: now,
-    };
-
-    try {
-      await api.post("/books", newBook);
-      alert("도서가 등록되었습니다!");
-
-      console.log(newBook);
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-      alert("도서 등록에 실패했습니다.");
-    }
-  };
+  const { book, handleChange, handleSubmit } = useBookCreate();
 
   return (
     <div className="book-create-page">
