@@ -22,7 +22,7 @@ const BookDetailPage = () => {
   useEffect(() => {
     const getBookData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/books/${id}`);
+        const response = await fetch(`http://localhost:8080/api/bookdetail/book/${id}`);
         if (!response.ok) throw new Error("서버에서 데이터를 가져오지 못했습니다.");
         const data = await response.json();
         setBook(data);
@@ -39,7 +39,7 @@ const BookDetailPage = () => {
     setIsLiking(true);
     const newLikes = likes + 1;
     try {
-      const response = await fetch(`http://localhost:3000/books/${id}`, {
+      const response = await fetch(`http://localhost:8080/books/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ likes: newLikes }),
@@ -55,7 +55,7 @@ const BookDetailPage = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/books/${id}`, { method: 'DELETE' });
+      const response = await fetch(`http://localhost:8080/api/bookdetailbook/${id}`, { method: 'DELETE' });
       if (!response.ok) throw new Error("삭제 실패");
       navigate('/');
     } catch (err) {
@@ -75,7 +75,7 @@ const BookDetailPage = () => {
   const handleAIGenerate = async () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 300));
-      navigate(`/cover-generate/${book.id}`); 
+      navigate(`/cover-generate/${id}`); 
     } catch (err) {
       console.error("AI 생성 페이지 이동 중 오류 발생:", err);
     }
@@ -119,7 +119,7 @@ const BookDetailPage = () => {
           <div className="badge-row">
             <span className="badge-blue">📅 출판일: {book.publicationDt || "정보 없음"}</span>
 
-            <LikeButton likes={likes} onClick={handleLike} />
+            <LikeButton likes={book.likes} onClick={handleLike} />
           </div>
 
           <div className="dates">
