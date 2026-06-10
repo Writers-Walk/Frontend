@@ -15,7 +15,7 @@ const formatDate = (dateString) => {
 const BookDetailPage = () => {
   const [book, setBook] = useState(null);
   const [likes, setLikes] = useState(0);
-  const [isLiking, setIsLiking] = useState(false);
+ // const [isLiking, setIsLiking] = useState(false);
   const navigate = useNavigate(); 
   const { id } = useParams(); 
 
@@ -35,27 +35,24 @@ const BookDetailPage = () => {
   }, [id]); 
 
   const handleLike = async () => {
-    if (isLiking) return;
-    setIsLiking(true);
-    const newLikes = likes + 1;
+
     try {
-      const response = await fetch(`http://localhost:8080/books/${id}`, {
-        method: 'PATCH',
+      const response = await fetch(`http://localhost:8080/api/bookdetail/book/${id}`, {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ likes: newLikes }),
       });
       if (!response.ok) throw new Error("좋아요 업데이트 실패");
-      setLikes(newLikes);
+      const updated = await response.json();
+      setLikes(updated.likes);
     } catch (err) {
       console.error("❤️ 좋아요 처리 중 오류:", err);
     } finally {
-      setIsLiking(false);
     }
   };
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/bookdetailbook/${id}`, { method: 'DELETE' });
+      const response = await fetch(`http://localhost:8080/api/bookdetail/book/${id}`, { method: 'DELETE' });
       if (!response.ok) throw new Error("삭제 실패");
       navigate('/');
     } catch (err) {
@@ -119,7 +116,7 @@ const BookDetailPage = () => {
           <div className="badge-row">
             <span className="badge-blue">📅 출판일: {book.publicationDt || "정보 없음"}</span>
 
-            <LikeButton likes={book.likes} onClick={handleLike} />
+            <LikeButton likes={likes} onClick={handleLike} />
           </div>
 
           <div className="dates">

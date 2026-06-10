@@ -6,13 +6,13 @@ function useBookCreate() {
   const navigate = useNavigate();
 
   const [book, setBook] = useState({
-    title: "",
-    author: "",
-    publisher: "",
-    publicationDt: "",
-    seriesInfo: "",
-    isbn: "",
-    genre: "",
+    title: "", //제목 
+    author: "", //저자
+    publisher: "", // 발행사항
+    publicationDt: "", // 있고
+    seriesInfo: "", // 총서사항
+    isbn: "", //엇ㅂㅇ
+    genre: "", //
     content: "",
   });
 
