@@ -28,7 +28,7 @@
 
 // H2 DB로부터 도서 상세 정보 및 표지 이미지 정보 불러오기
 async function getBookDetail(id) {
-    const res = await fetch(`http://localhost:8080/api/books/${id}`);
+    const res = await fetch(`http://localhost:8080/api/bookdetail/book/${id}`);
 
     if (!res.ok) {
         throw new Error("H2 데이터베이스로부터 도서 정보를 불러오지 못했습니다.");
