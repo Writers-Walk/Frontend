@@ -102,19 +102,81 @@ function CoverGeneratePage() {
     };
 
     // 3-3. .env에서 기본 API Key 불러오기
-    const handleLoadEnvKey = () =>{
-        if (DEFAULT_API_KEY) {
-            setApiKey(DEFAULT_API_KEY.trim());
-        } else {
-            alert('.env에서 VITE_API_KEY를 찾을 수 없습니다.');
+    // const handleLoadEnvKey = () =>{
+    //     if (DEFAULT_API_KEY) {
+    //         setApiKey(DEFAULT_API_KEY.trim());
+    //     } else {
+    //         alert('.env에서 VITE_API_KEY를 찾을 수 없습니다.');
+    //     }
+    // };
+    const handleLoadEnvKey = async () => {
+        setLoading(true);
+        try {
+            const res = await fetch("http://localhost:8080/api/config/api-key");
+            
+            if (!res.ok) {
+                throw new Error("백엔드로부터 API 키를 로드하지 못했습니다.");
+            }
+
+            const data = await res.json(); // { apiKey: "sk-..." } 형태로 수신
+            
+            if (data.apiKey) {
+                setApiKey(data.apiKey.trim());
+                alert("🔑 백엔드에서 기본 API Key를 성공적으로 불러왔습니다!");
+            } else {
+                alert("백엔드에 설정된 API Key가 비어있습니다. application.properties를 확인하세요.");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("서버 연결 실패: API Key를 불러오지 못했습니다.");
+        } finally {
+            setLoading(false);
         }
     };
 
 
     // 4. AI 표지 이미지 생성
+    // const handleGenerateImage = async () => {
+    //     const selectedApiKey = apiKey.trim();
+
+    //     if (!selectedApiKey) {
+    //         alert("OpenAI API Key를 입력하거나 기본 Key 불러오기 버튼을 눌러주세요!");
+    //         return;
+    //     }
+
+    //     setLoading(true); 
+    //     setError("");     
+
+    //     try {
+    //         const finalPrompt = makePrompt();
+
+    //         if(!finalPrompt.trim()){
+    //             alert('프롬프트가 비어 있습니다. 도서 정보를 확인해주세요.');
+    //             return;
+    //         }
+
+    //         const imageUrl = await generateBookCover({
+    //             apiKey: selectedApiKey,
+    //             prompt: finalPrompt,
+    //             imageModel,
+    //             resolution,
+    //             quality,
+    //         });
+
+    //         setGeneratedImage(imageUrl); 
+    //         alert("🎉 표지 이미지가 성공적으로 생성되었습니다!");
+    //     } catch(error) {
+    //         console.error(error);
+    //         setError(error.message || "이미지 생성에 실패했습니다.");
+    //         alert(error.message || "이미지 생성에 실패했습니다.");
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
     const handleGenerateImage = async () => {
         const selectedApiKey = apiKey.trim();
 
+        // 💡 키값이 비어있을 때 막아주는 프론트 방어 로직은 유지합니다.
         if (!selectedApiKey) {
             alert("OpenAI API Key를 입력하거나 기본 Key 불러오기 버튼을 눌러주세요!");
             return;
@@ -124,23 +186,29 @@ function CoverGeneratePage() {
         setError("");     
 
         try {
-            const finalPrompt = makePrompt();
-
-            if(!finalPrompt.trim()){
-                alert('프롬프트가 비어 있습니다. 도서 정보를 확인해주세요.');
-                return;
-            }
-
-            const imageUrl = await generateBookCover({
-                apiKey: selectedApiKey,
-                prompt: finalPrompt,
-                imageModel,
-                resolution,
-                quality,
+            // 🌟 백엔드 생성 컨트롤러(@PostMapping("/generate"))로 모든 동적 옵션을 전송합니다.
+            const response = await fetch(`http://localhost:8080/api/books/${id}/generate`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userPrompt: userPrompt, // 선택한 추가 프롬프트 텍스트
+                    imageModel: imageModel, // 드롭다운 모델값
+                    resolution: resolution, // 드롭다운 해상도값
+                    quality: quality        // 드롭다운 품질값
+                })
             });
 
-            setGeneratedImage(imageUrl); 
-            alert("🎉 표지 이미지가 성공적으로 생성되었습니다!");
+            if (!response.ok) {
+                throw new Error("백엔드 서버에서 AI 이미지 생성에 실패했습니다.");
+            }
+
+            const data = await response.json(); // 백엔드의 GenerateImageResponseDto 수신
+            
+            // 백엔드가 성공 후 넘겨준 Base64 문자열("data:image/png;base64,...")을 state에 담아 화면에 뿌립니다.
+            setGeneratedImage(data.coverImageUrl); 
+            alert("🎉 백엔드 파이프라인을 통해 표지 이미지가 성공적으로 생성되었습니다!");
         } catch(error) {
             console.error(error);
             setError(error.message || "이미지 생성에 실패했습니다.");
