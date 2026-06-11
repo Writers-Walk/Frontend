@@ -1,31 +1,43 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { createReview } from "../api/reviewApi";
 
-function ReviewForm() {
+function ReviewForm({ onReviewAdded }) {
+  const { id } = useParams();
+
   const [content, setContent] = useState("");
   const [rating, setRating] = useState(0);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (rating === 0) {
-        alert("별점을 선택해주세요.");
-        return;
+      alert("별점을 선택해주세요.");
+      return;
     }
 
     if (content.trim().length < 5) {
-        alert("리뷰는 최소 5자 이상 입력해주세요.");
-        return;
+      alert("리뷰는 최소 5자 이상 입력해주세요.");
+      return;
     }
 
-    console.log({  //await createReview -> API연결하면
+    try {
+      await createReview(id, {
       content,
       rating,
+      user_id: "user01",
     });
 
-    alert("리뷰가 등록되었습니다.");
+      alert("리뷰가 등록되었습니다.");
 
-    setContent("");
-    setRating(5);
+      onReviewAdded();
+
+      setContent("");
+      setRating(0);
+    } catch (error) {
+      console.error("리뷰 등록 실패:", error);
+      alert("리뷰 등록에 실패했습니다.");
+    }
   };
 
   return (
@@ -48,6 +60,7 @@ function ReviewForm() {
         className="review-textarea"
         placeholder="리뷰를 입력하세요"
         value={content}
+        maxLength={100}
         onChange={(e) => setContent(e.target.value)}
       />
 

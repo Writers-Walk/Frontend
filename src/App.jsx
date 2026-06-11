@@ -7,7 +7,7 @@ import MainPage from './main/pages/mainpage';
 import CoverGeneratePage from './CoverGeneratePage/CoverGeneratePage';
 import BookDetailPage from './BookDetailPage/pages/BookDetailPage';
 import BookCreate from './bookcreatepage/page/BookCreate';
-import ReviewPage from './reviewpage/ReviewPage';
+import ReviewPage from './reviewpage/pages/ReviewPage';
 
 export function App() {
   const router = createBrowserRouter([
