@@ -4,6 +4,9 @@ function ReviewItem({ review }) {
       <div className="review-header">
         <span>{review.username}</span>
         <span> ⭐ {review.rating}</span>
+        <span>
+          {new Date(review.createdAt).toLocaleDateString()}
+        </span>
       </div>
 
       <p>{review.content}</p>
@@ -12,7 +15,3 @@ function ReviewItem({ review }) {
 }
 
 export default ReviewItem;
-
-
-
-
