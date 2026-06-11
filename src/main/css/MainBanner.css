@@ -1,32 +1,53 @@
-/* 배너 전체 컨테이너 */
+/* 배너 컨테이너
+   - vh 단위로 반응형 높이, max-height로 대형 화면 제한
+   - 1920x600 비율 기준: 40vh가 1080p에서 약 432px로 근사
+   - overflow: hidden 만 !important (Swiper 트랜지션 클리핑 필수)
+*/
 .mainBanner {
-  position: relative !important;
-  width: 100% !important;
-  max-width: 100px !important; /* 원하는 크기로 조절 */
-  margin: 0 auto !important;
+  width: 100%;
+  height: 40vh;
+  max-height: 600px;
+  min-height: 280px;
   overflow: hidden !important;
-  object-fit: cover !important; /* 이미지가 찌그러지지 않고 꽉 차게 */
 }
 
-/* 화살표 버튼 위치 및 크기 조정 */
-.swiper-button-next,
-.swiper-button-prev {
-  color: #000000 !important;
-  background-color: transparent !important; /* 화살표 색상 */
-  width: 30px !important;
-  height: 30px !important;
-  padding: 10px !important;
-  
+/* swiper-wrapper 높이: Swiper JS가 width는 건드리지만 height는 여기서 제어 */
+.mainBanner .swiper-wrapper {
+  height: 100%;
 }
 
-/* 화살표 내부 아이콘 크기 */
-.swiper-button-next::after,
-.swiper-button-prev::after {
-  font-size: 10px !important;
-  color: #ffffff !important;
-  font-weight: bold !important;
-  transition: all 0.3s ease !important;
+/* 슬라이드: img absolute의 기준점. width는 !important 제거 — Swiper JS가 계산 */
+.mainBanner .swiper-slide {
+  position: relative;
+  height: 100%;
 }
 
+/* 이미지: Swiper가 건드리지 않는 영역이므로 !important 유지 */
+.mainBanner .swiper-slide img {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+}
 
+/* 화살표 버튼 — 스타일만 변경, 위치/크기 계산은 Swiper에 위임 */
+.mainBanner .swiper-button-next,
+.mainBanner .swiper-button-prev {
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+}
 
+.mainBanner .swiper-button-next::after,
+.mainBanner .swiper-button-prev::after {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* 페이지네이션 */
+.mainBanner .swiper-pagination-bullet-active {
+  background-color: #ffffff;
+}

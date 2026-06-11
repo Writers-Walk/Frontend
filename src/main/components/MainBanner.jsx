@@ -5,33 +5,32 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
 
 import {image1,image2,image3 } from '../../assets/testimgurl'
-// 스타일 시트를 불러옵니다 (필수!)
-import '../css/MainBanner.css';
+import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import 'swiper/css';
+import '../css/MainBanner.css';
 
 const MainBanner = () => {
   return (
     <Swiper
-      // 사용할 모듈 등록
+      className="mainBanner"
       modules={[Navigation, Pagination, Autoplay]}
-      spaceBetween={30}
+      spaceBetween={0}
       slidesPerView={1}
-      navigation // 화살표 사용
-      pagination={{ clickable: true }} // 점 버튼 사용
-      autoplay={{ delay: 2500, disableOnInteraction: false }} // 자동 재생
-      loop={true} // 반복
+      navigation
+      pagination={{ clickable: true }}
+      autoplay={{ delay: 2500, disableOnInteraction: false }}
+      loop={true}
     >
       <SwiperSlide>
-        <img src={image1} alt="배너 1" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <img src={image1} alt="배너 1" />
       </SwiperSlide>
       <SwiperSlide>
-        <img src={image2} alt="배너 2" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <img src={image2} alt="배너 2" />
       </SwiperSlide>
-    <SwiperSlide>
-        <img src={image3} alt="배너 3" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-    </SwiperSlide>
+      <SwiperSlide>
+        <img src={image3} alt="배너 3" />
+      </SwiperSlide>
     </Swiper>
   );
 };

@@ -6,6 +6,7 @@ import LikeRank from '../components/Likerank';
 import '../css/MainPage.css';
 import { useNavigate } from 'react-router-dom';
 import MainBanner from '../components/MainBanner';
+import SlideBanner from '../components/SlideBanner';
 
 
 const MainPage = () => {
@@ -118,6 +119,8 @@ const MainPage = () => {
             )}
 
             <LikeRank topN={10} onClickBook={handleClickBook} />
+            <SlideBanner />
+
         </div>
     );
 };
