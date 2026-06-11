@@ -4,9 +4,8 @@ import '../css/BookDetailPage.css';
 import BackButton from '../components/BackButton';
 import AIButton from '../components/AIButton';
 import ShareButton from '../components/ShareButton';
-import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
-import ReviewList from "../../reviewpage/components/ReviewList";
+import ReviewPreview from "../../reviewpage/components/ReviewPreview.jsx";
 
 const formatDate = (dateString) => {
   if (!dateString) return "날짜 없음";
@@ -15,69 +14,56 @@ const formatDate = (dateString) => {
 
 const BookDetailPage = () => {
   const [book, setBook] = useState(null);
-  const [likes, setLikes] = useState(0);
-  const [reviews, setReviews] = useState([]);
+  const [wished, setWished] = useState(false);
+  const [wishCount, setWishCount] = useState(0);
 
   const navigate = useNavigate();
+
   const { id } = useParams();
+  const TEMPORARY_USER_ID = 1;
 
-  // 도서 상세 조회
   useEffect(() => {
-    const getBookData = async () => {
-      try {
-        const response = await fetch(`http://localhost:8080/api/bookdetail/book/${id}`);
+  const getBookData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/bookdetail/book/${id}?userId=${TEMPORARY_USER_ID}`
+      );
 
-        if (!response.ok) {
-          throw new Error("서버에서 데이터를 가져오지 못했습니다.");
-        }
-
-        const data = await response.json();
-        setBook(data);
-        setLikes(data.likes ?? 0);
-      } catch (err) {
-        console.error("🚨 도서 데이터 로딩 중 에러 발생:", err);
+      if (!response.ok) {
+        throw new Error("서버에서 데이터를 가져오지 못했습니다.");
       }
-    };
 
+      const data = await response.json();
+
+      setBook(data);
+      setWished(data.wished ?? false);
+      setWishCount(data.wishCount ?? 0);
+    } catch (err) {
+      console.error("🚨 도서 데이터 로딩 중 에러 발생:", err);
+    }
+  };
+  
     getBookData();
   }, [id]);
 
-  // 리뷰 조회
-  useEffect(() => {
-    const getReviewData = async () => {
+    const handleWish = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/review/${id}/getallreview`);
+        const response = await fetch(
+          `http://localhost:8080/api/bookdetail/book/${id}?userId=${TEMPORARY_USER_ID}`,
+          { method: "POST" }
+        );
 
         if (!response.ok) {
-          throw new Error("리뷰 데이터를 가져오지 못했습니다.");
+          throw new Error("찜하기 업데이트 실패");
         }
 
-        const data = await response.json();
-        console.log("리뷰 데이터:", data);
-        setReviews(data);
-      } catch (err) {
-        console.error("🚨 리뷰 데이터 로딩 중 에러 발생:", err);
-      }
-    };
-
-    getReviewData();
-  }, [id]);
-
-  const handleLike = async () => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/bookdetail/book/${id}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-      });
-
-      if (!response.ok) {
-        throw new Error("좋아요 업데이트 실패");
-      }
-
       const updated = await response.json();
-      setLikes(updated.likes);
+
+      setWished(updated.wished);
+      setWishCount(updated.wishCount);
     } catch (err) {
-      console.error("❤️ 좋아요 처리 중 오류:", err);
+
+      console.error("💖 찜하기 처리 중 오류:", err);
     }
   };
 
@@ -153,7 +139,9 @@ const BookDetailPage = () => {
               📅 출판일: {book.publicationDt || "정보 없음"}
             </span>
 
-            <LikeButton likes={likes} onClick={handleLike} />
+            <button className={`wish-button ${wished ? 'wished' : ''}`} onClick={handleWish}>
+              {wished ? '💖 찜 취소' : '🖤 찜하기'} {wishCount}
+            </button>
           </div>
 
           <div className="dates">
@@ -168,21 +156,8 @@ const BookDetailPage = () => {
             <p className="book-content">{book.content}</p>
           </div>
 
-          <div className="review-section">
-            <div className="review-title-row">
-              <h3>리뷰</h3>
+          <ReviewPreview bookId={id} />
 
-              <button
-                type="button"
-                className="review-more-button"
-                onClick={() => navigate(`/book/${id}/reviews`)}
-              >
-                리뷰 전체보기
-              </button>
-            </div>
-
-            <ReviewList reviews={reviews.slice(0, 5)} />
-          </div>
         </div>
       </div>
     </div>

@@ -1,19 +1,13 @@
 import ReviewItem from "./ReviewItem";
 
 function ReviewList({ reviews }) {
-  const visibleReviews = reviews.slice(0, 5);
-
   return (
     <div>
-      {visibleReviews.map((review, index) => (
-        <div key={index}>
-          <p>{review.content}</p>
-          <p>⭐ {review.rating}</p>
-        </div>
+      {reviews.map((review, index) => (
+        <ReviewItem key={review.id ?? index} review={review} />
       ))}
     </div>
   );
 }
 
 export default ReviewList;
-
