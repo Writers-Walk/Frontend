@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const BannerGenerate = () => {
+  const navigate = useNavigate();
   const [type, setType] = useState('latestBanner');
   const [userPrompt, setUserPrompt] = useState('');
   const [imageModel, setImageModel] = useState('dall-e-3');
