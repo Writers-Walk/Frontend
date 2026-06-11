@@ -1,0 +1,47 @@
+/* 버블 장르 선택 */
+.genre-bubbles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.genre-bubbles__hint {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.genre-bubbles__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* 개별 버블 (알약형) */
+.genre-bubble {
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #475569;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 9999px;   /* 완전 둥근 알약 */
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.genre-bubble:hover {
+  border-color: #1e293b;
+  color: #1e293b;
+}
+
+/* 선택된 버블 */
+.genre-bubble--active {
+  color: #ffffff;
+  background: #1e293b;
+  border-color: #1e293b;
+}
+
+.genre-bubble--active:hover {
+  background: #334155;
+  color: #ffffff;
+}

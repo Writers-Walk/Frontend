@@ -1,0 +1,105 @@
+/* 회원가입 페이지 */
+.signup-page {
+  max-width: 420px;
+  margin: 60px auto;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.signup-page h1 {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: #1e293b;
+}
+
+.signup-page input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.signup-page input:focus {
+  border-color: #1e293b;
+}
+
+/* 아이디 입력 + 중복확인 버튼 한 줄 */
+.signup-page__id-row {
+  display: flex;
+  gap: 8px;
+}
+
+.signup-page__id-row input {
+  flex: 1;
+}
+
+.signup-page__id-row button {
+  flex-shrink: 0;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e293b;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.signup-page__id-row button:hover {
+  background: #e2e8f0;
+}
+
+/* 중복확인 결과 메시지 */
+.signup-page__ok {
+  margin: -8px 0 0;
+  font-size: 13px;
+  color: #16a34a;   /* 사용 가능 — 초록 */
+}
+
+.signup-page__warn {
+  margin: -8px 0 0;
+  font-size: 13px;
+  color: #dc2626;   /* 중복 — 빨강 */
+}
+
+.signup-page__error {
+  margin: 0;
+  font-size: 14px;
+  color: #dc2626;
+  text-align: center;
+}
+
+/* 회원가입 제출 버튼 */
+.signup-page > button:last-child {
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ffffff;
+  background: #1e293b;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.signup-page > button:last-child:hover:not(:disabled) {
+  background: #334155;
+}
+
+.signup-page > button:last-child:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
