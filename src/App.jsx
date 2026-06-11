@@ -16,9 +16,10 @@ export function App() {
       children: [
         { path: "/", element: <MainPage /> },
         { path: "/cover-generate/:id", element: <CoverGeneratePage /> },
-        { path: "/register", element: <BookCreate /> },
         { path: "/book/:id", element: <BookDetailPage /> },
-        { path: "/book/:id/reviews", element: <ReviewPage />}
+        { path: "/book/:id/reviews", element: <ReviewPage />},
+        { path: "/book-create", element: <BookCreate /> },
+         { path: "/book/:id", element: <BookDetailPage /> },
       ],
     },
   ]);
@@ -27,4 +28,3 @@ export function App() {
 }
 
 export default App;
-

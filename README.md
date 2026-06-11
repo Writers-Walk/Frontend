@@ -165,7 +165,7 @@ VITE_OPENAI_API_KEY=your_openai_api_key_here
 **터미널 1 — Mock API 서버 (json-server)**
 
 ```bash
-npx json-server db.json --port 3000
+npx json-server@0.17.4 db.json --port 3000
 ```
 
 **터미널 2 — React 개발 서버**
@@ -236,8 +236,27 @@ npm run dev
 
 ## 7. 주요 화면
 
-<!-- 스크린샷 추가 예정 -->
-<img width="1899" height="902" alt="image" src="https://github.com/user-attachments/assets/15aa98bc-02dc-46d0-8ee4-d9935882c17a" />
+<div align="center">
+
+  <img width="1200" alt="메인1" src="https://github.com/user-attachments/assets/70f6b718-d9b6-4bff-aa51-0d619b0fab77" />
+  <br/><br/>
+
+  <img width="1200" alt="메인2" src="https://github.com/user-attachments/assets/7cbcaef2-f390-4176-84ee-78b32be8ccc9" />
+  <br/><br/>
+
+  <img width="1200" alt="등록" src="https://github.com/user-attachments/assets/27a36a25-6783-417b-981b-107652e6454f" />
+  <br/><br/>
+
+  <img width="1200" alt="이미지생성1" src="https://github.com/user-attachments/assets/f44803bc-f87e-4a00-830a-3d470d606e8c" />
+  <img width="1200" alt="이미지생성2" src="https://github.com/user-attachments/assets/8a6d7330-bf89-4281-9362-97929af4eb03" />
+  <br/><br/>
+
+  <img width="1200" alt="디테일" src="https://github.com/user-attachments/assets/f483c4f7-25ab-46ba-98d4-6deec1cd7d97" />
+
+</div>
+
+
+
 
 ---
 

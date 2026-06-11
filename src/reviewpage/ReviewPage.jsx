@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ReviewForm from "../components/ReviewForm";
-import ReviewList from "../components/ReviewList";
+import ReviewForm from "../../reviewpage/ReviewForm";
+import ReviewList from "../../reviewpage/ReviewList";
 
 function ReviewPage() {
   const [sortType, setSortType] = useState("latest");

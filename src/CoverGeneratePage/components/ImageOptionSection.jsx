@@ -1,9 +1,9 @@
 function ImageOptionSection({
-    apiKey,
-    setApiKey,
-    handleLoadEnvKey,
-    handleSaveApiKey,
-    handleClearApiKey,
+    // apiKey,
+    // setApiKey,
+    // handleLoadEnvKey,
+    // handleSaveApiKey,
+    // handleClearApiKey,
     imageModel,
     setImageModel,
     resolution,
@@ -22,39 +22,18 @@ function ImageOptionSection({
             <div className="form-group">
                 <label>OpenAI API Key</label>
 
-                <div className="api-key-row">
-                    <input
-                        type="password"
-                        value={apiKey}
-                        onChange={(e) => setApiKey(e.target.value)}
-                        placeholder="sk-... API Key를 입력하거나 기본 키를 불러오세요"
-                        className="api-key-input"
-                    />
-
-                    <button
-                        type="button"
-                        onClick={handleLoadEnvKey}
-                        className="env-key-button"
-                    >
-                        기본 Key 불러오기
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={handleSaveApiKey}
-                        className="save-key-button"
-                    >
-                        저장
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={handleClearApiKey}
-                        className="clear-key-button"
-                    >
-                        삭제
-                    </button>
-                </div>
+                <input
+                    type="password"
+                    value="server-managed-key"
+                    readOnly
+                    disabled
+                    className="api-key-input"
+                    style={{ width: "100%" }}
+                />
+            
+                <p style={{ marginTop: 8, fontSize: 13, color: "#2b7a78" }}>
+                    🔒 서버에 설정된 키로 생성됩니다. 별도 입력이 필요하지 않습니다.
+                </p>
             </div>
 
             <div className="form-group">

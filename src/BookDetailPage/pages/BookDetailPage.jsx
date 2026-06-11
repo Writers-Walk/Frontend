@@ -6,7 +6,7 @@ import AIButton from '../components/AIButton';
 import ShareButton from '../components/ShareButton';
 import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
-import ReviewList from "../components/ReviewList";
+import ReviewList from "../../reviewpage/ReviewList";
 
 const formatDate = (dateString) => {
   if (!dateString) return "날짜 없음";
@@ -16,7 +16,7 @@ const formatDate = (dateString) => {
 const BookDetailPage = () => {
   const [book, setBook] = useState(null);
   const [likes, setLikes] = useState(0);
-  const [isLiking, setIsLiking] = useState(false);
+ // const [isLiking, setIsLiking] = useState(false);
   const navigate = useNavigate(); 
   const { id } = useParams();
   const [reviews, setReviews] = useState([
@@ -62,7 +62,7 @@ const BookDetailPage = () => {
   useEffect(() => {
     const getBookData = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/books/${id}`);
+        const response = await fetch(`http://localhost:8080/api/bookdetail/book/${id}`);
         if (!response.ok) throw new Error("서버에서 데이터를 가져오지 못했습니다.");
         const data = await response.json();
         setBook(data);
@@ -75,27 +75,24 @@ const BookDetailPage = () => {
   }, [id]); 
 
   const handleLike = async () => {
-    if (isLiking) return;
-    setIsLiking(true);
-    const newLikes = likes + 1;
+
     try {
-      const response = await fetch(`http://localhost:8080/books/${id}`, {
-        method: 'PATCH',
+      const response = await fetch(`http://localhost:8080/api/bookdetail/book/${id}`, {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ likes: newLikes }),
       });
       if (!response.ok) throw new Error("좋아요 업데이트 실패");
-      setLikes(newLikes);
+      const updated = await response.json();
+      setLikes(updated.likes);
     } catch (err) {
       console.error("❤️ 좋아요 처리 중 오류:", err);
     } finally {
-      setIsLiking(false);
     }
   };
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/books/${id}`, { method: 'DELETE' });
+      const response = await fetch(`http://localhost:8080/api/bookdetail/book/${id}`, { method: 'DELETE' });
       if (!response.ok) throw new Error("삭제 실패");
       navigate('/');
     } catch (err) {
@@ -115,7 +112,7 @@ const BookDetailPage = () => {
   const handleAIGenerate = async () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 300));
-      navigate(`/cover-generate/${book.id}`); 
+      navigate(`/cover-generate/${id}`); 
     } catch (err) {
       console.error("AI 생성 페이지 이동 중 오류 발생:", err);
     }

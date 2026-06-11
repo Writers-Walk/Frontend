@@ -1,35 +1,27 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchRanking, fetchGenres } from '../api/rankingApi';
 import '../css/Likerank.css';
 
-/**
- * LikeRanking
- * Props:
- *   books        - 전체 book 배열 (likes, title, author, genre 필드 포함)
- *   topN         - 몇 위까지 표시할지 (기본 5)
- *   onClickBook  - (book) => void  클릭 시 상세 이동
- */
 const MEDAL = ['🥇', '🥈', '🥉'];
  
-const LikeRank = ({ books = [], topN = 5, onClickBook }) => {
+const LikeRank = ({ topN = 5, onClickBook }) => {
   const [selectedGenre, setSelectedGenre] = useState('');
+  const [genres, setGenres] = useState([]);
+  const [ranked, setRanked] = useState([]);
  
-  // 전체 장르 목록 추출
-  const genres = useMemo(() => {
-    const set = new Set(books.map((b) => b.genre).filter(Boolean));
-    return ['전체', ...Array.from(set).sort((a, b) => a.localeCompare(b, 'ko'))];
-  }, [books]);
+  // 장르 목록 (마운트 시 1회)
+  useEffect(() => {
+    fetchGenres()
+      .then((data) => setGenres(['전체', ...data]))
+      .catch(() => setGenres(['전체']));
+  }, []);
  
-  // 장르 필터 후 좋아요 순 정렬
-  const ranked = useMemo(() => {
-    const filtered = selectedGenre
-      ? books.filter((b) => b.genre === selectedGenre)
-      : books;
-    return [...filtered]
-      .sort((a, b) => (b.likes ?? 0) - (a.likes ?? 0))
-      .slice(0, topN);
-  }, [books, selectedGenre, topN]);
- 
-  if (books.length === 0) return null;
+  // 랭킹 (장르 바뀔 때마다 재요청)
+  useEffect(() => {
+    fetchRanking(selectedGenre, topN)
+      .then(setRanked)
+      .catch(() => setRanked([]));
+  }, [selectedGenre, topN]);
  
   const maxLikes = ranked[0]?.likes ?? 1;
  

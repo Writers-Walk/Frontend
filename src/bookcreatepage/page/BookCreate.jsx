@@ -1,7 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../css/BookCreate.css";
-import api from "../../api/api";
+import useBookCreate from "../hooks/useBookCreate";
 
 function BookCreate() {
   const navigate = useNavigate();
@@ -63,6 +61,7 @@ function BookCreate() {
       alert("도서 등록에 실패했습니다.");
     }
   };
+  const { book, handleChange, handleSubmit } = useBookCreate();
 
   return (
     <div className="book-create-page">
