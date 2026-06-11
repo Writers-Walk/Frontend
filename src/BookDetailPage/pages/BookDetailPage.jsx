@@ -18,9 +18,9 @@ const BookDetailPage = () => {
   const [wishCount, setWishCount] = useState(0);
 
   const navigate = useNavigate();
-
   const { id } = useParams();
   const TEMPORARY_USER_ID = 1;
+
 
   useEffect(() => {
   const getBookData = async () => {
