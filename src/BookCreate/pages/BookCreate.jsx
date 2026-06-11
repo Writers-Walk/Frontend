@@ -11,7 +11,6 @@ function BookCreate() {
     author: "", // 저자
     publisher: "", // 출판사
     publishedDt: "", //발행년도
-    publicationDt: "",
     seriesInfo: "", // 총서사항
     genre: "", // 장르
     content: "", // 상세 설명
@@ -47,14 +46,14 @@ function BookCreate() {
       genre: book.genre,
       coverImageUrl: "",
       publisher: book.publisher,
-      publicationDt: book.publicationDt,
+      publishedDt: book.publishedDt,
       seriesInfo: book.seriesInfo,
       createdAt: now,
       updatedAt: now,
     };
 
     try {
-      await api.post("/books", newBook);
+      await api.post("/api/bookcreate/create", newBook);
       alert("도서가 등록되었습니다!");
 
       console.log(newBook);
@@ -112,9 +111,9 @@ function BookCreate() {
                 />
                 <input
                   type="text"
-                  name="publicationDt"
+                  name="publishedDt"
                   placeholder="발행년도"
-                  value={book.publicationDt}
+                  value={book.publishedDt}
                   onChange={handleChange}
                   maxLength={30}
                   className="year-input"

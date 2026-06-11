@@ -176,7 +176,7 @@ npm run dev
 
 | 서버 | 주소 |
 |---|---|
-| json-server (Mock API) | http://localhost:3000 |
+| json-server (Mock API) | http://localhost:300 |
 | React 개발 서버 | http://localhost:5173 |
 
 ---

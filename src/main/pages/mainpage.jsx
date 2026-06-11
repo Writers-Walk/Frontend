@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
 
-  const {books, loading, error} = useBooks();
+  const { books = [], loading, error } = useBooks();
   const navigate = useNavigate();
 
   //검색, 정렬 usestate
@@ -17,8 +17,10 @@ const MainPage = () => {
   const [sortOrder, setSortOrder] = useState('latest');
 
   //검색 정렬기능 추가
-  const filteredBooks = books
-    .filter(book =>{
+  const bookList = Array.isArray(books) ? books : [];
+
+  const filteredBooks = bookList
+  .filter(book => {
       const query = searchQuery.trim();
       return book.title.includes(query) || book.author.includes(query)
     })
@@ -75,7 +77,7 @@ const MainPage = () => {
             ))}
           </div>
         )}
-        <LikeRank books={books} topN={10} onClickBook={handleClickBook} />
+        <LikeRank books={bookList} topN={10} onClickBook={handleClickBook} />
         </div>
         
     );

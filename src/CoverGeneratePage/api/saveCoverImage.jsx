@@ -1,5 +1,5 @@
 async function saveCoverImage(id, coverData) {
-    const res = await fetch(`http://localhost:3000/books/${id}`, {
+    const res = await fetch(`http://localhost:8080/books/${id}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",

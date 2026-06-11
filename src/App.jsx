@@ -7,7 +7,7 @@ import MainPage from './main/pages/mainpage';
 import CoverGeneratePage from './CoverGeneratePage/CoverGeneratePage';
 import BookDetailPage from './BookDetailPage/pages/BookDetailPage';
 import BookCreate from './BookCreate/pages/BookCreate';
-
+import ReviewPage from "./BookDetailPage/pages/ReviewPage";
 
 export function App() {
   const router = createBrowserRouter([
@@ -17,7 +17,8 @@ export function App() {
         { path: "/", element: <MainPage /> },
         { path: "/cover-generate/:id", element: <CoverGeneratePage /> },
         { path: "/register", element: <BookCreate /> },
-         { path: "/book/:id", element: <BookDetailPage /> },
+        { path: "/book/:id", element: <BookDetailPage /> },
+        { path: "/book/:id/reviews", element: <ReviewPage />}
       ],
     },
   ]);
