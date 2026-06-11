@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Header.css';
 import pageLogo from '../../assets/pageLogo.png'
+import AuthButtons from '../../main/components/AuthButtons';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Header = () => {
             <span className="logo-sub">작가의 산책</span>
           </div> 
         </div>
+        <AuthButtons />
       </div>
     </header>
   );
