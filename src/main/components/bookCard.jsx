@@ -18,7 +18,7 @@ const BookCard = ({ book, onClick }) => {
       <p className="book-card__author">{book.author}</p>
       <div className="book-card__title-row">
         <p className="book-card__date">{book.createdAt.slice(0, 10)}</p>
-        <span className="book-card__likes">❤️ {book.likes}</span>
+        <span className="book-card__wishes">{book.wished ? "💖" : "🖤"} {book.wishCount ?? 0}</span>
       </div>
     </div>
   );

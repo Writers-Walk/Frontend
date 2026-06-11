@@ -78,7 +78,7 @@ const MainPage = () => {
             ) : (
               <div className="main-page__card-list">
                 {books.map((book) => (
-                  <BookCard key={book.id} book={book} onClick={handleClickBook} />
+                  <BookCard key={book.id} book={book} onClick={handleClickBook} onWishClick={(e) => handleMainWish(book.id, e)} />
                 ))}
               </div>
             )}
@@ -113,7 +113,7 @@ const MainPage = () => {
               </div>
             )}
 
-            <LikeRank topN={10} onClickBook={handleClickBook} />
+            <LikeRank topN={10} onClickBook={handleClickBook} /> 
         </div>
     );
 };
