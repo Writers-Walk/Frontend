@@ -17,9 +17,11 @@ const BookDetailPage = () => {
   const [wished, setWished] = useState(false);
   const [wishCount, setWishCount] = useState(0);
 
+
   const navigate = useNavigate();
   const { id } = useParams();
   const TEMPORARY_USER_ID = 1;
+
 
 
   useEffect(() => {

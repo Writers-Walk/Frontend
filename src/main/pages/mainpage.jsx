@@ -5,7 +5,7 @@ import useBooks from '../api/bookListApi';
 import LikeRank from '../components/Likerank';
 import '../css/MainPage.css';
 import { useNavigate } from 'react-router-dom';
-
+import MainBanner from '../components/MainBanner';
 
 const MainPage = () => {
 
@@ -41,6 +41,7 @@ const MainPage = () => {
 
     return (
         <div className="main-page">
+          <MainBanner />
             <div className="main-toolbar">
                 <span className="book-count">
                     도서 목록 <span>({books.length}권)</span>
