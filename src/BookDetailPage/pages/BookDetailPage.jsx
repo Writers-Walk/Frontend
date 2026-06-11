@@ -4,7 +4,6 @@ import '../css/BookDetailPage.css';
 import BackButton from '../components/BackButton';
 import AIButton from '../components/AIButton';
 import ShareButton from '../components/ShareButton';
-import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
 import ReviewList from "../../reviewpage/ReviewList";
 
@@ -15,9 +14,13 @@ const formatDate = (dateString) => {
 
 const BookDetailPage = () => {
   const [book, setBook] = useState(null);
-  const [likes, setLikes] = useState(0);
- // const [isLiking, setIsLiking] = useState(false);
+  const [wished, setWished] = useState(false);
+  const [wishCount, setWishCount] = useState(0);  // ✅ 추가
   const navigate = useNavigate(); 
+
+  const { id } = useParams(); 
+  const TEMPORARY_USER_ID = 1; //완성되면 삭제
+
   const { id } = useParams();
   const [reviews, setReviews] = useState([
     // 나중에 삭제
@@ -59,14 +62,16 @@ const BookDetailPage = () => {
   }
 ]);
 
+
   useEffect(() => {
     const getBookData = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/bookdetail/book/${id}`);
+        const response = await fetch(`http://localhost:8080/api/bookdetail/book/${id}?userId=${TEMPORARY_USER_ID}`);  // ✅ userId 추가
         if (!response.ok) throw new Error("서버에서 데이터를 가져오지 못했습니다.");
         const data = await response.json();
         setBook(data);
-        setLikes(data.likes ?? 0);
+        setWished(data.wished ?? false);
+        setWishCount(data.wishCount ?? 0);  // ✅ 초기값 세팅
       } catch (err) {
         console.error("🚨 도서 데이터 로딩 중 에러 발생:", err);
       }
@@ -74,19 +79,19 @@ const BookDetailPage = () => {
     getBookData();
   }, [id]); 
 
-  const handleLike = async () => {
-
+  const handleWish = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/bookdetail/book/${id}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-      });
-      if (!response.ok) throw new Error("좋아요 업데이트 실패");
+      const response = await fetch(
+        `http://localhost:8080/api/bookdetail/book/${id}?userId=${TEMPORARY_USER_ID}`,
+        { method: 'POST' }
+      );
+      if (!response.ok) throw new Error("찜하기 업데이트 실패");
       const updated = await response.json();
-      setLikes(updated.likes);
+
+      setWished(updated.wished);
+      setWishCount(updated.wishCount);
     } catch (err) {
-      console.error("❤️ 좋아요 처리 중 오류:", err);
-    } finally {
+      console.error("💖 찜하기 처리 중 오류:", err);
     }
   };
 
@@ -180,7 +185,9 @@ const BookDetailPage = () => {
           <div className="badge-row">
             <span className="badge-blue">📅 출판일: {book.publicationDt || "정보 없음"}</span>
 
-            <LikeButton likes={likes} onClick={handleLike} />
+            <button className={`wish-button ${wished ? 'wished' : ''}`} onClick={handleWish}>
+              {wished ? '💖 찜 취소' : '🖤 찜하기'} {wishCount}
+            </button>
           </div>
 
           <div className="dates">

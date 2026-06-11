@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+const TEMPORARY_USER_ID = 1;
 const API_URL = 'http://localhost:8080/api/books/getall';
 
 const useBooks = (sortOrder = 'latest', keyword = '', page = 0) => {
@@ -16,6 +17,7 @@ const useBooks = (sortOrder = 'latest', keyword = '', page = 0) => {
                 const direction = sortOrder === 'latest' ? 'desc' : 'asc';
 
                 const params = new URLSearchParams({
+                    userId: TEMPORARY_USER_ID,
                     keyword,
                     sortBy,
                     direction,
