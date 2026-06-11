@@ -1,0 +1,55 @@
+/*
+  이미지 권장 해상도: 1200 × 400px
+  배너 고정 크기: 1200 × 400px
+*/
+
+.slideBannerWrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.slideBanner {
+  width: 1200px;
+  height: 400px;
+  overflow: hidden !important;
+  border-radius: 12px;
+}
+
+.slideBanner .swiper-wrapper {
+  height: 100%;
+}
+
+.slideBanner .swiper-slide {
+  position: relative;
+  height: 400px;
+}
+
+.slideBanner .swiper-slide img {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: fill !important;
+}
+
+.slideBanner .swiper-pagination {
+  bottom: 14px;
+}
+
+.slideBanner .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.6);
+  opacity: 1;
+  transition: background-color 0.3s;
+}
+
+.slideBanner .swiper-pagination-bullet-active {
+  background-color: #ffffff;
+  width: 24px;
+  border-radius: 5px;
+  transition: width 0.3s;
+}

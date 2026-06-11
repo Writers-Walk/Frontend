@@ -1,4 +1,9 @@
 .main-page {
+  /* 1. 최대 가로 폭을 제한합니다. (보통 1200px ~ 1400px 사이가 적당합니다) */
+  max-width: 1200px; 
+  
+  /* 2. 좌우 여백을 자동으로 계산하여 컨테이너를 화면 가운데로 정렬합니다. */
+  margin: 0 auto;
   padding: 2rem 1.5rem;
 }
 
@@ -90,3 +95,13 @@
     opacity: 0.4;
     cursor: not-allowed;
 }
+
+/* 배너 영역 스타일 */
+.banner-container {
+  width: 100%;
+  margin-bottom: 2.5rem; /* 도서 목록과의 간격 확보 */
+  border-radius: 12px;
+  overflow: hidden; /* 이미지가 튀어나가지 않게 */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
