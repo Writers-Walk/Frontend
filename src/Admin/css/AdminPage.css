@@ -1,0 +1,43 @@
+.admin-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 20px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-tabs button {
+  padding: 10px 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: #6b7280;
+  border-bottom: 2px solid transparent;
+}
+
+.admin-tabs button.active {
+  color: #2b7a78;
+  border-bottom-color: #2b7a78;
+}
+
+.admin-content {
+  padding: 20px 0;
+}
+
+.book-delete-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.book-delete-list th,
+.book-delete-list td {
+  padding: 10px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}

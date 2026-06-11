@@ -21,7 +21,6 @@ const BookDetailPage = () => {
   const { id } = useParams(); 
   const TEMPORARY_USER_ID = 1; //완성되면 삭제
 
-  const { id } = useParams();
   const [reviews, setReviews] = useState([
     // 나중에 삭제
   {
