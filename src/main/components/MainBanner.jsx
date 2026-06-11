@@ -3,8 +3,10 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
-
-import {image1,image2,image3 } from '../../assets/testimgurl'
+import banner1 from '../../assets/banner1.jpg'
+import banner2 from '../../assets/banner2.jpg'
+import banner3 from '../../assets/banner3.jpg'
+//import {image1,image2,image3 } from '../../assets/testimgurl'
 // 스타일 시트를 불러옵니다 (필수!)
 import '../css/MainBanner.css';
 import 'swiper/css/navigation';
@@ -24,13 +26,13 @@ const MainBanner = () => {
       loop={true} // 반복
     >
       <SwiperSlide>
-        <img src={image1} alt="배너 1" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <img src={banner1} alt="배너 1" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
       </SwiperSlide>
       <SwiperSlide>
-        <img src={image2} alt="배너 2" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <img src={banner2} alt="배너 2" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
       </SwiperSlide>
     <SwiperSlide>
-        <img src={image3} alt="배너 3" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <img src={banner3} alt="배너 3" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
     </SwiperSlide>
     </Swiper>
   );

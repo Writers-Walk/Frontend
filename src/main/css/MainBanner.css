@@ -1,11 +1,11 @@
 /* 배너 전체 컨테이너 */
 .mainBanner {
-  position: relative !important;
-  width: 100% !important;
-  max-width: 100px !important; /* 원하는 크기로 조절 */
-  margin: 0 auto !important;
-  overflow: hidden !important;
-  object-fit: cover !important; /* 이미지가 찌그러지지 않고 꽉 차게 */
+  position: relative;
+  width: 100%;
+  max-width: 400px; /* 원하는 크기로 조절 */
+  margin: 0 auto;
+  overflow: hidden;
+  object-fit: cover; /* 이미지가 찌그러지지 않고 꽉 차게 */
 }
 
 /* 화살표 버튼 위치 및 크기 조정 */
