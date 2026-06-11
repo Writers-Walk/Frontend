@@ -1,0 +1,32 @@
+/* 배너 전체 컨테이너 */
+.mainBanner {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 100px !important; /* 원하는 크기로 조절 */
+  margin: 0 auto !important;
+  overflow: hidden !important;
+  object-fit: cover !important; /* 이미지가 찌그러지지 않고 꽉 차게 */
+}
+
+/* 화살표 버튼 위치 및 크기 조정 */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #000000 !important;
+  background-color: transparent !important; /* 화살표 색상 */
+  width: 30px !important;
+  height: 30px !important;
+  padding: 10px !important;
+  
+}
+
+/* 화살표 내부 아이콘 크기 */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 10px !important;
+  color: #ffffff !important;
+  font-weight: bold !important;
+  transition: all 0.3s ease !important;
+}
+
+
+
