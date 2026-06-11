@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../css/BookDetailPage.css'; 
+import '../css/BookDetailPage.css';
 import BackButton from '../components/BackButton';
 import AIButton from '../components/AIButton';
 import ShareButton from '../components/ShareButton';
 import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
+import ReviewList from "../../reviewpage/ReviewList";
 
 const formatDate = (dateString) => {
   if (!dateString) return "날짜 없음";
@@ -17,7 +18,46 @@ const BookDetailPage = () => {
   const [likes, setLikes] = useState(0);
  // const [isLiking, setIsLiking] = useState(false);
   const navigate = useNavigate(); 
-  const { id } = useParams(); 
+  const { id } = useParams();
+  const [reviews, setReviews] = useState([
+    // 나중에 삭제
+  {
+    id: 1,
+    username: "에이블",
+    rating: 5,
+    content: "정말 재밌게 읽었습니다."
+  },
+  {
+    id: 2,
+    username: "에이블러",
+    rating: 4,
+    content: "추천합니다."
+  },
+  {
+    id: 3,
+    username: "눈누",
+    rating: 3,
+    content: "무난하게 읽기 좋았어요."
+  },
+  {
+    id: 2,
+    username: "난나",
+    rating: 5,
+    content: "어려운 책이네요"
+  },
+  {
+    id: 5,
+    username: "룰루",
+    rating: 4,
+    content: "재밌게 읽었어요."
+  },
+  {
+    id: 6,
+    username: "랄라",
+    rating: 1,
+    content: "이건 별로인 듯"
+  }
+]);
 
   useEffect(() => {
     const getBookData = async () => {
@@ -78,7 +118,31 @@ const BookDetailPage = () => {
     }
   };
 
-  if (!book) return <div style={{ padding: '20px', textAlign: 'center' }}>불러오는 중...</div>;
+  if (!book) {
+  return (
+    <div className="detail-container">
+      <h1>테스트 도서</h1>
+
+      <hr className="divider" />
+
+      <div className="review-section">
+        <div className="review-title-row">
+          <h3>리뷰</h3>
+
+          <button
+            type="button"
+            className="review-more-button"
+            onClick={() => navigate(`/book/${id}/reviews`)}
+          >
+            전체보기 →
+          </button>
+        </div>
+
+        <ReviewList reviews={reviews.slice(0, 5)} />
+      </div>
+    </div>
+  );
+}
 
   return (
     <div className="detail-container">
@@ -130,6 +194,25 @@ const BookDetailPage = () => {
           <div className="book-content-box">
             <p className="book-content">{book.content}</p>
           </div>
+
+
+
+          <div className="review-section">
+            <div className="review-title-row">
+              <h3>리뷰</h3>
+
+              <button
+                type="button"
+                className="review-more-button"
+                onClick={() => navigate(`/book/${id}/reviews`)}
+              >
+                리뷰 전체보기
+              </button>
+            </div>
+
+            <ReviewList reviews={reviews.slice(0, 5)} />
+          </div>
+
         </div>
       </div>
     </div>

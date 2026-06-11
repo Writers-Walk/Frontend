@@ -315,3 +315,174 @@
   margin: 0;
   color: #4c6ef5;
 }
+
+/* 리뷰css */
+.review-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.review-more-button {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.review-more-button:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+.review-item {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+/* 리뷰 페이지css */
+.review-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.review-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 32px 0 20px;
+}
+
+.review-list-header select {
+  border: none;
+  background: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 6px 10px;
+}
+
+/* 리뷰 평점*/
+.rating-summary-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+
+  padding: 35px;
+  margin: 30px 0;
+
+  background-color: #fafafa;
+  border-radius: 16px;
+}
+
+.rating-left {
+  text-align: center;
+}
+
+.average-score {
+  font-size: 56px;
+  font-weight: bold;
+}
+
+.average-stars {
+  font-size: 30px;
+  margin-top: 12px;
+}
+
+.rating-divider {
+  width: 1px;
+  height: 120px;
+  background-color: #ddd;
+}
+
+.rating-right {
+  width: 250px;
+}
+
+.rating-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 10px;
+}
+
+.rating-row span {
+  width: 35px;
+}
+
+.rating-bar {
+  flex: 1;
+  height: 8px;
+
+  background-color: #e5e5e5;
+  border-radius: 999px;
+}
+
+.rating-bar-fill {
+  height: 100%;
+
+  background-color: #333;
+  border-radius: 999px;
+}
+
+/* 리뷰 작성 폼 */
+.review-form {
+  background-color: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 30px 0;
+}
+
+.rating-box {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.star {
+  font-size: 36px;
+  cursor: pointer;
+}
+
+.review-textarea {
+  width: 100%;
+  min-height: 120px;
+
+  border: none;
+  resize: none;
+
+  font-size: 16px;
+  background: transparent;
+}
+
+.review-textarea:focus {
+  outline: none;
+}
+
+.review-submit-button {
+  display: block;
+  margin-left: auto;
+
+  padding: 10px 20px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #4f46e5;
+  color: white;
+
+  cursor: pointer;
+}
