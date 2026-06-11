@@ -1,0 +1,28 @@
+/* 우상단 인증 버튼 영역 */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-buttons__user {
+  font-size: 14px;
+  color: #475569;
+}
+
+.auth-buttons__btn {
+  padding: 7px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e293b;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.auth-buttons__btn:hover {
+  background: #f1f5f9;
+  border-color: #1e293b;
+}
