@@ -7,7 +7,6 @@ import '../css/MainPage.css';
 import { useNavigate } from 'react-router-dom';
 import MainBanner from '../components/MainBanner';
 
-
 const MainPage = () => {
 
   const navigate = useNavigate();
@@ -42,9 +41,7 @@ const MainPage = () => {
 
     return (
         <div className="main-page">
-          <div className= "banner-container">
-            <MainBanner />
-          </div>
+          <MainBanner />
             <div className="main-toolbar">
                 <span className="book-count">
                     도서 목록 <span>({books.length}권)</span>
@@ -82,7 +79,7 @@ const MainPage = () => {
             ) : (
               <div className="main-page__card-list">
                 {books.map((book) => (
-                  <BookCard key={book.id} book={book} onClick={handleClickBook} />
+                  <BookCard key={book.id} book={book} onClick={handleClickBook} onWishClick={(e) => handleMainWish(book.id, e)} />
                 ))}
               </div>
             )}
@@ -117,7 +114,7 @@ const MainPage = () => {
               </div>
             )}
 
-            <LikeRank topN={10} onClickBook={handleClickBook} />
+            <LikeRank topN={10} onClickBook={handleClickBook} /> 
         </div>
     );
 };

@@ -1,32 +1,60 @@
-/* 배너 전체 컨테이너 */
+/* 1. 배너 컨테이너: 높이 축소 및 아래 여백 추가 */
 .mainBanner {
-  position: relative;
   width: 100%;
-  max-width: 400px; /* 원하는 크기로 조절 */
-  margin: 0 auto;
+  height: 250px;           /* 배너 높이 */
+  margin-bottom: 40px;     /* 아래 도서 목록과 겹치지 않게 여백 추가 */
+  position: relative !important;
   overflow: hidden;
-  object-fit: cover; /* 이미지가 찌그러지지 않고 꽉 차게 */
+  border-radius: 12px; 
+      /* 모서리 둥글게 */
 }
 
-/* 화살표 버튼 위치 및 크기 조정 */
+/* 2. 이미지 스타일: 박스를 꽉 채움 */
+.mainBanner .swiper-slide img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  display: block;
+}
+
+/* 3. 화살표 버튼: 배경 없이 깔끔하게 중앙 정렬 */
 .swiper-button-next,
 .swiper-button-prev {
-  color: #000000 !important;
-  background-color: transparent !important; /* 화살표 색상 */
-  width: 30px !important;
-  height: 30px !important;
-  padding: 10px !important;
-  
+  color: white !important; 
+  background: none !important;
+  width: 25px !important;
+  height: 25px !important;
+  position: absolute !important;
+  top: 50% !important;                 /* 수직 중앙 */
+  transform: translateY(-50%) !important; /* 정확한 중앙 정렬 보정 */
+  margin-top: 0 !important;
 }
 
-/* 화살표 내부 아이콘 크기 */
+/* 화살표 위치 조절 */
+.swiper-button-next { right: 20px !important; }
+.swiper-button-prev { left: 20px !important; }
+
+/* 화살표 크기 */
 .swiper-button-next::after,
 .swiper-button-prev::after {
   font-size: 10px !important;
-  color: #ffffff !important;
-  font-weight: bold !important;
-  transition: all 0.3s ease !important;
+  font-weight: bold;
 }
 
+/* 4. 페이징 점(dots) 스타일 */
+.swiper-pagination {
+  bottom: 15px !important; /* 이미지 안쪽 하단에 배치 */
+}
 
+.swiper-pagination-bullet {
+  background: white !important;
+  opacity: 0.6 !important;
+  width: 10px !important;
+  height: 10px !important;
+}
 
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+  background: white !important;
+}
