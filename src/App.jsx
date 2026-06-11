@@ -9,8 +9,8 @@ import MainPage from './main/pages/mainpage';
 import CoverGeneratePage from './CoverGeneratePage/CoverGeneratePage';
 import BookDetailPage from './BookDetailPage/pages/BookDetailPage';
 import BookCreate from './bookcreatepage/page/BookCreate';
-import ReviewPage from './reviewpage/ReviewPage';
-import AdminPage from './Admin/pages/AdminPage';
+import ReviewPage from './reviewpage/pages/ReviewPage';
+import AdminPage from './adminpage/pages/AdminPage';
 import LoginPage from './main/pages/LoginPage';
 import SignupPage from './main/pages/SignupPage';        
 

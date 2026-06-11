@@ -42,7 +42,7 @@ import '../css/MainBanner.css';
 //   );
 // };
 
-// export default MainBanner;
+//export default MainBanner;
 
 // 연동하면 주석 풀기 
 const MainBanner = () => {
