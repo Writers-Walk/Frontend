@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API_URL = 'http://localhost:8080/api/main/banner/get'; // 방금 만든 API 경로
+const API_URL = 'http://localhost:8080/api/banner/get'; // 방금 만든 API 경로
 
 const useBanner = () => {
     const [banners, setBanners] = useState({

@@ -40,8 +40,9 @@ const MainPage = () => {
   };
 
     return (
+      <>
+        <MainBanner />
         <div className="main-page">
-          <MainBanner />
             <div className="main-toolbar">
                 <span className="book-count">
                     도서 목록 <span>({books.length}권)</span>
@@ -116,6 +117,7 @@ const MainPage = () => {
 
             <LikeRank topN={10} onClickBook={handleClickBook} /> 
         </div>
+        </>
     );
 };
 
