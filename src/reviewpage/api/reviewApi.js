@@ -1,16 +1,16 @@
 import api from "../../api/api";
 
-export const getReviews = async () => {
+export const getReviews = async (bookId) => {
   const response = await api.get(
-    "/api/review/getall"
+    `/api/review/${bookId}/getallreview`
   );
 
   return response.data;
 };
 
-export const createReview = async (reviewData) => {
+export const createReview = async (bookId, reviewData) => {
   const response = await api.post(
-    "/api/review/getall",
+    `/api/review/${bookId}/save`,
     reviewData
   );
 
