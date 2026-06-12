@@ -180,8 +180,8 @@ const CoverGenerate = () => {
           />
         </>
       )}
+      
     </div>
   );
 };
-
 export default CoverGenerate;
