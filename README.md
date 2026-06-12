@@ -187,18 +187,18 @@ VITE_OPENAI_API_KEY=your_openai_api_key_here
 ### 서버 실행
 
 > **두 서버를 동시에 실행해야 합니다.**
+
+** Frontend 서버 실행
+```bash
+npm run dev
+```
 ** Backend 서버 실행
 ```bash
 ./gradlew bootRun
 
-** Backend 서버 실행
-```bash
-npm run dev
-```
-
 | 서버 | 주소 |
 |---|---|
-| json-server (Mock API) | http://localhost:300 |
+| H2 | http://localhost:300 |
 | React 개발 서버 | http://localhost:5173 |
 
 ---
