@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import RegisterButton from '../components/RegisterButton';
 import BookCard from "../components/bookCard";
 import useBooks from '../api/bookListApi';
 import WishRank from '../components/WishRank';
@@ -93,7 +92,6 @@ const MainPage = () => {
                     <option value="latest">최신순</option>
                     <option value="title">제목순</option>
                   </select>
-                  <RegisterButton />
                   {/*adminchecker*/}
                   {userRole === 'ADMIN' &&(
                     <button 
