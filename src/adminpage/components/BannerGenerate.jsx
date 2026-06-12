@@ -5,7 +5,7 @@ const BannerGenerate = () => {
   const navigate = useNavigate();
   const [type, setType] = useState('latestBanner');
   const [userPrompt, setUserPrompt] = useState('');
-  const [imageModel, setImageModel] = useState('dall-e-3');
+  const [imageModel, setImageModel] = useState('gpt-image-2');  
   const [resolution, setResolution] = useState('1024x1024');
   const [quality, setQuality] = useState('medium');
   const [result, setResult] = useState(null);
@@ -51,17 +51,15 @@ const BannerGenerate = () => {
       <div className="form-group">
         <label>이미지 모델</label>
         <select value={imageModel} onChange={(e) => setImageModel(e.target.value)}>
-          <option value="dall-e-3">DALL·E 3</option>
-          <option value="dall-e-2">DALL·E 2</option>
+          <option value="gpt-image-2">gpt-image-2</option>
+
         </select>
       </div>
 
       <div className="form-group">
         <label>해상도</label>
         <select value={resolution} onChange={(e) => setResolution(e.target.value)}>
-          <option value="1024x1024">1024x1024</option>
-          <option value="1024x1792">1024x1792 (세로)</option>
-          <option value="1792x1024">1792x1024 (가로)</option>
+          <option value="3840x1536">3840x1536</option>
         </select>
       </div>
 
