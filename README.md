@@ -179,7 +179,7 @@ npm install react-router-dom
 프로젝트 루트에 `.env` 파일을 생성하고 OpenAI API Key를 입력합니다.
 
 ```env
-VITE_OPENAI_API_KEY=your_openai_api_key_here
+API_KEY=your_openai_api_key
 ```
 
 > **주의:** `.env` 파일은 절대 Git에 커밋하지 마세요.
