@@ -78,11 +78,11 @@ src/
 │   │   └── mainapi.jsx            # 도서 목록 조회 API
 │   ├── components/
 │   │   ├── bookCard.jsx           # 도서 카드 컴포넌트
-│   │   ├── Likerank.jsx           # 좋아요 랭킹 컴포넌트
+│   │   ├── WishRank.jsx           # 좋아요 랭킹 컴포넌트
 │   │   └── RegisterButton.jsx     # 도서 등록 버튼
 │   ├── css/
 │   │   ├── bookCard.css
-│   │   ├── Likerank.css
+│   │   ├── WishRank.css
 │   │   ├── MainPage.css
 │   │   └── RegisterButton.css
 │   └── pages/

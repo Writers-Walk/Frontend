@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { fetchRanking, fetchGenres } from '../api/rankingApi';
-import '../css/Likerank.css';
+import '../css/Wishrank.css';
 
 const MEDAL = ['🥇', '🥈', '🥉'];
  
-const LikeRank = ({ topN = 5, onClickBook }) => {
+const WishRank = ({ topN = 5, onClickBook }) => {
   const [selectedGenre, setSelectedGenre] = useState('');
   const [genres, setGenres] = useState([]);
   const [ranked, setRanked] = useState([]);
@@ -23,21 +23,21 @@ const LikeRank = ({ topN = 5, onClickBook }) => {
       .catch(() => setRanked([]));
   }, [selectedGenre, topN]);
  
-  const maxLikes = ranked[0]?.likes ?? 1;
+  const maxWish = ranked[0]?.wishCount ?? 1;   // 찜 개수 기준
  
   return (
-    <section className="like-ranking">
-      <h2 className="like-ranking__title">❤️ 좋아요 순위</h2>
+    <section className="wish-ranking">
+      <h2 className="wish-ranking__title">❤️ 찜 순위</h2>
  
       {/* 장르 필터 칩 */}
-      <div className="like-ranking__genres">
+      <div className="wish-ranking__genres">
         {genres.map((genre) => {
           const value = genre === '전체' ? '' : genre;
           const isActive = selectedGenre === value;
           return (
             <button
               key={genre}
-              className={`like-ranking__chip ${isActive ? 'like-ranking__chip--active' : ''}`}
+              className={`wish-ranking__chip ${isActive ? 'wish-ranking__chip--active' : ''}`}
               onClick={() => setSelectedGenre(value)}
             >
               {genre}
@@ -48,12 +48,11 @@ const LikeRank = ({ topN = 5, onClickBook }) => {
  
       {/* 순위 목록 */}
       {ranked.length === 0 ? (
-        <p className="like-ranking__empty">해당 장르의 도서가 없습니다.</p>
+        <p className="wish-ranking__empty">해당 장르의 도서가 없습니다.</p>
       ) : (
-        <ol className="like-ranking__list">
+        <ol className="wish-ranking__list">
           {ranked.map((book, idx) => {
-            const pct = maxLikes > 0 ? Math.round(((book.likes ?? 0) / maxLikes) * 100) : 0;
-            return (
+           const pct = maxWish > 0 ? Math.round(((book.wishCount ?? 0) / maxWish) * 100) : 0;            return (
               <li
                 key={book.id}
                 className={`rank-item ${idx < 3 ? 'rank-item--top' : ''}`}
@@ -76,7 +75,7 @@ const LikeRank = ({ topN = 5, onClickBook }) => {
  
                 <span className="rank-item__likes">
                   <span className="rank-item__likes-icon">♥</span>
-                  {(book.likes ?? 0).toLocaleString()}
+                  {(book.wishCount ?? 0).toLocaleString()}
                 </span>
               </li>
             );
@@ -87,4 +86,4 @@ const LikeRank = ({ topN = 5, onClickBook }) => {
   );
 };
  
-export default LikeRank;
+export default WishRank;
