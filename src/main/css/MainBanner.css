@@ -1,53 +1,60 @@
-/* 배너 컨테이너
-   - vh 단위로 반응형 높이, max-height로 대형 화면 제한
-   - 1920x600 비율 기준: 40vh가 1080p에서 약 432px로 근사
-   - overflow: hidden 만 !important (Swiper 트랜지션 클리핑 필수)
-*/
+/* 1. 배너 컨테이너: 높이 축소 및 아래 여백 추가 */
 .mainBanner {
-  width: 100%;
-  height: 40vh;
-  max-height: 600px;
-  min-height: 280px;
-  overflow: hidden !important;
+  width: 63%;
+  height: 400px;           /* 배너 높이 */
+  margin-bottom: 40px;     /* 아래 도서 목록과 겹치지 않게 여백 추가 */
+  position: relative !important;
+  overflow: hidden;
+  border-radius: 12px; 
+      /* 모서리 둥글게 */
 }
 
-/* swiper-wrapper 높이: Swiper JS가 width는 건드리지만 height는 여기서 제어 */
-.mainBanner .swiper-wrapper {
-  height: 100%;
-}
-
-/* 슬라이드: img absolute의 기준점. width는 !important 제거 — Swiper JS가 계산 */
-.mainBanner .swiper-slide {
-  position: relative;
-  height: 100%;
-}
-
-/* 이미지: Swiper가 건드리지 않는 영역이므로 !important 유지 */
+/* 2. 이미지 스타일: 박스를 꽉 채움 */
 .mainBanner .swiper-slide img {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  display: block !important;
-  object-fit: cover !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  display: block;
 }
 
-/* 화살표 버튼 — 스타일만 변경, 위치/크기 계산은 Swiper에 위임 */
-.mainBanner .swiper-button-next,
-.mainBanner .swiper-button-prev {
-  color: #ffffff;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 50%;
+/* 3. 화살표 버튼: 배경 없이 깔끔하게 중앙 정렬 */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white !important; 
+  background: none !important;
+  width: 25px !important;
+  height: 25px !important;
+  position: absolute !important;
+  top: 50% !important;                 /* 수직 중앙 */
+  transform: translateY(-50%) !important; /* 정확한 중앙 정렬 보정 */
+  margin-top: 0 !important;
 }
 
-.mainBanner .swiper-button-next::after,
-.mainBanner .swiper-button-prev::after {
-  font-size: 14px;
+/* 화살표 위치 조절 */
+.swiper-button-next { right: 20px !important; }
+.swiper-button-prev { left: 20px !important; }
+
+/* 화살표 크기 */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 10px !important;
   font-weight: bold;
 }
 
-/* 페이지네이션 */
-.mainBanner .swiper-pagination-bullet-active {
-  background-color: #ffffff;
+/* 4. 페이징 점(dots) 스타일 */
+.swiper-pagination {
+  bottom: 15px !important; /* 이미지 안쪽 하단에 배치 */
+}
+
+.swiper-pagination-bullet {
+  background: white !important;
+  opacity: 0.6 !important;
+  width: 10px !important;
+  height: 10px !important;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+  background: white !important;
 }

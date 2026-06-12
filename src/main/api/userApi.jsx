@@ -59,7 +59,7 @@ export const getMe = async () => {
   const res = await fetch(`${BASE_URL}/me`, {
     credentials: 'include',
   });
-  if (res.status === 401) return null;       // 비로그인
-  if (!res.ok) throw new Error('유저 정보 조회 실패');
-  return res.json();
+  if (!res.ok) return null;            // 예외 상황도 비로그인 취급
+  const data = await res.json();
+  return data.loggedIn ? { userId: data.userId, role: data.role } : null;
 };
