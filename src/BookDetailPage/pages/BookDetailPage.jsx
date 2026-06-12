@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../css/BookDetailPage.css';
 import BackButton from '../components/BackButton';
-import AIButton from '../components/AIButton';
-import ShareButton from '../components/ShareButton';
-import DeleteButton from '../components/DeleteButton';
 import ReviewPreview from "../../reviewpage/components/ReviewPreview.jsx";
 
 const formatDate = (dateString) => {
@@ -70,38 +67,9 @@ const BookDetailPage = () => {
     }
   };
 
-  const handleDelete = async () => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/bookdetail/book/${id}`, {
-        method: 'DELETE',
-        credentials: 'include',
-      });
-
-      if (!response.ok) {
-        throw new Error("삭제 실패");
-      }
-
-      navigate('/');
-    } catch (err) {
-      console.error("🗑️ 삭제 중 오류 발생:", err);
-    }
-  };
-
   const handleGoBack = () => {
     navigate('/');
   };
-
-  const handleAIGenerate = () => {
-    navigate(`/cover-generate/${id}`);
-  };
-
-  if (!book) {
-    return (
-      <div className="detail-container">
-        <p>도서 정보를 불러오는 중...</p>
-      </div>
-    );
-  }
 
   return (
     <div className="detail-container">
@@ -124,10 +92,6 @@ const BookDetailPage = () => {
               <p>이미지 없음</p>
             </div>
           )}
-
-          <AIButton onClick={handleAIGenerate} />
-          <ShareButton />
-          <DeleteButton onDelete={handleDelete} />
         </div>
 
         <div className="right-section">
