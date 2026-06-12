@@ -98,7 +98,7 @@ const MainPage = () => {
                   {userRole === 'ADMIN' &&(
                     <button 
                       className="admin-manage-btn" // CSS 스타일링을 위해 클래스 추가
-                      onClick={() => navigate('/cover-generate/1')} // 임의로 이동
+                      onClick={() => navigate('/admin')} // 임의로 이동
                       style={{ marginLeft: '10px', padding: '6px 12px', cursor: 'pointer' }} // 임시 레이아웃 조정용 스타일
                     >⚙️ 관리</button>
                   )}
