@@ -1,8 +1,39 @@
 import "../../bookcreatepage/css/BookCreate.css";
 import useBookCreate from "../../bookcreatepage/hooks/useBookCreate";
 
+// const BookCreateForm = () => {
+//   const [book, setbook] = useState({
+//     title: '',
+//     author: '',
+//     publisher: '',
+//     publishedDt: '',
+//     seriesInfo: '',
+//     // isbn: '',
+//     genre: '',
+//     content: '',
+//   });
+
+//   const handleChange = (e) => {
+//     setbook({ ...book, [e.target.name]: e.target.value });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       await createBook(book);
+//       alert('도서가 등록되었습니다!');
+//       setbook({
+//         title: '', author: '', publisher: '', publishedDt: '',
+//         seriesInfo: '', // isbn: '', 
+//         genre: '', content: '',
+//       });
+//     } catch (err) {
+//       alert('등록 실패: ' + err.message);
+//     }
+//   };
 const BookCreateForm = () => {
   const { book, handleChange, handleSubmit } = useBookCreate();
+
 
   return (
     <div className="book-create-page">
