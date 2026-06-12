@@ -301,7 +301,18 @@ npm run dev
   <img width="1200" alt="이미지생성2" src="https://github.com/user-attachments/assets/8a6d7330-bf89-4281-9362-97929af4eb03" />
   <br/><br/>
 
-  <img width="1200" alt="디테일" src="https://github.com/user-attachments/assets/f483c4f7-25ab-46ba-98d4-6deec1cd7d97" />
+
+  <img width="1267" height="434" alt="Image" src="https://github.com/user-attachments/assets/22f91459-2fc3-4656-b5b4-a5e20b798bc2" />
+
+  <img width="779" height="590" alt="Image" src="https://github.com/user-attachments/assets/965cb2dd-118d-45ec-8604-524efa694a12" />
+
+  <img width="793" height="591" alt="Image" src="https://github.com/user-attachments/assets/db223126-5c75-4dbd-9693-7127f9e1b5f3" />
+
+  <img width="739" height="588" alt="Image" src="https://github.com/user-attachments/assets/fce8b836-cf15-4ec4-b002-508c95d1117a" />
+
+  <img width="1274" height="661" alt="Image" src="https://github.com/user-attachments/assets/85236335-6a2c-42ef-8c8d-d3cc5501d67e" />
+
+  <img width="1268" height="659" alt="Image" src="https://github.com/user-attachments/assets/85db0d05-ae77-44b6-99ed-7a7be7320025" />
 
 </div>
 
