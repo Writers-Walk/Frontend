@@ -1,7 +1,7 @@
 import './App.css';
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 
-import { AuthProvider } from './main/components/AuthContext';
+import { AuthProvider, useAuth } from './main/components/AuthContext';
 
 import Layout from './Layout/components/Layout';
 
@@ -14,6 +14,11 @@ import AdminPage from './adminpage/pages/AdminPage';
 import LoginPage from './main/pages/LoginPage';
 import SignupPage from './main/pages/SignupPage';        
 
+function RequireAdmin({ children }) {
+  const { isAdmin, loading } = useAuth();
+  if (loading) return null;
+  return isAdmin ? children : <Navigate to="/" replace />;
+}
 
 export function App() {
   const router = createBrowserRouter([
@@ -25,8 +30,7 @@ export function App() {
         { path: "/book/:id", element: <BookDetailPage /> },
         { path: "/book/:id/reviews", element: <ReviewPage /> },
         { path: "/book-create", element: <BookCreate /> },
-        { path: "/admin", element: <AdminPage /> },  
-        { path: "/book/:id", element: <BookDetailPage /> },
+        { path: "/admin", element: <RequireAdmin><AdminPage /></RequireAdmin> },  
         { path: "/login", element: <LoginPage /> },
         { path: "/signup", element: <SignupPage /> },
       ],
