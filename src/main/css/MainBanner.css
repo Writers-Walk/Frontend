@@ -1,7 +1,7 @@
 /* 1. 배너 컨테이너: 높이 축소 및 아래 여백 추가 */
 .mainBanner {
-  width: 100%;
-  height: 250px;           /* 배너 높이 */
+  width: 63%;
+  height: 400px;           /* 배너 높이 */
   margin-bottom: 40px;     /* 아래 도서 목록과 겹치지 않게 여백 추가 */
   position: relative !important;
   overflow: hidden;

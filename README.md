@@ -97,16 +97,11 @@ src/
 │   │   └── rankingApi.jsx    
 │   ├── components/
 │   │   ├── bookCard.jsx           # 도서 카드 컴포넌트
-│   │   ├── Likerank.jsx           # 좋아요 랭킹 컴포넌트
-│   │   ├── AuthButtons.jsx
-│   │   ├── AuthContext.jsx
-│   │   ├── GenreBubbles.jsx
-│   │   ├── MainBanner.jsx            
+│   │   ├── WishRank.jsx           # 좋아요 랭킹 컴포넌트
 │   │   └── RegisterButton.jsx     # 도서 등록 버튼
 │   ├── css/
 │   │   ├── bookCard.css
-│   │   ├── Likerank.css
-│   │   ├── AuthButtons.css
+│   │   ├── WishRank.css
 │   │   ├── MainPage.css
 │   │   ├── MainBanner.css
 │   │   ├── SignupPage.css

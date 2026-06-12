@@ -17,20 +17,16 @@ const BookDetailPage = () => {
   const [wished, setWished] = useState(false);
   const [wishCount, setWishCount] = useState(0);
 
-
   const navigate = useNavigate();
   const { id } = useParams();
-  const TEMPORARY_USER_ID = 1;
-
-
 
   useEffect(() => {
   const getBookData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/bookdetail/book/${id}?userId=${TEMPORARY_USER_ID}`
+        `http://localhost:8080/api/bookdetail/book/${id}`,
+        { credentials: 'include' }            // 세션 쿠키 전송
       );
-
       if (!response.ok) {
         throw new Error("서버에서 데이터를 가져오지 못했습니다.");
       }
@@ -48,23 +44,28 @@ const BookDetailPage = () => {
     getBookData();
   }, [id]);
 
-    const handleWish = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:8080/api/bookdetail/book/${id}?userId=${TEMPORARY_USER_ID}`,
-          { method: "POST" }
-        );
+  const handleWish = async () => {
+    try {
+    const response = await fetch(
+      `http://localhost:8080/api/bookdetail/book/${id}`,
+      { method: "POST", credentials: 'include' }   // 세션 쿠키 전송
+    );
 
-        if (!response.ok) {
-          throw new Error("찜하기 업데이트 실패");
-        }
+    if (response.status === 401) {                 // 비로그인 분기
+      alert("로그인이 필요합니다.");
+      navigate('/login');
+      return;
+    }
 
-      const updated = await response.json();
+    if (!response.ok) {
+      throw new Error("찜하기 업데이트 실패");
+    }
 
-      setWished(updated.wished);
-      setWishCount(updated.wishCount);
+    const updated = await response.json();
+
+    setWished(updated.wished);
+    setWishCount(updated.wishCount);
     } catch (err) {
-
       console.error("💖 찜하기 처리 중 오류:", err);
     }
   };
@@ -73,6 +74,7 @@ const BookDetailPage = () => {
     try {
       const response = await fetch(`http://localhost:8080/api/bookdetail/book/${id}`, {
         method: 'DELETE',
+        credentials: 'include',
       });
 
       if (!response.ok) {

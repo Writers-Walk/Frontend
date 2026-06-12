@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 
-const TEMPORARY_USER_ID = 1;
 const API_URL = 'http://localhost:8080/api/books/getall';
 
 const useBooks = (sortOrder = 'latest', keyword = '', page = 0) => {
@@ -16,15 +15,8 @@ const useBooks = (sortOrder = 'latest', keyword = '', page = 0) => {
                 const sortBy = sortOrder === 'latest' ? 'updatedAt' : 'title';
                 const direction = sortOrder === 'latest' ? 'desc' : 'asc';
 
-                const params = new URLSearchParams({
-                    userId: TEMPORARY_USER_ID,
-                    keyword,
-                    sortBy,
-                    direction,
-                    page,
-                    size: 10,
-                });
-                const res = await fetch(`${API_URL}?${params}`);
+                const params = new URLSearchParams({ keyword, sortBy, direction, page, size: 10 });
+                const res = await fetch(`${API_URL}?${params}`, { credentials: 'include' });
                 if (!res.ok) throw new Error("도서 목록을 불러오지 못했습니다.");
                 const data = await res.json();
                 setBooks(data.content);
