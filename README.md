@@ -195,7 +195,7 @@ npm run dev
 ** Backend 서버 실행
 ```bash
 ./gradlew bootRun
-
+---
 | 서버 | 주소 |
 |---|---|
 | H2 | http://localhost:300 |
@@ -340,7 +340,7 @@ After : 외부 라이브러리 없이 브라우저 내장 Canvas API 기반의 �
 Before : 상단 프로젝트 제목이 모든 페이지에서 고정으로 보여주게 하려했지만 기본 path, elements 구조로는 만들기 어려웠음
 After : 부모 라우트 아래에 자식 라우트 배치하는 구조로 바꾸어 해결
 
-
+---
 
 ## 팀원
 
