@@ -313,7 +313,7 @@ npm run dev
   <img width="1274" height="661" alt="Image" src="https://github.com/user-attachments/assets/85236335-6a2c-42ef-8c8d-d3cc5501d67e" />
 
   <img width="1268" height="659" alt="Image" src="https://github.com/user-attachments/assets/85db0d05-ae77-44b6-99ed-7a7be7320025" />
-
+  <img width="1252" height="658" alt="Image" src="https://github.com/user-attachments/assets/2e1310eb-906f-4397-b347-03a9eb120776" />
 </div>
 
 ---
