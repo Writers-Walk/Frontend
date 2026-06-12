@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import RegisterButton from '../components/RegisterButton';
 import BookCard from "../components/bookCard";
 import useBooks from '../api/bookListApi';
-import LikeRank from '../components/Likerank';
+import WishRank from '../components/WishRank';
 import '../css/MainPage.css';
 import { useNavigate } from 'react-router-dom';
 import MainBanner from '../components/MainBanner';
@@ -154,7 +154,7 @@ const MainPage = () => {
               </div>
             )}
 
-            <LikeRank topN={10} onClickBook={handleClickBook} /> 
+            <WishRank topN={10} onClickBook={handleClickBook} /> 
         </div>
         </>
     );
