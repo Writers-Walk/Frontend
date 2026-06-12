@@ -23,6 +23,10 @@ AI(OpenAI GPT Image API)를 활용하여 도서 표지 이미지를 자동 생�
 | 도서 삭제 | 확인 후 도서 삭제 |
 | AI 표지 생성 | 도서 정보 기반 프롬프트 자동 구성 후 GPT Image API로 표지 생성 및 저장 |
 | URL 공유 | 도서 상세 페이지 URL 클립보드 복사 |
+| 메인 화면 배너 | 주요 도서 또는 추천 도서를 슬라이드 형태로 시각화 |
+| 찜하기 | 도서 상세 조회 페이지에 찜하기 버튼 |
+| 리뷰 + 별점 | 도서 상세 조회 페이지와 연동되어 별점 등록 및 한 줄 평 작성 |
+| 랭킹 | 좋아요/조회수 기준 실시간 인기 도서 순위 제공 |
 
 ---
 
@@ -57,10 +61,21 @@ src/
 ├── index.css
 │
 ├── api/                           # 전역 API 설정
-│   └── api.js                     # axios 인스턴스 baseURL 설정
+│   ├── api.js                     # axios 인스턴스 baseURL 설정
+│   └── axios.jsx                  # axios 인스턴스 baseURL 설정
 │
+├── adminpage/
+│   ├── api.js   
 ├── assets/                        # 정적 이미지 에셋
 │   ├── hero.png
+│   ├── pageLogo.png
+│   ├── banner1.jpg
+│   ├── banner2.jpg
+│   ├── banner3.jpg
+│   ├── image1_daturl.txt
+│   ├── image2_daturl.txt
+│   ├── image3_daturl.txt
+│   ├── testimgurl.js
 │   ├── pageLogo.png
 │   ├── react.svg
 │   └── vite.svg
@@ -75,18 +90,33 @@ src/
 │
 ├── main/                          # 메인(홈) 페이지
 │   ├── api/
-│   │   └── mainapi.jsx            # 도서 목록 조회 API
+│   │   └── mainapi.jsx           # 도서 목록 조회 API
+│   │   ├── bannerapi.jsx
+│   │   ├── bookList.jsx
+│   │   ├── userApi.jsx
+│   │   └── rankingApi.jsx    
 │   ├── components/
 │   │   ├── bookCard.jsx           # 도서 카드 컴포넌트
 │   │   ├── Likerank.jsx           # 좋아요 랭킹 컴포넌트
+│   │   ├── AuthButtons.jsx
+│   │   ├── AuthContext.jsx
+│   │   ├── GenreBubbles.jsx
+│   │   ├── MainBanner.jsx            
 │   │   └── RegisterButton.jsx     # 도서 등록 버튼
 │   ├── css/
 │   │   ├── bookCard.css
 │   │   ├── Likerank.css
+│   │   ├── AuthButtons.css
 │   │   ├── MainPage.css
+│   │   ├── MainBanner.css
+│   │   ├── SignupPage.css
+│   │   ├── LoginPage.css
+│   │   ├── GenereBubbles.css
 │   │   └── RegisterButton.css
 │   └── pages/
-│       └── mainpage.jsx           # 메인 페이지 (목록, 검색, 정렬)
+│   │   ├── LoginPage.jsx
+│   │   ├── SigupPage.jsx
+│   └── └── mainpage.jsx           # 메인 페이지 (목록, 검색, 정렬)
 │
 ├── BookDetailPage/                # 도서 상세 페이지
 │   ├── api/
@@ -96,12 +126,25 @@ src/
 │   │   ├── BackButton.jsx         # 뒤로가기 버튼
 │   │   ├── BookInfo.jsx           # 서지 정보 표시
 │   │   ├── DeleteButton.jsx       # 도서 삭제 버튼
-│   │   ├── LikeButton.jsx         # 좋아요 버튼
+│   │   ├── WishListButton.jsx     # 찜하기 버튼
 │   │   └── ShareButton.jsx        # URL 공유 버튼
 │   ├── css/
 │   │   └── BookDetailPage.css
 │   └── pages/
 │       └── BookDetailPage.jsx     # 상세 페이지 메인
+│
+├── reviewPage/
+│   ├── api/
+│   │   └── reviewApi.js      
+│   ├── components/
+│   │   ├── ReviewForm.jsx           
+│   │   ├── ReviewItem.jsx       
+│   │   ├── ReviewList.jsx             
+│   │   └── ReveiwPreview.jsx
+│   ├── css/
+│   │   └── reviewpage.css
+│   └── pages/
+│       └── ReviewPage.jsx  
 │
 ├── CoverGeneratePage/             # AI 표지 생성 페이지
 │   ├── api/
@@ -118,11 +161,13 @@ src/
 │   │   └── CoverGeneratePage.css
 │   └── CoverGeneratePage.jsx      # 표지 생성 메인 컴포넌트
 │
-└── BookCreate/                    # 도서 등록 페이지
+└── bookcreatepage/                    # 도서 등록 페이지
     ├── api/
     │   └── bookCreateApi.js       # 도서 등록 API
     ├── css/
     │   └── BookCreate.css
+    ├── hooks/
+    │   └── useBookCreate.css
     └── pages/
         └── BookCreate.jsx         # 도서 등록 페이지
 ```
@@ -147,16 +192,6 @@ VITE_OPENAI_API_KEY=your_openai_api_key_here
 ```
 
 > **주의:** `.env` 파일은 절대 Git에 커밋하지 마세요.
-
-### db.json 파일 준비
-
-`db.json`은 `.gitignore`에 포함되어 있습니다. 프로젝트 루트에 직접 생성하세요.
-
-```json
-{
-  "books": []
-}
-```
 
 ### 서버 실행
 
@@ -192,6 +227,8 @@ npm run dev
 | 상세 정보 페이지 | getBookById | id별 book 정보 조회 | GET | `/books/${id}` |
 | 상세 정보 페이지 | deleteBook | id별 book 삭제 | DELETE | `/books/${id}` |
 | 상세 정보 페이지 | updateLikes | 좋아요 버튼 클릭시 likes +1 | PATCH | `/books/${id}` |
+| 상세 정보 페이지 | getReviews | 리뷰 목록 조회 | GET | /api/review/${id}/getallreview |
+| 상세 정보 페이지 | createReve | 리뷰 등록 | POST | /api/review/${id}/save |
 | 도서 등록 페이지 | bookCreate | 새로운 도서 등록 | POST | `/books` |
 
 ---
