@@ -1,32 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useBannerGenerate } from '../hooks/useBannerGenerate';
 
 const BannerGenerate = () => {
   const navigate = useNavigate();
   const [type, setType] = useState('latestBanner');
   const [userPrompt, setUserPrompt] = useState('');
-  const [imageModel, setImageModel] = useState('gpt-image-2');  
-  const [resolution, setResolution] = useState('1024x1024');
+  const [imageModel, setImageModel] = useState('gpt-image-2');
+  const [resolution, setResolution] = useState('3840x1536');
   const [quality, setQuality] = useState('medium');
-  const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false);
 
-  const handleGenerate = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('http://localhost:8080/api/admin/banner', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type, userPrompt, imageModel, resolution, quality }),
-      });
-      if (!res.ok) throw new Error('배너 생성 실패');
-      const data = await res.json();
-      setResult(data);
-    } catch (err) {
-      alert(err.message);
-    } finally {
-      setLoading(false);
-    }
+  const { result, loading, generateBanner } = useBannerGenerate();
+
+  const handleGenerate = () => {
+    generateBanner({ type, userPrompt, imageModel, resolution, quality });
   };
 
   return (
@@ -52,7 +39,6 @@ const BannerGenerate = () => {
         <label>이미지 모델</label>
         <select value={imageModel} onChange={(e) => setImageModel(e.target.value)}>
           <option value="gpt-image-2">gpt-image-2</option>
-
         </select>
       </div>
 
@@ -78,8 +64,7 @@ const BannerGenerate = () => {
 
       {result && (
         <div className="banner-result">
-          <h3>생성된 배너</h3>
-          <img src={result.imageUrl} alt="배너 이미지" />
+          <p>배너 생성이 완료되었습니다.</p>
         </div>
       )}
     </div>

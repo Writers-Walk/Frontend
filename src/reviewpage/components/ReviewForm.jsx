@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { createReview } from "../api/reviewApi";
+import { useAuth } from "../../main/components/AuthContext";
 
 function ReviewForm({ onReviewAdded }) {
   const { id } = useParams();
+  const { user, isLoggedIn } = useAuth();
 
   const [content, setContent] = useState("");
   const [rating, setRating] = useState(0);
@@ -25,7 +27,7 @@ function ReviewForm({ onReviewAdded }) {
       await createReview(id, {
       content,
       rating,
-      user_id: "user01",
+      user_id:  user.userId,
     });
 
       alert("리뷰가 등록되었습니다.");
