@@ -195,6 +195,7 @@ npm run dev
 ** Backend 서버 실행
 ```bash
 ./gradlew bootRun
+```
 ---
 | 서버 | 주소 |
 |---|---|
