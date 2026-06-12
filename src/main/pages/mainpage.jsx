@@ -6,6 +6,7 @@ import LikeRank from '../components/Likerank';
 import '../css/MainPage.css';
 import { useNavigate } from 'react-router-dom';
 import MainBanner from '../components/MainBanner';
+import axios from 'axios';
 
 const MainPage = () => {
 
@@ -16,12 +17,41 @@ const MainPage = () => {
   const [sortOrder, setSortOrder] = useState('latest');
   const [page, setPage] = useState(0);
 
+  //adminchecker
+  const [userRole, setUserRole] = useState(null);
 
   //검색 정렬기능 백엔드로 이관
 
   // 디바운스된 값 (실제 API에 넘길 값)
   const [debouncedKeyword, setDebouncedKeyword] = useState('');
 
+
+  //adminchecker
+  useEffect(() => {
+      axios.get('http://localhost:8080/api/users/me', { 
+      withCredentials: true,
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      }
+    }) 
+      .then(response => {
+        // 로그인 성공 시 백엔드가 준 role("ADMIN" 또는 "USER")을 세팅합니다.
+        if(response.data && response.data.role === 'ADMIN'){
+        setUserRole('ADMIN');
+        }
+        else{
+          setUserRole('USER');
+        }
+      })
+      .catch(() => {
+        // 로그인이 안 되어 있거나 세션이 만료된 경우 비회원으로 간주
+        setUserRole('GUEST');
+      });
+  }, []);
+  //adminchecker
+  
   useEffect(() => {
       const timer = setTimeout(() => {
           setDebouncedKeyword(searchQuery.trim());   // 0.3초 후 반영
@@ -63,6 +93,15 @@ const MainPage = () => {
                     <option value="title">제목순</option>
                   </select>
                   <RegisterButton />
+                  {/*adminchecker*/}
+                  {userRole === 'ADMIN' &&(
+                    <button 
+                      className="admin-manage-btn" // CSS 스타일링을 위해 클래스 추가
+                      onClick={() => navigate('/cover-generate/1')} // 임의로 이동
+                      style={{ marginLeft: '10px', padding: '6px 12px', cursor: 'pointer' }} // 임시 레이아웃 조정용 스타일
+                    >⚙️ 관리</button>
+                  )}
+                  {/*adminchecker */}
                 </div>
             </div>
 
