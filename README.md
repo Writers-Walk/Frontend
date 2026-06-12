@@ -61,7 +61,13 @@ src/
 │   └── axios.jsx                  # axios 인스턴스 baseURL 설정
 │
 ├── adminpage/
-│   ├── api.js   
+│   ├── components/
+│   │   ├── BannerGenrate.jsx
+│   │   ├── BookCreateForm.jsx
+│   │   ├── BookDeleteList.jsx          
+│   │   └── CoverGenerate.jsx
+│   ├── components/
+│   │   └── AdminPage.css
 ├── assets/                        # 정적 이미지 에셋
 │   ├── hero.png
 │   ├── pageLogo.png
@@ -106,7 +112,7 @@ src/
 │   │   └── RegisterButton.css
 │   └── pages/
 │   │   ├── LoginPage.jsx
-│   │   ├── SigupPage.jsx
+│   │   ├── SignupPage.jsx
 │   └── └── mainpage.jsx           # 메인 페이지 (목록, 검색, 정렬)
 │
 ├── BookDetailPage/                # 도서 상세 페이지
@@ -158,7 +164,7 @@ src/
     ├── css/
     │   └── BookCreate.css
     ├── hooks/
-    │   └── useBookCreate.css
+    │   └── useBookCreate.js
     └── pages/
         └── BookCreate.jsx         # 도서 등록 페이지
 ```
@@ -199,7 +205,7 @@ npm run dev
 ---
 | 서버 | 주소 |
 |---|---|
-| H2 | http://localhost:300 |
+| H2 | http://localhost:8080/h2-console |
 | React 개발 서버 | http://localhost:5173 |
 
 ---
