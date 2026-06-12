@@ -66,8 +66,7 @@ src/
 │   │   ├── BookCreateForm.jsx
 │   │   ├── BookDeleteList.jsx          
 │   │   └── CoverGenerate.jsx
-│   ├── components/
-│   │   └── AdminPage.css
+│   └── AdminPage.css
 ├── assets/                        # 정적 이미지 에셋
 │   ├── hero.png
 │   ├── pageLogo.png
@@ -92,22 +91,28 @@ src/
 │
 ├── main/                          # 메인(홈) 페이지
 │   ├── api/
-│   │   └── mainapi.jsx           # 도서 목록 조회 API
+│   │   ├── mainapi.jsx           # 도서 목록 조회 API
 │   │   ├── bannerapi.jsx
 │   │   ├── bookList.jsx
 │   │   ├── userApi.jsx
 │   │   └── rankingApi.jsx    
 │   ├── components/
 │   │   ├── bookCard.jsx           # 도서 카드 컴포넌트
-│   │   ├── WishRank.jsx           # 좋아요 랭킹 컴포넌트
+│   │   ├── Likerank.jsx           # 좋아요 랭킹 컴포넌트
+│   │   ├── AuthButton.jsx
+│   │   ├── AuthContext.jsx
+│   │   ├── GenreBubbles.jsx
+│   │   ├── MainBanner.jsx
 │   │   └── RegisterButton.jsx     # 도서 등록 버튼
 │   ├── css/
 │   │   ├── bookCard.css
-│   │   ├── WishRank.css
+│   │   ├── Likerank.css
 │   │   ├── MainPage.css
 │   │   ├── MainBanner.css
 │   │   ├── SignupPage.css
 │   │   ├── LoginPage.css
+│   │   ├── AuthButtons.css
+│   │   ├── SignupPage.css
 │   │   ├── GenereBubbles.css
 │   │   └── RegisterButton.css
 │   └── pages/
